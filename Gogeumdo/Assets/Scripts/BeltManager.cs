@@ -7,7 +7,8 @@ public class BeltManager : MonoBehaviour
     public static BeltManager instance;
 
 
-    private float beltSpeed;
+    public  float beltSpeed = 120;
+
     private bool isWaveUp = false;
     private int boxCount = 0;
     private Animator[] anim;
@@ -34,9 +35,9 @@ public class BeltManager : MonoBehaviour
 
     private void SetBeltSpeed(float beltSpeed) 
     {
-        for (int i = 0; i < anim.Length - 1; i++)
+        for (int i = 0; i < anim.Length; i++)
         {
-            anim[i + 1].speed = beltSpeed;
+            anim[i].speed = beltSpeed;
         }
     }
 }
