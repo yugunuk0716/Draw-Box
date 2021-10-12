@@ -178,11 +178,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 204508291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74cec03bb90bd7b47aac61452e09d55b, type: 3}
+  m_Script: {fileID: 11500000, guid: de664025040647049b023f3fc41e032f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   touchPos: {fileID: 0}
-  box: {fileID: 0}
 --- !u!114 &204508295
 MonoBehaviour:
   m_ObjectHideFlags: 0

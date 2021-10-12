@@ -39,11 +39,16 @@ public class Box : MonoBehaviour, IResettable
         this.gameObject.transform.position = new Vector3(Mathf.Clamp(this.gameObject.transform.position.x, -2.5f, 2.5f), Mathf.Clamp(this.gameObject.transform.position.y, -4.75f, 4.75f));
 
     }
+    private void OnEnable()
+    {
+        SetLine();
+    }
 
     public void SetLine()
     {
         int idx = UnityEngine.Random.Range(0, 9);
         line = (Line)idx;
+        gameObject.GetComponent<SpriteRenderer>().color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         print(idx);
     }
 
@@ -59,12 +64,12 @@ public class Box : MonoBehaviour, IResettable
     }
 
 
-        private void OnCollisionEnter2D(Collision2D col)
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.CompareTag("ConveyorBelt"))
+        if (col.gameObject.CompareTag("ConveyorBelt"))
         {
             ConveyorBeltLine obj = col.gameObject.GetComponent<ConveyorBeltLine>();
-            if(obj != null)
+            if (obj != null)
             {
                 if (line.HasFlag((Line)obj.lineIndex)) //¸ÂÀ½
                 {
@@ -77,6 +82,5 @@ public class Box : MonoBehaviour, IResettable
     public void Reset()
     {
         gameObject.SetActive(false);
-        SetLine();
     }
 }

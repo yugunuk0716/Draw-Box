@@ -109,6 +109,7 @@ public class DragInput : MonoBehaviour
         {
             box.gameObject.transform.position += new Vector3(vec.x, vec.y);
             mouseTrms.Clear();
+            box = null;
             print(vec.x + "  " + vec.y);
         }
         else
