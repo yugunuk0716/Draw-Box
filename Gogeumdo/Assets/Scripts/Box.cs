@@ -6,6 +6,7 @@ using Pool;
 
 public class Box : MonoBehaviour, IResettable
 {
+
     [Flags]
     public enum Line
     {
@@ -23,10 +24,20 @@ public class Box : MonoBehaviour, IResettable
 
     Line line = Line.a;
     public event EventHandler Death;
+    private float moveTime = 0.01f;
+    private WaitForSeconds moveWS;
+
 
     private void Start()
     {
-        
+        moveWS = new WaitForSeconds(moveTime);
+        StartCoroutine(BoxMove());
+
+    }
+    private void Update()
+    {
+        this.gameObject.transform.position = new Vector3(Mathf.Clamp(this.gameObject.transform.position.x, -2.5f, 2.5f), Mathf.Clamp(this.gameObject.transform.position.y, -4.75f, 4.75f));
+
     }
 
     public void SetLine()
@@ -36,7 +47,19 @@ public class Box : MonoBehaviour, IResettable
         print(idx);
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+
+    public IEnumerator BoxMove()
+    {
+        while (true)
+        {
+
+            this.gameObject.transform.position += new Vector3(0, 0.01f, 0);
+            yield return moveWS;
+        }
+    }
+
+
+        private void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.CompareTag("ConveyorBelt"))
         {
