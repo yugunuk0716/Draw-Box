@@ -8,6 +8,7 @@ public class PoolManager : MonoBehaviour
 {
     Pool<Box> boxPool;
     public GameObject boxPrefab;
+    public Transform spawnPoint;
 
     private void Start()
     {
@@ -32,7 +33,7 @@ public class PoolManager : MonoBehaviour
         //GameManager.instance.boxCount++;
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        //  box.gameObject.transform.position =;
+        box.gameObject.transform.position = spawnPoint.position;
         box.gameObject.SetActive(true);
     }
 

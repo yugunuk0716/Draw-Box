@@ -22,7 +22,7 @@ public class Box : MonoBehaviour, IResettable
         j = b | i //9
     }
 
-    Line line = Line.a;
+    public Line line = Line.a;
     public event EventHandler Death;
     private float moveTime = 0.01f;
     private WaitForSeconds moveWS;
@@ -31,7 +31,6 @@ public class Box : MonoBehaviour, IResettable
     private void Start()
     {
         moveWS = new WaitForSeconds(moveTime);
-        StartCoroutine(BoxMove());
 
     }
     private void Update()
@@ -42,6 +41,7 @@ public class Box : MonoBehaviour, IResettable
     private void OnEnable()
     {
         SetLine();
+        StartCoroutine(BoxMove());
     }
 
     public void SetLine()
@@ -71,7 +71,7 @@ public class Box : MonoBehaviour, IResettable
             ConveyorBeltLine obj = col.gameObject.GetComponent<ConveyorBeltLine>();
             if (obj != null)
             {
-                if (line.HasFlag((Line)obj.lineIndex)) //맞음
+                if (obj.lineIndex == (int)line) //맞음
                 {
                     Death(this, null);
                 }
