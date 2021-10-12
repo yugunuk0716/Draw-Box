@@ -168,6 +168,13 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "kr.go.ggm.poolmanager": {
+      "version": "https://github.com/gghteam/PoolManager.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "413f69418888789e3a1e78b787e8d7cfbd158444"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
