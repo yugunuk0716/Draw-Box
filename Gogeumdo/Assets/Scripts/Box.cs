@@ -36,17 +36,21 @@ public class Box : MonoBehaviour, IResettable
     private void Start()
     {
         moveWS = new WaitForSeconds(moveTime);
-
     }
+
+    
     private void Update()
     {
         this.gameObject.transform.position = new Vector3(Mathf.Clamp(this.gameObject.transform.position.x, -2.5f, 2.5f), Mathf.Clamp(this.gameObject.transform.position.y, -4.75f, 4.75f));
 
     }
+
+
     private void OnEnable()
     {
         SetLine();
         StartCoroutine(BoxMove());
+        lineIdx = 4;
     }
 
     public void SetLine()

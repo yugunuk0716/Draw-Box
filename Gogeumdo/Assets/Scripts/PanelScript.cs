@@ -20,15 +20,18 @@ public class PanelScript : MonoBehaviour
 
     public virtual void Open()
     {
-        //DOTween.To(canvasGroup.alpha, value => canvasGroup.alpha = value, 1f, 0.8f);
-        canvasGroup.interactable = true;
-        canvasGroup.alpha = 1;
-        canvasGroup.blocksRaycasts = true;
+        SetAlpha(true);
     }
     public virtual void Close()
     {
-        canvasGroup.interactable = false;
-        canvasGroup.alpha = 0;
-        canvasGroup.blocksRaycasts = false;
+        SetAlpha(false);
+    }
+
+    public virtual void SetAlpha(bool on)
+    {
+        DOTween.To(() => canvasGroup.alpha, value => canvasGroup.alpha = value, on ? 1f : 0f, 0.8f).OnComplete(() => {
+            canvasGroup.interactable = on;
+            canvasGroup.blocksRaycasts = on;
+        });
     }
 }

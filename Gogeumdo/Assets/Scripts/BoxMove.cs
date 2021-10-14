@@ -7,7 +7,7 @@ public class BoxMove : MonoBehaviour
     public Transform touchPos;
     public Transform[] lineTrm;
 
-    
+    public bool canRightMove = true;
 
     private List<Vector3> mouseTrms = new List<Vector3>();
 
@@ -15,7 +15,9 @@ public class BoxMove : MonoBehaviour
 
     void Start()
     {
-
+        print(Vector2.left);
+        print(Vector2.right);
+        print(Vector2.down);
     }
 
     void Update()
@@ -46,18 +48,15 @@ public class BoxMove : MonoBehaviour
                 {
                     if (mouseTrms[0].x > mouseTrms[mouseTrms.Count - 1].x)
                     {
-
-                        SetLineIndex(false);
+                        //SetLineIndex(false);
                         Move(Vector2.left);
-
 
 
 
                     }
                     else if (mouseTrms[0].x < mouseTrms[mouseTrms.Count - 1].x)
                     {
-
-                        SetLineIndex(true);
+                        //SetLineIndex(true);
                         Move(Vector2.right);
 
                     }
@@ -128,29 +127,51 @@ public class BoxMove : MonoBehaviour
             box.lineIdx = lineTrm.Length - 1;
         }
     }
+    public int GetNextLineIndex(bool canRightMove, int idx)
+    {
+        idx += canRightMove ? 1 : -1;
+        if (idx > lineTrm.Length - 1)
+        {
+            idx = 0;
+        }
+        else if (idx < 0)
+        {
+            idx = lineTrm.Length - 1;
+        }
+        return idx;
+    }
 
     public void Move(Vector2 vec)
     {
 
         if (box != null) 
         {
+            if (vec.x == 1)
+            {
+                canRightMove = true;
+            }
+            else if (vec.x == -1)
+            {
+                canRightMove = false;
+            }
 
-            Vector2 dest = new Vector2(lineTrm[box.lineIdx].localPosition.x, box.transform.position.y + vec.y * 0.53f);
-            print(dest.x);
+            Vector2 dest = new Vector2(lineTrm[GetNextLineIndex(canRightMove,box.lineIdx)].localPosition.x, box.transform.position.y + vec.y * 0.53f);
             //Vector2 dest = box.gameObject.transform.position + new Vector3(vec.x * 0.53f, vec.y * 0.53f);
 
             RaycastHit2D hit = Physics2D.BoxCast(dest, box.gameObject.transform.lossyScale * 0.2f, 0, new Vector2(0, 0));
 
             if (hit.collider == null || !hit.collider.CompareTag("Player")) 
             {
+                if(vec.y != -1)
+                {
+                    SetLineIndex(canRightMove);
+                }
+
+                dest = new Vector2(lineTrm[box.lineIdx].localPosition.x, box.transform.position.y + vec.y * 0.53f);
                 box.gameObject.transform.position = dest;
-                mouseTrms.Clear();
-                box = null;
             }
-
-          
-
-            
+            mouseTrms.Clear();
+            box = null;
         }
         else
         {

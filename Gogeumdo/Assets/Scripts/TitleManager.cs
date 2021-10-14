@@ -16,6 +16,7 @@ public class TitleManager : MonoBehaviour
         stAndInBtns[0].onClick.AddListener(() =>
         {
             //스테이지 씬으로 이동
+            LoadManager.LoadScene("Stage");
         });
         stAndInBtns[1].onClick.AddListener(() =>
         {
