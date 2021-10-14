@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PanelScript : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PanelScript : MonoBehaviour
 
     public virtual void Open()
     {
+        //DOTween.To(canvasGroup.alpha, value => canvasGroup.alpha = value, 1f, 0.8f);
         canvasGroup.interactable = true;
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
