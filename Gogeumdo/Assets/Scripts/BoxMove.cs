@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class BoxMove : MonoBehaviour
 {
-    public Transform touchPos;
-    public Transform[] lineTrm;
+    public Transform touchPos; // 터치했을 때의 위치를 저장할 변수
+    public Transform[] lineTrm;// 라인 별 위치를 저장하는 배열
 
-    public bool canRightMove = true;
+    public bool canRightMove = true; // 지금 이동해야할 방향이 오른쪽인지 아닌지를 체크하는 변수
 
-    private List<Vector3> mouseTrms = new List<Vector3>();
+    private List<Vector3> mouseTrms = new List<Vector3>();// 클릭시 마우스의 위치를 계속해서 저장하는 List
 
-    private Box box;
+    private Box box; // 박스를 받아올 변수
 
     void Start()
     {
-        print(Vector2.left);
-        print(Vector2.right);
-        print(Vector2.down);
+        
     }
 
     void Update()
@@ -115,7 +113,7 @@ public class BoxMove : MonoBehaviour
 #endif
     }
 
-    public void SetLineIndex(bool on)
+    public void SetLineIndex(bool on) // 라인 인덱스를 변경하는 함수
     {
         box.lineIdx += on ? 1 : -1;
         if(box.lineIdx > lineTrm.Length - 1)
@@ -127,7 +125,7 @@ public class BoxMove : MonoBehaviour
             box.lineIdx = lineTrm.Length - 1;
         }
     }
-    public int GetNextLineIndex(bool canRightMove, int idx)
+    public int GetNextLineIndex(bool canRightMove, int idx) // 이동할 곳이 갈수 있는 곳인지 확인하기 위해 테스트하는 함수
     {
         idx += canRightMove ? 1 : -1;
         if (idx > lineTrm.Length - 1)
@@ -141,12 +139,12 @@ public class BoxMove : MonoBehaviour
         return idx;
     }
 
-    public void Move(Vector2 vec)
+    public void Move(Vector2 vec) // 상자를 이동시키는 함수
     {
 
-        if (box != null) 
+        if (box != null) //널 체크
         {
-            if (vec.x == 1)
+            if (vec.x == 1)//갈 방향이 오른쪽인지 아닌지 체크
             {
                 canRightMove = true;
             }
@@ -155,23 +153,23 @@ public class BoxMove : MonoBehaviour
                 canRightMove = false;
             }
 
-            Vector2 dest = new Vector2(lineTrm[GetNextLineIndex(canRightMove,box.lineIdx)].localPosition.x, box.transform.position.y + vec.y * 0.53f);
+            Vector2 dest = new Vector2(lineTrm[GetNextLineIndex(canRightMove,box.lineIdx)].localPosition.x, box.transform.position.y + vec.y * 0.53f);//갈 곳에 위치를 담아놓는 변수
             //Vector2 dest = box.gameObject.transform.position + new Vector3(vec.x * 0.53f, vec.y * 0.53f);
 
-            RaycastHit2D hit = Physics2D.BoxCast(dest, box.gameObject.transform.lossyScale * 0.2f, 0, new Vector2(0, 0));
+            RaycastHit2D hit = Physics2D.BoxCast(dest, box.gameObject.transform.lossyScale * 0.2f, 0, new Vector2(0, 0)); // 위의 dest 변수를 가져와 Boxcast로 갈 위치에 충돌체를 저장하는 변수
 
-            if (hit.collider == null || !hit.collider.CompareTag("Player")) 
+            if (hit.collider == null || !hit.collider.CompareTag("Player")) //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우는 이동할 수 있는 경우임
             {
-                if(vec.y != -1)
+                if(vec.y != -1)//아래쪽으로 이동시엔 라인인덱스를 바꾸지 않기 위한 조건문
                 {
                     SetLineIndex(canRightMove);
                 }
 
-                dest = new Vector2(lineTrm[box.lineIdx].localPosition.x, box.transform.position.y + vec.y * 0.53f);
-                box.gameObject.transform.position = dest;
+                dest = new Vector2(lineTrm[box.lineIdx].localPosition.x, box.transform.position.y + vec.y * 0.53f); //실제 위치를 받아온다
+                box.gameObject.transform.position = dest;// 실제 이동
             }
-            mouseTrms.Clear();
-            box = null;
+            mouseTrms.Clear();// 한번 이동 했으므로 저장해 두었던 마우스 위치를 지움
+            box = null; // 한번 이동 했으므로 다른 박스를 받아오기 위해 비움
         }
         else
         {
