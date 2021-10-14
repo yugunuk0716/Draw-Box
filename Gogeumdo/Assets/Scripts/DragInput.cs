@@ -5,8 +5,9 @@ using UnityEngine;
 public class DragInput : MonoBehaviour
 {
     public Transform touchPos;
+    public Transform[] lineTrm;
 
-
+    
 
     private List<Vector3> mouseTrms = new List<Vector3>();
 
@@ -39,26 +40,39 @@ public class DragInput : MonoBehaviour
         {
             mouseTrms.Add(Input.mousePosition);
             print("마우스 입력 끝");
-            if (Mathf.Abs(mouseTrms[0].x - mouseTrms[mouseTrms.Count - 1].x) > Mathf.Abs(mouseTrms[0].y - mouseTrms[mouseTrms.Count - 1].y))
+            if (box != null)
             {
-                if (mouseTrms[0].x > mouseTrms[mouseTrms.Count - 1].x)
+                if (Mathf.Abs(mouseTrms[0].x - mouseTrms[mouseTrms.Count - 1].x) > Mathf.Abs(mouseTrms[0].y - mouseTrms[mouseTrms.Count - 1].y))
                 {
+                    if (mouseTrms[0].x > mouseTrms[mouseTrms.Count - 1].x)
+                    {
 
-                    Move(Vector2.left);
+                        SetLineIndex(false);
+                        Move(Vector2.left);
 
+
+
+
+                    }
+                    else if (mouseTrms[0].x < mouseTrms[mouseTrms.Count - 1].x)
+                    {
+
+                        SetLineIndex(true);
+                        Move(Vector2.right);
+
+                    }
                 }
-                else if (mouseTrms[0].x < mouseTrms[mouseTrms.Count - 1].x)
-                {
-                    Move(Vector2.right);
 
-                }
-            }
-
-            else
-            {
-                if (mouseTrms[0].y > mouseTrms[mouseTrms.Count - 1].y)
+                else
                 {
-                    Move(Vector2.down);
+                    if (mouseTrms[0].y > mouseTrms[mouseTrms.Count - 1].y)
+                    {
+
+                        Move(Vector2.down);
+
+
+
+                    }
                 }
             }
 
@@ -102,19 +116,48 @@ public class DragInput : MonoBehaviour
 #endif
     }
 
+    public void SetLineIndex(bool on)
+    {
+        box.lineIdx += on ? 1 : -1;
+        if(box.lineIdx > lineTrm.Length - 1)
+        {
+            box.lineIdx = 0;
+        }
+        else if(box.lineIdx < 0)
+        {
+            box.lineIdx = lineTrm.Length - 1;
+        }
+    }
+
     public void Move(Vector2 vec)
     {
 
         if (box != null) 
         {
-            box.gameObject.transform.position += new Vector3(vec.x, vec.y);
-            mouseTrms.Clear();
-            box = null;
-            print(vec.x + "  " + vec.y);
+
+            Vector2 dest = new Vector2(lineTrm[box.lineIdx].localPosition.x, box.transform.position.y + vec.y * 0.53f);
+            print(dest.x);
+            //Vector2 dest = box.gameObject.transform.position + new Vector3(vec.x * 0.53f, vec.y * 0.53f);
+
+            RaycastHit2D hit = Physics2D.BoxCast(dest, box.gameObject.transform.lossyScale * 0.2f, 0, new Vector2(0, 0));
+
+            if (hit.collider == null || !hit.collider.CompareTag("Player")) 
+            {
+                box.gameObject.transform.position = dest;
+                mouseTrms.Clear();
+                box = null;
+            }
+
+          
+
+            
         }
         else
         {
             print("Box가 비어있습니다");
         }
     }
+
+
+
 }

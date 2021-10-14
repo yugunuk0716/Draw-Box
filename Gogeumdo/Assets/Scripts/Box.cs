@@ -27,6 +27,11 @@ public class Box : MonoBehaviour, IResettable
     private float moveTime = 0.01f;
     private WaitForSeconds moveWS;
 
+    
+    public bool canMoveFoword = true;
+
+    public int lineIdx = 4;
+
 
     private void Start()
     {
@@ -49,7 +54,7 @@ public class Box : MonoBehaviour, IResettable
         int idx = UnityEngine.Random.Range(0, 9);
         line = (Line)idx;
         gameObject.GetComponent<SpriteRenderer>().color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-        print(idx);
+        //print(idx);
     }
 
 
@@ -57,8 +62,11 @@ public class Box : MonoBehaviour, IResettable
     {
         while (true)
         {
-
-            this.gameObject.transform.position += new Vector3(0, 0.01f, 0);
+            if (canMoveFoword) 
+            {
+                this.gameObject.transform.position += new Vector3(0, 0.01f, 0);
+            }
+            
             yield return moveWS;
         }
     }
@@ -77,10 +85,25 @@ public class Box : MonoBehaviour, IResettable
                 }
             }
         }
+        if (col.gameObject.transform.position.y > this.gameObject.transform.position.y)
+        {
+            canMoveFoword = false;
+        }
+
     }
+    private void OnCollisionExit2D(Collision2D col)
+    {
+        canMoveFoword = true;
+    }
+
+
+
+    
 
     public void Reset()
     {
         gameObject.SetActive(false);
     }
+
+    
 }
