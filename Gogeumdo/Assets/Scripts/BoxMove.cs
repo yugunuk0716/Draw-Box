@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragInput : MonoBehaviour
+public class BoxMove : MonoBehaviour
 {
     public Transform touchPos;
     public Transform[] lineTrm;

@@ -74,6 +74,11 @@ public class Box : MonoBehaviour, IResettable
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+
+        if (col.gameObject.transform.position.y > this.gameObject.transform.position.y)
+        {
+            canMoveFoword = false;
+        }
         if (col.gameObject.CompareTag("ConveyorBelt"))
         {
             ConveyorBeltLine obj = col.gameObject.GetComponent<ConveyorBeltLine>();
@@ -85,20 +90,20 @@ public class Box : MonoBehaviour, IResettable
                 }
             }
         }
-        if (col.gameObject.transform.position.y > this.gameObject.transform.position.y)
-        {
-            canMoveFoword = false;
-        }
+       
 
     }
     private void OnCollisionExit2D(Collision2D col)
     {
-        canMoveFoword = true;
+        if (col.gameObject.transform.position.y > this.gameObject.transform.position.y)
+        {
+            canMoveFoword = true;
+        }
     }
 
 
 
-    
+
 
     public void Reset()
     {
