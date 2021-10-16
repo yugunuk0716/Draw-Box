@@ -7,12 +7,12 @@ using UnityEngine.EventSystems;
 
 public class TitleManager : MonoBehaviour
 {
-    public PanelScript stOrInPanel;
+    public PanelScript stOrInPanel; //stage나 infinite 모드를 고르기 위한 패널
     public Button[] stAndInBtns; //0 = stage //1 = infinite
 
     private void Start()
     {
-        stAndInBtns = stOrInPanel.GetComponentsInChildren<Button>();
+        stAndInBtns = stOrInPanel.GetComponentsInChildren<Button>(); // 패널밑에서 버튼들을 가져와준다
         stAndInBtns[0].onClick.AddListener(() =>
         {
             //스테이지 씬으로 이동
@@ -33,11 +33,12 @@ public class TitleManager : MonoBehaviour
         //        stOrInPanel.Open();
         //    }
         //}
-        if(Input.GetMouseButtonDown(0))
+        //테스트용 코드
+        if(Input.GetMouseButtonDown(0)) //좌클릭시
         {
-            if(!EventSystem.current.IsPointerOverGameObject())
+            if(!EventSystem.current.IsPointerOverGameObject()) //ui가 아닌 다른곳을 클릭했을때  
             {
-                stOrInPanel.Open();
+                stOrInPanel.Open(); //패널을 켜주기
             }
         }
     }
