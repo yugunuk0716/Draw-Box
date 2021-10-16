@@ -16,8 +16,14 @@ public class GameManager : MonoBehaviour
         if(instance != null)// 싱글톤 중복 체크
         {
             Debug.LogError("다수의 게임매니저가 실행중");
+            Destroy(this.gameObject);
+            return;
         }
-        instance = this;
+        else
+        {
+            instance = this;
+            //DontDestroyOnLoad(this.gameObject);
+        }
     }
     private void Update()
     {
