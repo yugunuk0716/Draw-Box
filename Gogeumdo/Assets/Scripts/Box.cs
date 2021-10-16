@@ -43,7 +43,7 @@ public class Box : MonoBehaviour, IResettable
     private void Update()
     {
         this.gameObject.transform.position = new Vector3(Mathf.Clamp(this.gameObject.transform.position.x, -2.5f, 2.5f), Mathf.Clamp(this.gameObject.transform.position.y, -4.75f, 4.75f));
-        // 박스가 화면 박으로 나가지 못하게 막기
+        // 박스가 화면 밖으로 나가지 못하게 막기
 
     }
 
