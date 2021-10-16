@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BoxMove : MonoBehaviour
 {
@@ -15,64 +16,58 @@ public class BoxMove : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
 #if UNITY_EDITOR
-
-        if (Input.GetMouseButtonDown(0))
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            mouseTrms.Add(Input.mousePosition);
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 clickPos = new Vector2(worldPos.x, worldPos.y);
-            Collider2D coll = Physics2D.OverlapPoint(clickPos);
-
-            if (coll != null&&coll.gameObject.CompareTag("Player")) 
+            if (Input.GetMouseButtonDown(0))
             {
-                print("상자 찾음");
-                box = coll.gameObject.GetComponent<Box>();
-            }
-        }
+                mouseTrms.Add(Input.mousePosition);
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 clickPos = new Vector2(worldPos.x, worldPos.y);
+                Collider2D coll = Physics2D.OverlapPoint(clickPos);
 
-        else if (Input.GetMouseButtonUp(0))
-        {
-            mouseTrms.Add(Input.mousePosition);
-            print("마우스 입력 끝");
-            if (box != null)
-            {
-                if (Mathf.Abs(mouseTrms[0].x - mouseTrms[mouseTrms.Count - 1].x) > Mathf.Abs(mouseTrms[0].y - mouseTrms[mouseTrms.Count - 1].y))
+                if (coll != null && coll.gameObject.CompareTag("Player"))
                 {
-                    if (mouseTrms[0].x > mouseTrms[mouseTrms.Count - 1].x)
-                    {
-                        //SetLineIndex(false);
-                        Move(Vector2.left);
-
-
-
-                    }
-                    else if (mouseTrms[0].x < mouseTrms[mouseTrms.Count - 1].x)
-                    {
-                        //SetLineIndex(true);
-                        Move(Vector2.right);
-
-                    }
-                }
-
-                else
-                {
-                    if (mouseTrms[0].y > mouseTrms[mouseTrms.Count - 1].y)
-                    {
-
-                        Move(Vector2.down);
-
-
-
-                    }
+                    print("상자 찾음");
+                    box = coll.gameObject.GetComponent<Box>();
                 }
             }
 
+            else if (Input.GetMouseButtonUp(0))
+            {
+                mouseTrms.Add(Input.mousePosition);
+                print("마우스 입력 끝");
+                if (box != null)
+                {
+                    if (Mathf.Abs(mouseTrms[0].x - mouseTrms[mouseTrms.Count - 1].x) > Mathf.Abs(mouseTrms[0].y - mouseTrms[mouseTrms.Count - 1].y))
+                    {
+                        if (mouseTrms[0].x > mouseTrms[mouseTrms.Count - 1].x)
+                        {
+                            //SetLineIndex(false);
+                            Move(Vector2.left);
+                        }
+                        else if (mouseTrms[0].x < mouseTrms[mouseTrms.Count - 1].x)
+                        {
+                            //SetLineIndex(true);
+                            Move(Vector2.right);
+                        }
+                    }
+
+                    else
+                    {
+                        if (mouseTrms[0].y > mouseTrms[mouseTrms.Count - 1].y)
+                        {
+                            Move(Vector2.down);
+                        }
+                    }
+                }
+
+            }
         }
 
 #else
@@ -116,11 +111,11 @@ public class BoxMove : MonoBehaviour
     public void SetLineIndex(bool on) // 라인 인덱스를 변경하는 함수
     {
         box.lineIdx += on ? 1 : -1;
-        if(box.lineIdx > lineTrm.Length - 1)
+        if (box.lineIdx > lineTrm.Length - 1)
         {
             box.lineIdx = 0;
         }
-        else if(box.lineIdx < 0)
+        else if (box.lineIdx < 0)
         {
             box.lineIdx = lineTrm.Length - 1;
         }
@@ -153,14 +148,14 @@ public class BoxMove : MonoBehaviour
                 canRightMove = false;
             }
 
-            Vector2 dest = new Vector2(lineTrm[GetNextLineIndex(canRightMove,box.lineIdx)].localPosition.x, box.transform.position.y + vec.y * 0.53f);//갈 곳에 위치를 담아놓는 변수
+            Vector2 dest = new Vector2(lineTrm[vec.y == -1 ? box.lineIdx : GetNextLineIndex(canRightMove, box.lineIdx)].localPosition.x, box.transform.position.y + vec.y * 0.53f);//갈 곳에 위치를 담아놓는 변수
             //Vector2 dest = box.gameObject.transform.position + new Vector3(vec.x * 0.53f, vec.y * 0.53f);
 
             RaycastHit2D hit = Physics2D.BoxCast(dest, box.gameObject.transform.lossyScale * 0.2f, 0, new Vector2(0, 0)); // 위의 dest 변수를 가져와 Boxcast로 갈 위치에 충돌체를 저장하는 변수
 
             if (hit.collider == null || !hit.collider.CompareTag("Player")) //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우는 이동할 수 있는 경우임
             {
-                if(vec.y != -1)//아래쪽으로 이동시엔 라인인덱스를 바꾸지 않기 위한 조건문
+                if (vec.y != -1)//아래쪽으로 이동시엔 라인인덱스를 바꾸지 않기 위한 조건문
                 {
                     SetLineIndex(canRightMove);
                 }
