@@ -10,6 +10,11 @@ public class TitleManager : MonoBehaviour
     public PanelScript stOrInPanel; //stage나 infinite 모드를 고르기 위한 패널
     public Button[] stAndInBtns; //0 = stage //1 = infinite
 
+    private void Awake()
+    {
+        
+    }
+
     private void Start()
     {
         stAndInBtns = stOrInPanel.GetComponentsInChildren<Button>(); // 패널밑에서 버튼들을 가져와준다
@@ -23,8 +28,8 @@ public class TitleManager : MonoBehaviour
         {
             //GameManager.instance.isStage = false;
             //무한모드로 이동
+            LoadManager.LoadScene("InGame");
         });
-        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Update()
