@@ -16,10 +16,12 @@ public class TitleManager : MonoBehaviour
         stAndInBtns[0].onClick.AddListener(() =>
         {
             //스테이지 씬으로 이동
+            GameManager.instance.isStage = true;
             LoadManager.LoadScene("Stage");
         });
         stAndInBtns[1].onClick.AddListener(() =>
         {
+            GameManager.instance.isStage = false;
             //무한모드로 이동
         });
     }

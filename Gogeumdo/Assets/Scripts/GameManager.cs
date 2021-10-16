@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     //public int boxCount = 0;
     public bool isGameover = false; // 게임오버 체크
+    public bool isStage = false; //스테이지 모드인지 무한모드인지 체크하기 위한 변수
+    public int stageIndex = 0;
 
     private void Awake()
     {
