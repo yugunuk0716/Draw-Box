@@ -6,11 +6,23 @@ using System;
 
 public class PoolManager : MonoBehaviour
 {
+    public static PoolManager instance;
+
     Pool<Box> boxPool; //박스의 풀
     Pool<FeverBox> feverBoxPool; //피버 박스의 풀
     public GameObject boxPrefab; //박스의 프리팹
     public GameObject feverBoxPrefab; //피버 박스의 프리팹
     public Transform spawnPoint; //박스의 소환지점
+
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Debug.LogError("다수의 풀매니저가 실행중");
+            return;
+        }
+        instance = this;
+    }
 
     private void Start()
     {

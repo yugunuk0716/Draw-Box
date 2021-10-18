@@ -22,6 +22,12 @@ public class FeverManager : MonoBehaviour
 
     public IEnumerator Fever()
     {
+        GameManager.instance.boxCount++;
+        if(GameManager.instance.boxCount > 5)
+        {
+            PoolManager.instance.FeverBoxSpawn();
+            GameManager.instance.boxCount--;
+        }
         GameManager.instance.isFever = true;
 
         yield return feverWs;
