@@ -30,7 +30,6 @@ public class Box : MonoBehaviour, IResettable
 
     private BoxCollider2D col;
 
-    public bool canMoveForward = true;
 
     public int lineIdx = 4; //현재 줄
 
@@ -43,12 +42,6 @@ public class Box : MonoBehaviour, IResettable
     }
 
     
-    public void Update()
-    {
-        this.gameObject.transform.position = new Vector3(Mathf.Clamp(this.gameObject.transform.position.x, -2.5f, 2.5f), Mathf.Clamp(this.gameObject.transform.position.y, -4.75f, 4.75f));
-        // 박스가 화면 밖으로 나가지 못하게 막기
-
-    }
 
 
     public void OnEnable() //풀링을 해서 다시 켜졌을 때 실행해야 할 것들 추가
@@ -91,10 +84,7 @@ public class Box : MonoBehaviour, IResettable
     protected void OnCollisionEnter2D(Collision2D col) 
     {
 
-        if (col.gameObject.transform.position.y > this.gameObject.transform.position.y)
-        {
-            canMoveForward = false;
-        }
+       
         if (col.gameObject.CompareTag("ConveyorBelt"))// 컨베이어 벨트 도착점에 닿았을 때
         {
             ConveyorBeltLine obj = col.gameObject.GetComponent<ConveyorBeltLine>();//컨베이어 벨트라인 스크립트를 받아온다
@@ -109,13 +99,7 @@ public class Box : MonoBehaviour, IResettable
        
 
     }
-    protected void OnCollisionExit2D(Collision2D col)
-    {
-        if (col.gameObject.transform.position.y > this.gameObject.transform.position.y)
-        {
-            canMoveForward = true;
-        }
-    }
+   
 
 
 
