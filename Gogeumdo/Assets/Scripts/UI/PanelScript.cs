@@ -35,4 +35,6 @@ public class PanelScript : MonoBehaviour
             canvasGroup.blocksRaycasts = on;
         });
     }
+
+    
 }
