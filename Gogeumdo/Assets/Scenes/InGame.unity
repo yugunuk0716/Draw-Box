@@ -232,11 +232,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 204508293}
-  - component: {fileID: 204508292}
   - component: {fileID: 204508294}
   - component: {fileID: 204508295}
+  - component: {fileID: 204508292}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: ManagerObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -251,10 +251,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 204508291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2092a02dbb0958e44b7fe3dde9afdc38, type: 3}
+  m_Script: {fileID: 11500000, guid: c6e3680135275ae4abb72073abe28480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGameover: 0
 --- !u!4 &204508293
 Transform:
   m_ObjectHideFlags: 0
@@ -307,6 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxPrefab: {fileID: 3357162985853034114, guid: 9afb1db9ff137c3449e72bcbb7dc6eb3, type: 3}
+  feverBoxPrefab: {fileID: 5145344373942978222, guid: 188a16c7ed2e0c845834ebe841b80a15, type: 3}
   spawnPoint: {fileID: 1739754305}
 --- !u!1 &255019095
 GameObject:
@@ -3266,6 +3266,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1936052057}
   m_CullTransparentMesh: 1
+--- !u!1 &1983356571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1983356573}
+  - component: {fileID: 1983356572}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1983356572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983356571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2092a02dbb0958e44b7fe3dde9afdc38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGameover: 0
+  isStage: 0
+  isFever: 0
+  stageIndex: 0
+  boxCount: 0
+--- !u!4 &1983356573
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983356571}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.10394041, y: -3.3545814, z: -1.027268}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1989692886
 GameObject:
   m_ObjectHideFlags: 0
