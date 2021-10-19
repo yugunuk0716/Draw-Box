@@ -34,4 +34,11 @@ public class GameManager : MonoBehaviour
             LoadManager.LoadScene("InGame");
         }
     }
+
+    public void Init() 
+    {
+        boxCount = 0;
+        isFever = false;
+        isGameover = false;
+    }
 }
