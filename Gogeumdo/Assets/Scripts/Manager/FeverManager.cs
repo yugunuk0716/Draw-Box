@@ -32,6 +32,7 @@ public class FeverManager : MonoBehaviour
     public IEnumerator Fever()
     {
         GameManager.instance.boxCount++; //박스 카운트 증가
+        GameManager.instance.score++;
         
         GameManager.instance.isFever = true; //피버 시작
 

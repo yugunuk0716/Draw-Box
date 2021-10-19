@@ -9,10 +9,12 @@ public class PoolManager : MonoBehaviour
     public static PoolManager instance;
 
     Pool<Box> boxPool; //박스의 풀
-    Pool<FeverBox> feverBoxPool; //피버 박스의 풀
+    //Pool<FeverBox> feverBoxPool; //피버 박스의 풀
     public GameObject boxPrefab; //박스의 프리팹
-    public GameObject feverBoxPrefab; //피버 박스의 프리팹
+    //public GameObject feverBoxPrefab; //피버 박스의 프리팹
     public Transform spawnPoint; //박스의 소환지점
+
+    public Sprite[] boxSprite; //박스의 스프라이트들
 
     private void Awake()
     {
@@ -27,9 +29,9 @@ public class PoolManager : MonoBehaviour
     private void Start()
     {
         boxPool = new Pool<Box>(new PrefabFactory<Box>(boxPrefab), 15); //15개만큼 미리 만들고
-        feverBoxPool = new Pool<FeverBox>(new PrefabFactory<FeverBox>(feverBoxPrefab), 5); //5개만큼 미리 만들고
+        //feverBoxPool = new Pool<FeverBox>(new PrefabFactory<FeverBox>(feverBoxPrefab), 5); //5개만큼 미리 만들고
         boxPool.members.ForEach(b => b.gameObject.SetActive(false)); //전부 꺼두기
-        feverBoxPool.members.ForEach(x => x.gameObject.SetActive(false));
+        //feverBoxPool.members.ForEach(x => x.gameObject.SetActive(false));
 
         StartCoroutine(SpawnBox()); //코루틴 시작
     }
@@ -46,15 +48,22 @@ public class PoolManager : MonoBehaviour
             box.Death -= handler; //했으면 빼주기
         };
         box.Death += handler; //생성된 박스의 Death에 추가해줌
-        //GameManager.instance.boxCount++;
+
+        handler = (s, e) =>
+        {
+            boxPool.Release(box);
+            box.nAnswer -= handler;
+        };
+        box.nAnswer += handler;
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        box.gameObject.transform.position = spawnPoint.position; //박스의 포지션을 스폰포인트로 해주고
+        int idx = UnityEngine.Random.Range(0, 9);
+        box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[idx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
         box.gameObject.SetActive(true); //액티브를 켜줌
     }
     public void FeverBoxSpawn()
     {
-        FeverBox box = feverBoxPool.Allocate();
+        Box box =  boxPool.Allocate();
 
         EventHandler handler = null;
 
@@ -62,15 +71,26 @@ public class PoolManager : MonoBehaviour
         {
             //피버 실행
             StartCoroutine(FeverManager.instance.Fever());
-            feverBoxPool.Release(box);
+            boxPool.Release(box);
             box.Death -= handler;
         };
         box.Death += handler; //생성된 박스의 Death에 추가해줌
-        //GameManager.instance.boxCount++;
+
+        handler = (s, e) =>
+        {
+            GameManager.instance.score--;
+            boxPool.Release(box);
+            box.nAnswer -= handler;
+        };
+        box.nAnswer += handler;
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
         box.gameObject.transform.position = spawnPoint.position; //박스의 포지션을 스폰포인트로 해주고
         box.gameObject.SetActive(true); //액티브를 켜줌
+    }
+    public void TimeIncreaseBoxSpawn()
+    {
+
     }
     
 
