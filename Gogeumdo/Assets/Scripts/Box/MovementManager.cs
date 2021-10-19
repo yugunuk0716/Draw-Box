@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BoxMove : MonoBehaviour
+public class MovementManager : MonoBehaviour
 {
+    public static MovementManager instance;
+
     public Transform touchPos; // 터치했을 때의 위치를 저장할 변수
     public Transform[] lineTrm;// 라인 별 위치를 저장하는 배열
 
@@ -14,9 +16,14 @@ public class BoxMove : MonoBehaviour
 
     private Box box; // 박스를 받아올 변수
 
-    void Start()
+    private void Awake()
     {
-
+        if(instance != null)
+        {
+            Debug.LogError("다수의 MovementManager가 실행중");
+            return;
+        }
+        instance = this;
     }
 
     void Update()

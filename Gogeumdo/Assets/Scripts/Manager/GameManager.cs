@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public bool isFever = false; //피버인지 체크하기 위한 변수
     public int stageIndex = 0; //스테이지 인덱스 - 이에 따른 스테이지들로 실행해야함
     public int boxCount = 0; //박스 카운트 - 이것에 따라 피버 상자가 나옴
+    public int score = 0;
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
     public void Init() 
     {
         boxCount = 0;
+        score = 0;
         isFever = false;
         isGameover = false;
     }

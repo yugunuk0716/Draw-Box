@@ -806,7 +806,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBB34\uD55C\uBAA8\uB4DC"
+  m_Text: "\uB7AD\uD0B9\uBAA8\uB4DC"
 --- !u!222 &1390170194
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1084,6 +1084,7 @@ MonoBehaviour:
   isFever: 0
   stageIndex: 0
   boxCount: 0
+  score: 0
 --- !u!4 &2073110558
 Transform:
   m_ObjectHideFlags: 0
@@ -1111,7 +1112,7 @@ GameObject:
   - component: {fileID: 2084295860}
   - component: {fileID: 2084295859}
   m_Layer: 5
-  m_Name: InfiniteBtn
+  m_Name: RankBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

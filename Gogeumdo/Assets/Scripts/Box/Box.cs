@@ -23,7 +23,8 @@ public class Box : MonoBehaviour, IResettable
     }
 
     public Line line = Line.a; //이 상자의 목표 줄
-    public virtual event EventHandler Death; // 상자가 목표에 도달했을 때 실행되는 이벤트
+    public event EventHandler Death; // 상자가 목표에 도달했을 때 실행되는 이벤트
+    public event EventHandler nAnswer;
     public float moveTime = 0.01f; 
     //박스 속도 : 벨트 속도 = 1/100 : 20
     public WaitForSeconds moveWS;
@@ -93,6 +94,10 @@ public class Box : MonoBehaviour, IResettable
                 if (obj.lineIndex == (int)line || GameManager.instance.isFever) //박스의 라인과 목표 라인이 동일하거나 피버가 활성화중이라면
                 {
                     Death(this, null); // Death 이벤트를 실행
+                }
+                else
+                {
+                    nAnswer(this, null);
                 }
             }
         }
