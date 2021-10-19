@@ -28,10 +28,8 @@ public class PoolManager : MonoBehaviour
 
     private void Start()
     {
-        boxPool = new Pool<Box>(new PrefabFactory<Box>(boxPrefab), 15); //15개만큼 미리 만들고
-        //feverBoxPool = new Pool<FeverBox>(new PrefabFactory<FeverBox>(feverBoxPrefab), 5); //5개만큼 미리 만들고
+        boxPool = new Pool<Box>(new PrefabFactory<Box>(boxPrefab), 25); //15개만큼 미리 만들고
         boxPool.members.ForEach(b => b.gameObject.SetActive(false)); //전부 꺼두기
-        //feverBoxPool.members.ForEach(x => x.gameObject.SetActive(false));
 
         StartCoroutine(SpawnBox()); //코루틴 시작
     }
@@ -97,7 +95,7 @@ public class PoolManager : MonoBehaviour
         EventHandler handler = null;
         handler = (s, e) =>
         {
-            //GameManager.instance.boxCount--;
+            ModeManager.instance.SetTime(true);
             GameManager.instance.BoxIncrease(1, 1);
             boxPool.Release(box); //박스의 초기화
 
@@ -107,6 +105,7 @@ public class PoolManager : MonoBehaviour
 
         handler = (s, e) =>
         {
+            ModeManager.instance.SetTime(false);
             GameManager.instance.BoxIncrease(0, -1);
             boxPool.Release(box);
             box.nAnswer -= handler;

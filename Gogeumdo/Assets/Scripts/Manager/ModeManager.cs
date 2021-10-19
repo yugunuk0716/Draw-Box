@@ -37,20 +37,38 @@ public class ModeManager : MonoBehaviour
             Timer();
         }
     }
-    public void Timer()
+    public void Timer() //랭크 모드를위한 타이머
     {
         sec = Mathf.Clamp(sec -= Time.deltaTime, 0, 59);
 
-        if(sec <= 0)
+        TimeCompare();
+    }
+    public void SetTime(bool addTime) //타임 아이템
+    {
+        sec += addTime ? 5f : -5f;
+
+        TimeCompare();
+    }
+
+    public void TimeCompare()
+    {
+        if (sec <= 0f)
         {
-            sec = 59;
+            sec = 59f;
             min--;
         }
+        else if (sec >= 59f)
+        {
+            sec = 0f;
+            min++;
+        }
 
-        if(min <= 0)
+        if (min <= 0)
         {
             //게임오버
             GameManager.instance.isGameover = true;
         }
+
+        //여기서 텍스트를 바꿔줘야할듯?
     }
 }
