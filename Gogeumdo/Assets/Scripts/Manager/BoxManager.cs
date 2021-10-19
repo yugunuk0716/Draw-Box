@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FeverManager : MonoBehaviour
+public class BoxManager : MonoBehaviour
 {
-    public static FeverManager instance; //싱글톤
+    public static BoxManager instance; //싱글톤
 
     private float feverTime = 5f;
     private WaitForSeconds feverWs;
@@ -12,7 +12,7 @@ public class FeverManager : MonoBehaviour
     {
         if(instance != null)
         {
-            Debug.LogError("다수의 피버매니저가 실행중");
+            Debug.LogError("다수의 박스매니저가 실행중");
             return;
         }
         instance = this;
@@ -31,8 +31,6 @@ public class FeverManager : MonoBehaviour
 
     public IEnumerator Fever()
     {
-        GameManager.instance.boxCount++; //박스 카운트 증가
-        GameManager.instance.score++;
         
         GameManager.instance.isFever = true; //피버 시작
 

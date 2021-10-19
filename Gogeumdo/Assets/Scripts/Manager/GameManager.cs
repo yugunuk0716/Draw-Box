@@ -43,4 +43,9 @@ public class GameManager : MonoBehaviour
         isFever = false;
         isGameover = false;
     }
+    public void BoxIncrease(int boxCount, int score)
+    {
+        this.boxCount += boxCount;
+        this.score += score;
+    }
 }

@@ -49,7 +49,7 @@ public class Box : MonoBehaviour, IResettable
     {
         SetLine();
         StartCoroutine(BoxMove());
-        lineIdx = 4;
+        lineIdx = UnityEngine.Random.Range(0,9);
     }
 
     protected void SetLine() // 박스의 줄을 랜덤으로 설정

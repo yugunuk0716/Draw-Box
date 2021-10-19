@@ -43,7 +43,7 @@ public class PoolManager : MonoBehaviour
         EventHandler handler = null;
         handler = (s, e) =>
         {
-            //GameManager.instance.boxCount--;
+            GameManager.instance.BoxIncrease(1, 1);
             boxPool.Release(box); //박스의 초기화
             box.Death -= handler; //했으면 빼주기
         };
@@ -51,14 +51,14 @@ public class PoolManager : MonoBehaviour
 
         handler = (s, e) =>
         {
+            GameManager.instance.BoxIncrease(0, -1);
             boxPool.Release(box);
             box.nAnswer -= handler;
         };
         box.nAnswer += handler;
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        int idx = UnityEngine.Random.Range(0, 9);
-        box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[idx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
+        box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
         box.gameObject.SetActive(true); //액티브를 켜줌
     }
     public void FeverBoxSpawn()
@@ -70,7 +70,9 @@ public class PoolManager : MonoBehaviour
         handler = (s, e) =>
         {
             //피버 실행
-            StartCoroutine(FeverManager.instance.Fever());
+            
+            GameManager.instance.BoxIncrease(0, 1);
+            StartCoroutine(BoxManager.instance.Fever());
             boxPool.Release(box);
             box.Death -= handler;
         };
@@ -78,19 +80,42 @@ public class PoolManager : MonoBehaviour
 
         handler = (s, e) =>
         {
-            GameManager.instance.score--;
+            GameManager.instance.BoxIncrease(0, -1);
             boxPool.Release(box);
             box.nAnswer -= handler;
         };
         box.nAnswer += handler;
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        box.gameObject.transform.position = spawnPoint.position; //박스의 포지션을 스폰포인트로 해주고
+        box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
         box.gameObject.SetActive(true); //액티브를 켜줌
     }
     public void TimeIncreaseBoxSpawn()
     {
+        Box box = boxPool.Allocate(); //박스의 풀에 박스가있다면 가져오고 없다면 새로 만들기
 
+        EventHandler handler = null;
+        handler = (s, e) =>
+        {
+            //GameManager.instance.boxCount--;
+            GameManager.instance.BoxIncrease(1, 1);
+            boxPool.Release(box); //박스의 초기화
+
+            box.Death -= handler; //했으면 빼주기
+        };
+        box.Death += handler; //생성된 박스의 Death에 추가해줌
+
+        handler = (s, e) =>
+        {
+            GameManager.instance.BoxIncrease(0, -1);
+            boxPool.Release(box);
+            box.nAnswer -= handler;
+        };
+        box.nAnswer += handler;
+
+        //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
+        box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
+        box.gameObject.SetActive(true); //액티브를 켜줌
     }
     
 
