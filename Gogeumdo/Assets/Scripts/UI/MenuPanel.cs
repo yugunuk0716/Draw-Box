@@ -5,19 +5,24 @@ using UnityEngine.UI;
 
 public class MenuPanel : PanelScript
 {
-    public Button continueBtn;
+    public Button continueBtn; 
     public Button retryBtn;
     public Button homeBtn;
-    
+
 
     protected override void Awake()
     {
         base.Awake();
     }
 
+
     private void Start()
     {
-        continueBtn.onClick.AddListener(() => Close());
+        continueBtn.onClick.AddListener(() => 
+        {
+            Close();
+            Time.timeScale = 1;
+        });
         homeBtn.onClick.AddListener(() => OnClickHomeBtn());
         retryBtn.onClick.AddListener(() => OnClickRetryBtn());
     }
@@ -30,11 +35,6 @@ public class MenuPanel : PanelScript
     public override void Close()
     {
         base.Close();
-    }
-
-    public override void SetAlpha(bool on)
-    {
-        base.SetAlpha(on);
     }
 
     public void OnClickHomeBtn() 
