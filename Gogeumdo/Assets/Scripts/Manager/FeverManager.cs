@@ -20,18 +20,23 @@ public class FeverManager : MonoBehaviour
         feverWs = new WaitForSeconds(feverTime);
     }
 
-    public IEnumerator Fever()
+    private void Update()
     {
-        GameManager.instance.boxCount++;
-        if(GameManager.instance.boxCount > 5)
+        if (GameManager.instance.boxCount > 5)
         {
             PoolManager.instance.FeverBoxSpawn();
-            GameManager.instance.boxCount--;
+            GameManager.instance.boxCount -= 5;
         }
-        GameManager.instance.isFever = true;
+    }
+
+    public IEnumerator Fever()
+    {
+        GameManager.instance.boxCount++; //박스 카운트 증가
+        
+        GameManager.instance.isFever = true; //피버 시작
 
         yield return feverWs;
 
-        GameManager.instance.isFever = false;
+        GameManager.instance.isFever = false; //피버 종료
     }
 }
