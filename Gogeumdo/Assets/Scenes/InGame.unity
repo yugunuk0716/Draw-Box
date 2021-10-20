@@ -268,7 +268,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxPrefab: {fileID: 3357162985853034114, guid: 9afb1db9ff137c3449e72bcbb7dc6eb3, type: 3}
+  obstaclePrefab: {fileID: 3955630587892866783, guid: 9e2e2bc7c37ad2343849ab1bb451223b, type: 3}
   spawnPoint: {fileID: 1739754305}
+  obstacleCount: 0
   boxSprite: []
 --- !u!114 &204508296
 MonoBehaviour:

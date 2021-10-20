@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3955630587892866784}
   - component: {fileID: 3955630587892866786}
   - component: {fileID: 3955630587892866785}
+  - component: {fileID: 4612992056308040357}
+  - component: {fileID: 8243711351034612650}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Obstacle
@@ -109,3 +111,39 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.09, y: 1.1}
   m_EdgeRadius: 0
+--- !u!114 &4612992056308040357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3955630587892866783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 924cc9a4a54928747bc20a8dd0ddb0d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  line: 0
+  moveTime: 0.01
+  lineIdx: 2
+--- !u!50 &8243711351034612650
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3955630587892866783}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
