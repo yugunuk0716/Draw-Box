@@ -9,11 +9,13 @@ public class PoolManager : MonoBehaviour
     public static PoolManager instance;
 
     Pool<Box> boxPool; //박스의 풀
-    //Pool<FeverBox> feverBoxPool; //피버 박스의 풀
+    Pool<Obstacle> obstaclePool; //장애물 풀
+
     public GameObject boxPrefab; //박스의 프리팹
-    //public GameObject feverBoxPrefab; //피버 박스의 프리팹
+    public GameObject obstaclePrefab; //장애물의 프리팹
     public Transform spawnPoint; //박스의 소환지점
 
+    public int obstacleCount = 0;
     public Sprite[] boxSprite; //박스의 스프라이트들
 
     private void Awake()
@@ -28,10 +30,31 @@ public class PoolManager : MonoBehaviour
 
     private void Start()
     {
-        boxPool = new Pool<Box>(new PrefabFactory<Box>(boxPrefab), 25); //15개만큼 미리 만들고
+        boxPool = new Pool<Box>(new PrefabFactory<Box>(boxPrefab), 25); //25개만큼 미리 만들고
         boxPool.members.ForEach(b => b.gameObject.SetActive(false)); //전부 꺼두기
 
-        StartCoroutine(SpawnBox()); //코루틴 시작
+        obstaclePool = new Pool<Obstacle>(new PrefabFactory<Obstacle>(obstaclePrefab), 25);
+        obstaclePool.members.ForEach(x => x.gameObject.SetActive(false));
+
+        StartCoroutine(InitSpawn());
+    }
+
+    public void ObstacleSpawn()
+    {
+        Obstacle ob = obstaclePool.Allocate();
+
+        EventHandler handler = null;
+
+        handler = (s, e) =>
+        {
+            ObstacleSpawn();
+            obstaclePool.Release(ob);
+            ob.Death -= handler;
+        };
+        ob.Death += handler;
+
+        ob.gameObject.SetActive(true);
+        ob.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[ob.lineIdx].position.x, spawnPoint.position.y);
     }
 
     public void BoxSpawn()
@@ -47,13 +70,6 @@ public class PoolManager : MonoBehaviour
         };
         box.Death += handler; //생성된 박스의 Death에 추가해줌
 
-        handler = (s, e) =>
-        {
-            GameManager.instance.BoxIncrease(0, -1);
-            boxPool.Release(box);
-            box.nAnswer -= handler;
-        };
-        box.nAnswer += handler;
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
         box.gameObject.SetActive(true); //액티브를 켜줌
@@ -76,13 +92,6 @@ public class PoolManager : MonoBehaviour
         };
         box.Death += handler; //생성된 박스의 Death에 추가해줌
 
-        handler = (s, e) =>
-        {
-            GameManager.instance.BoxIncrease(0, -1);
-            boxPool.Release(box);
-            box.nAnswer -= handler;
-        };
-        box.nAnswer += handler;
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
         box.gameObject.SetActive(true); //액티브를 켜줌
@@ -103,14 +112,6 @@ public class PoolManager : MonoBehaviour
         };
         box.Death += handler; //생성된 박스의 Death에 추가해줌
 
-        handler = (s, e) =>
-        {
-            ModeManager.instance.SetTime(false);
-            GameManager.instance.BoxIncrease(0, -1);
-            boxPool.Release(box);
-            box.nAnswer -= handler;
-        };
-        box.nAnswer += handler;
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
         box.gameObject.SetActive(true); //액티브를 켜줌
@@ -125,5 +126,22 @@ public class PoolManager : MonoBehaviour
             BoxSpawn();
             yield return new WaitForSeconds(4f); //나중에 조절해준다.
         }
+    }
+    IEnumerator InitObstacle()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            ObstacleSpawn();
+            yield return new WaitForSeconds(4f);
+        }
+    }
+
+    IEnumerator InitSpawn()
+    {
+        StartCoroutine(SpawnBox()); //코루틴 시작
+
+        yield return new WaitForSeconds(2f);
+
+        StartCoroutine(InitObstacle());   
     }
 }

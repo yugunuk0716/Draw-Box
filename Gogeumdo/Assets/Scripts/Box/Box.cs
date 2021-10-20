@@ -4,27 +4,26 @@ using UnityEngine;
 using System;
 using Pool;
 
+[Flags]
+public enum Line // 컨베이어 라인 줄 관리 enum
+{
+    a = 0 << 0, //0
+    b = 1 << 0, //1
+    c = 1 << 1, //2
+    d = b | c, //3
+    e = 1 << 2, //4
+    f = b | e, //5
+    g = c | e, //6 
+    h = b | c | e, //7
+    i = 1 << 3, //8
+    j = b | i //9
+}
+
 public class Box : MonoBehaviour, IResettable
 {
 
-    [Flags]
-    public enum Line // 컨베이어 라인 줄 관리 enum
-    {
-        a = 0 << 0, //0
-        b = 1 << 0, //1
-        c = 1 << 1, //2
-        d = b | c, //3
-        e = 1 << 2, //4
-        f = b | e, //5
-        g = c | e, //6 
-        h = b | c | e, //7
-        i = 1 << 3, //8
-        j = b | i //9
-    }
-
     public Line line = Line.a; //이 상자의 목표 줄
-    public event EventHandler Death; // 상자가 목표에 도달했을 때 실행되는 이벤트
-    public event EventHandler nAnswer;
+    public virtual event EventHandler Death; // 상자가 목표에 도달했을 때 실행되는 이벤트
     public float moveTime = 0.01f; 
     //박스 속도 : 벨트 속도 = 1/100 : 20
     public WaitForSeconds moveWS;
@@ -45,7 +44,7 @@ public class Box : MonoBehaviour, IResettable
     
 
 
-    public void OnEnable() //풀링을 해서 다시 켜졌을 때 실행해야 할 것들 추가
+    public virtual void OnEnable() //풀링을 해서 다시 켜졌을 때 실행해야 할 것들 추가
     {
         SetLine();
         StartCoroutine(BoxMove());
@@ -61,7 +60,7 @@ public class Box : MonoBehaviour, IResettable
     }
 
 
-    public IEnumerator BoxMove() // 박스가 앞으로 이동하게 하는 코루틴
+    public virtual IEnumerator BoxMove() // 박스가 앞으로 이동하게 하는 코루틴
     {
         while (true)
         {
@@ -73,7 +72,7 @@ public class Box : MonoBehaviour, IResettable
             {
 
                 dest = new Vector2(0, moveTime); //실제 위치를 받아온다
-                print(dest + " " + moveTime);
+                //print(dest + " " + moveTime);
                 gameObject.transform.position += (Vector3)dest;// 실제 이동
             }
 
@@ -82,7 +81,7 @@ public class Box : MonoBehaviour, IResettable
     }
 
 
-    protected void OnCollisionEnter2D(Collision2D col) 
+    protected virtual void OnCollisionEnter2D(Collision2D col) 
     {
 
        
@@ -94,10 +93,6 @@ public class Box : MonoBehaviour, IResettable
                 if (obj.lineIndex == (int)line || GameManager.instance.isFever) //박스의 라인과 목표 라인이 동일하거나 피버가 활성화중이라면
                 {
                     Death(this, null); // Death 이벤트를 실행
-                }
-                else
-                {
-                    nAnswer(this, null);
                 }
             }
         }
@@ -117,3 +112,4 @@ public class Box : MonoBehaviour, IResettable
 
     
 }
+

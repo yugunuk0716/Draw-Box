@@ -71,6 +71,10 @@ public class MovementManager : MonoBehaviour
                         {
                             Move(Vector2.down);
                         }
+                        else if (mouseTrms[0].y < mouseTrms[mouseTrms.Count - 1].y) 
+                        {
+                            Move(Vector2.up);
+                        }
                     }
                 }
 
@@ -160,9 +164,9 @@ public class MovementManager : MonoBehaviour
 
             RaycastHit2D hit = Physics2D.BoxCast(dest, box.gameObject.transform.lossyScale * 0.2f, 0, new Vector2(0, 0)); // 위의 dest 변수를 가져와 Boxcast로 갈 위치에 충돌체를 저장하는 변수
 
-            if (hit.collider == null || !hit.collider.CompareTag("Player")) //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우는 이동할 수 있는 경우임
+            if ((hit.collider == null) || (!hit.collider.CompareTag("Player")) && !hit.collider.CompareTag("Obstacle")) //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우는 이동할 수 있는 경우임
             {
-                if (vec.y != -1)//아래쪽으로 이동시엔 라인인덱스를 바꾸지 않기 위한 조건문
+                if (vec.y != -1 && vec.y != 1)//아래쪽으로 이동시엔 라인인덱스를 바꾸지 않기 위한 조건문
                 {
                     SetLineIndex(canRightMove);
                 }
