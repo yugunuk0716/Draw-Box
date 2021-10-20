@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5145344373942978216}
   - component: {fileID: 5145344373942978218}
   - component: {fileID: 5145344373942978389}
-  - component: {fileID: 7633854809893277802}
   m_Layer: 0
   m_Name: FeverBox
   m_TagString: Player
@@ -29,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5145344373942978222}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.04, y: -3.3, z: -1}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.6, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -132,18 +131,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7633854809893277802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5145344373942978222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 272cfe7463fb35c4799928691e6f9bf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  line: 0
-  moveTime: 0.01
-  lineIdx: 4

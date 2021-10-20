@@ -32,7 +32,7 @@ public class Box : MonoBehaviour, IResettable
     private BoxCollider2D col;
 
 
-    public int lineIdx = 4; //현재 줄
+    public int lineIdx = 2; //현재 줄
 
 
     public void Start()
@@ -49,12 +49,12 @@ public class Box : MonoBehaviour, IResettable
     {
         SetLine();
         StartCoroutine(BoxMove());
-        lineIdx = UnityEngine.Random.Range(0,9);
+        lineIdx = UnityEngine.Random.Range(0,4);
     }
 
     protected void SetLine() // 박스의 줄을 랜덤으로 설정
     {
-        int idx = UnityEngine.Random.Range(0, 9);
+        int idx = UnityEngine.Random.Range(0, 4);
         line = (Line)idx;
         gameObject.GetComponent<SpriteRenderer>().color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         //print(idx);

@@ -56,8 +56,8 @@ public class PoolManager : MonoBehaviour
         box.nAnswer += handler;
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
         box.gameObject.SetActive(true); //액티브를 켜줌
+        box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
     }
     public void FeverBoxSpawn()
     {
@@ -85,8 +85,8 @@ public class PoolManager : MonoBehaviour
         box.nAnswer += handler;
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
         box.gameObject.SetActive(true); //액티브를 켜줌
+        box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
     }
     public void TimeIncreaseBoxSpawn()
     {
@@ -113,8 +113,8 @@ public class PoolManager : MonoBehaviour
         box.nAnswer += handler;
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
         box.gameObject.SetActive(true); //액티브를 켜줌
+        box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
     }
     
 
