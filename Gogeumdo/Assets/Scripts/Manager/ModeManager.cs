@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ModeManager : MonoBehaviour
 {
     public static ModeManager instance;
+
 
     private int min = 5;
     private float sec = 0f;
@@ -37,6 +39,8 @@ public class ModeManager : MonoBehaviour
             Timer();
         }
     }
+    
+
     public void Timer() //랭크 모드를위한 타이머
     {
         sec = Mathf.Clamp(sec -= Time.deltaTime, 0, 59);
@@ -49,6 +53,7 @@ public class ModeManager : MonoBehaviour
 
         TimeCompare();
     }
+
 
     public void TimeCompare()
     {
