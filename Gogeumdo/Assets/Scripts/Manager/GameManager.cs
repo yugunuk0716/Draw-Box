@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; // 싱글톤
 
     public Dictionary<int, int> stageBox = new Dictionary<int, int>(); //스테이지별 박스갯수
+    public Dictionary<int, List<int>> stageStar = new Dictionary<int, List<int>>();
     public Dictionary<Line, Color> lineColorDic; //라인별 컬러 딕셔너리
 
     public Queue<int> boxIdxQueue = new Queue<int>();
@@ -14,8 +15,9 @@ public class GameManager : MonoBehaviour
     public bool isGameover = false; // 게임오버 체크
     public bool isStage = false; //스테이지 모드인지 무한모드인지 체크하기 위한 변수
     public bool isFever = false; //피버인지 체크하기 위한 변수
+
     public int stageIndex = 0; //스테이지 인덱스 - 이에 따른 스테이지들로 실행해야함
-    public int boxCount = 0; //일단 박스가 사라진만큼 올라가는 변수 (무한모드용)
+    public int boxCount = 0; //일단 박스가 들어간만큼 올라가는 변수
     public int remainBox = 0; // 박스 갯수 (스테이지용)
 
     private void Awake()
@@ -50,11 +52,15 @@ public class GameManager : MonoBehaviour
                 stageBox[i] += 3;
             }
         }
+        for (int i = 1; i < 4; i++)
+        {
+            stageStar.Add(i, new List<int>() {(int)(stageBox[i] * 0.5f), (int)(stageBox[i] * 0.75f), stageBox[i]}); //3별:100% 넣었을경우 2별:75% 1별:50%
+        }
     }
 
-    public void SetRemainBox(int idx)
+    public void SetRemainBox()
     {
-        remainBox = idx;
+        remainBox = boxIdxQueue.Count;
     }
 
     public void Init() 
@@ -65,6 +71,13 @@ public class GameManager : MonoBehaviour
     }
     public void AddScore(int score)
     {
-        this.boxCount += score;
+        if (isStage)
+        {
+            this.remainBox -= score;
+        }
+        else
+        {
+            this.boxCount += score;
+        }
     }
 }

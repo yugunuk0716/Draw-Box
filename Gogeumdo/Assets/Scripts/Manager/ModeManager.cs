@@ -34,7 +34,7 @@ public class ModeManager : MonoBehaviour
                     Debug.LogError($"잘못된 스테이지입니다 : stageIdx = {stageIdx}");
                     break;
                 case 1:
-                    GameManager.instance.SetRemainBox();
+                    //GameManager.instance.SetRemainBox();
                     break;
                 default:
                     break;

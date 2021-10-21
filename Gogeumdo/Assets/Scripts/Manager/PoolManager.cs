@@ -22,6 +22,10 @@ public class PoolManager : MonoBehaviour
     public Sprite[] boxSprite; //박스의 스프라이트들 
     //0 = 기본 박스 1 = 피버 박스 2 = 시간 증가 박스 로 할 예정
 
+    private WaitForSeconds Before10;
+    private WaitForSeconds Before20;
+    private WaitForSeconds After20;
+
     private void Awake()
     {
         if(instance != null)
@@ -150,7 +154,14 @@ public class PoolManager : MonoBehaviour
     {
         while (!GameManager.instance.isGameover) //게임오버가 아닐때까지 
         {
-            BoxSpawn();
+            if(GameManager.instance.isStage && GameManager.instance.remainBox > 0)
+            {
+                BoxSpawn();
+            }
+            else if(!GameManager.instance.isStage)
+            {
+                BoxSpawn();
+            }
             yield return new WaitForSeconds(4f); //나중에 조절해준다.
         }
     }
