@@ -16,7 +16,11 @@ public class PoolManager : MonoBehaviour
     public Transform spawnPoint; //박스의 소환지점
 
     public int obstacleCount = 0;
-    public Sprite[] boxSprite; //박스의 스프라이트들 //0 = 기본 박스 1 = 피버 박스 2 = 시간 증가 박스 로 할 예정
+
+    [Header("박스관련 배열들")]
+    public int[] boxCount;
+    public Sprite[] boxSprite; //박스의 스프라이트들 
+    //0 = 기본 박스 1 = 피버 박스 2 = 시간 증가 박스 로 할 예정
 
     private void Awake()
     {
@@ -26,6 +30,8 @@ public class PoolManager : MonoBehaviour
             return;
         }
         instance = this;
+
+        boxCount = new int[2];
     }
 
     private void Start()
@@ -37,6 +43,22 @@ public class PoolManager : MonoBehaviour
         obstaclePool.members.ForEach(x => x.gameObject.SetActive(false));
 
         StartCoroutine(InitSpawn());
+    }
+
+    public void EventBoxSpawn() //박스가 몇개씩 사라지고 생성되는 아이템인지 체크
+    {
+        if (GameManager.instance.isStage) return;
+
+        if (boxCount[0] >= 5)
+        {
+            FeverBoxSpawn();
+            boxCount[0] -= 5;
+        }
+        if (boxCount[1] > 30)
+        {
+            TimeIncreaseBoxSpawn();
+            boxCount[1] -= 30;
+        }
     }
 
     public void ObstacleSpawn()
@@ -54,7 +76,7 @@ public class PoolManager : MonoBehaviour
         ob.Death += handler;
 
         ob.gameObject.SetActive(true);
-        ob.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[ob.lineIdx].position.x, spawnPoint.position.y);
+        ob.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x, spawnPoint.position.y);
     }
 
     public void BoxSpawn()
@@ -64,7 +86,11 @@ public class PoolManager : MonoBehaviour
         EventHandler handler = null;
         handler = (s, e) =>
         {
-            GameManager.instance.BoxIncrease(1, 1);
+            GameManager.instance.AddScore(1);
+            for (int i = 0; i < boxCount.Length; i++)
+            {
+                boxCount[i] += 1;
+            }
             boxPool.Release(box); //박스의 초기화
             box.Death -= handler; //했으면 빼주기
         };
@@ -74,7 +100,7 @@ public class PoolManager : MonoBehaviour
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
         box.gameObject.SetActive(true); //액티브를 켜줌
         //box.GetComponent<SpriteRenderer>().sprite = boxSprite[0];
-        box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
+        box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
     }
     public void FeverBoxSpawn()
     {
@@ -86,7 +112,6 @@ public class PoolManager : MonoBehaviour
         {
             //피버 실행
             
-            GameManager.instance.BoxIncrease(0, 1);
             StartCoroutine(BoxManager.instance.Fever());
             boxPool.Release(box);
             box.Death -= handler;
@@ -97,7 +122,7 @@ public class PoolManager : MonoBehaviour
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
         box.gameObject.SetActive(true); //액티브를 켜줌
         //box.GetComponent<SpriteRenderer>().sprite = boxSprite[1];
-        box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
+        box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
     }
     public void TimeIncreaseBoxSpawn()
     {
@@ -107,7 +132,6 @@ public class PoolManager : MonoBehaviour
         handler = (s, e) =>
         {
             ModeManager.instance.SetTime(true);
-            GameManager.instance.BoxIncrease(1, 1);
             boxPool.Release(box); //박스의 초기화
 
             box.Death -= handler; //했으면 빼주기
@@ -118,7 +142,7 @@ public class PoolManager : MonoBehaviour
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
         box.gameObject.SetActive(true); //액티브를 켜줌
         //box.GetComponent<SpriteRenderer>().sprite = boxSprite[2];
-        box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
+        box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
     }
     
 

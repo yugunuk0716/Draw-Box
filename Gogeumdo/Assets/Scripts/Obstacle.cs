@@ -12,6 +12,7 @@ public class Obstacle : Box
     {
         base.OnEnable();
         //속도 랜덤 조정을 추가해야 한다.
+        SetMoveSpeed(UnityEngine.Random.Range(0.01f, 0.05f)); //속도 랜덤 조정
     }
 
     protected override void OnCollisionEnter2D(Collision2D col)

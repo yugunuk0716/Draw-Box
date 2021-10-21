@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MovementManager : MonoBehaviour
+public class BoxManager : MonoBehaviour
 {
-    public static MovementManager instance;
+    public static BoxManager instance;
 
     public Transform touchPos; // 터치했을 때의 위치를 저장할 변수
     public Transform[] lineTrm;// 라인 별 위치를 저장하는 배열
+
+    private float feverTime = 5f;
+    private WaitForSeconds feverWs;
 
     public bool canRightMove = true; // 지금 이동해야할 방향이 오른쪽인지 아닌지를 체크하는 변수
 
@@ -24,6 +27,8 @@ public class MovementManager : MonoBehaviour
             return;
         }
         instance = this;
+
+        feverWs = new WaitForSeconds(feverTime);
     }
 
     void Update()
@@ -117,6 +122,17 @@ public class MovementManager : MonoBehaviour
             }
         }
 #endif
+        PoolManager.instance.EventBoxSpawn();
+    }
+
+    public IEnumerator Fever()
+    {
+        if (GameManager.instance.isFever) yield break;
+        GameManager.instance.isFever = true; //피버 시작
+
+        yield return feverWs;
+
+        GameManager.instance.isFever = false; //피버 종료
     }
 
     public void SetLineIndex(bool on) // 라인 인덱스를 변경하는 함수

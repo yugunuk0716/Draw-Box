@@ -19,6 +19,7 @@ public class ModeManager : MonoBehaviour
             return;
         }
         instance = this;
+        
     }
 
 
@@ -29,6 +30,12 @@ public class ModeManager : MonoBehaviour
             //스테이지
             switch (stageIdx)
             {
+                case 0:
+                    Debug.LogError($"잘못된 스테이지입니다 : stageIdx = {stageIdx}");
+                    break;
+                case 1:
+                    GameManager.instance.SetRemainBox();
+                    break;
                 default:
                     break;
             }
@@ -71,6 +78,7 @@ public class ModeManager : MonoBehaviour
         if (min <= 0)
         {
             //게임오버
+            //겜오버 띄우기
             GameManager.instance.isGameover = true;
         }
 
