@@ -199,7 +199,6 @@ GameObject:
   - component: {fileID: 204508293}
   - component: {fileID: 204508294}
   - component: {fileID: 204508295}
-  - component: {fileID: 204508292}
   - component: {fileID: 204508296}
   - component: {fileID: 204508297}
   m_Layer: 0
@@ -209,18 +208,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &204508292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204508291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6e3680135275ae4abb72073abe28480, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &204508293
 Transform:
   m_ObjectHideFlags: 0
@@ -271,7 +258,8 @@ MonoBehaviour:
   obstaclePrefab: {fileID: 3955630587892866783, guid: 9e2e2bc7c37ad2343849ab1bb451223b, type: 3}
   spawnPoint: {fileID: 1739754305}
   obstacleCount: 0
-  boxSprite: []
+  boxSprite:
+  - {fileID: 7499154508442906066, guid: 3966b177bafb7c1419ec75e5532b9272, type: 3}
 --- !u!114 &204508296
 MonoBehaviour:
   m_ObjectHideFlags: 0
