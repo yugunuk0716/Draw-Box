@@ -9,7 +9,7 @@ public class ModeManager : MonoBehaviour
 
 
     private int min = 5;
-    private float sec = 0f;
+    private float sec = 1f;
 
     private void Awake()
     {
@@ -19,7 +19,7 @@ public class ModeManager : MonoBehaviour
             return;
         }
         instance = this;
-        
+        StageOrRank(GameManager.instance.isStage, GameManager.instance.stageIndex);
     }
 
 
@@ -27,17 +27,9 @@ public class ModeManager : MonoBehaviour
     {
         if(isStage)
         {
-            //스테이지
-            switch (stageIdx)
+            if(stageIdx != 0) //혹시모르니 예외처리
             {
-                case 0:
-                    Debug.LogError($"잘못된 스테이지입니다 : stageIdx = {stageIdx}");
-                    break;
-                case 1:
-                    GameManager.instance.SetRemainBox();
-                    break;
-                default:
-                    break;
+                GameManager.instance.SetRemainBox();
             }
         }
         else
@@ -60,14 +52,33 @@ public class ModeManager : MonoBehaviour
 
         TimeCompare();
     }
-
-
     public void TimeCompare()
     {
         if (sec <= 0f)
         {
             sec = 59f;
             min--;
+            if(min % 2 == 0)
+            {
+                PoolManager.instance.ObstacleSpawn();
+            }
+            switch (min)
+            {
+                case 0:
+                    PoolManager.instance.SetBoxSpeed(0.05f);
+                    break;
+                case 1:
+                    PoolManager.instance.SetBoxSpeed(0.04f);
+                    break;
+                case 2:
+                    PoolManager.instance.SetBoxSpeed(0.03f);
+                    break;
+                case 3:
+                    PoolManager.instance.SetBoxSpeed(0.02f);
+                    break;
+                default:
+                    break;
+            }
         }
         else if (sec >= 59f)
         {
@@ -77,8 +88,6 @@ public class ModeManager : MonoBehaviour
 
         if (min <= 0)
         {
-            //게임오버
-            //겜오버 띄우기
             GameManager.instance.isGameover = true;
         }
 

@@ -22,6 +22,10 @@ public class PoolManager : MonoBehaviour
     public Sprite[] boxSprite; //박스의 스프라이트들 
     //0 = 기본 박스 1 = 피버 박스 2 = 시간 증가 박스 로 할 예정
 
+    private WaitForSeconds Before10;
+    private WaitForSeconds Before20;
+    private WaitForSeconds After20;
+
     private void Awake()
     {
         if(instance != null)
@@ -32,6 +36,9 @@ public class PoolManager : MonoBehaviour
         instance = this;
 
         boxCount = new int[2];
+        Before10 = new WaitForSeconds(4f);
+        Before20 = new WaitForSeconds(3f);
+        After20 = new WaitForSeconds(2f);
     }
 
     private void Start()
@@ -47,7 +54,6 @@ public class PoolManager : MonoBehaviour
 
     public void EventBoxSpawn() //박스가 몇개씩 사라지고 생성되는 아이템인지 체크
     {
-        if (GameManager.instance.isStage) return;
 
         if (boxCount[0] >= 5)
         {
@@ -78,7 +84,20 @@ public class PoolManager : MonoBehaviour
         ob.gameObject.SetActive(true);
         ob.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x, spawnPoint.position.y);
     }
-
+    public void AddBoxCount(bool add)
+    {
+        for (int i = 0; i < boxCount.Length; i++)
+        {
+            boxCount[i] += add ? 1 : -1;
+        }
+    }
+    public void SetBoxSpeed(float speed)
+    {
+        for (int i = 0; i < boxPool.members.Count; i++)
+        {
+            boxPool.members[i].SetMoveSpeed(speed);
+        }
+    }
     public void BoxSpawn()
     {
         Box box = boxPool.Allocate(); //박스의 풀에 박스가있다면 가져오고 없다면 새로 만들기
@@ -87,10 +106,8 @@ public class PoolManager : MonoBehaviour
         handler = (s, e) =>
         {
             GameManager.instance.AddScore(1);
-            for (int i = 0; i < boxCount.Length; i++)
-            {
-                boxCount[i] += 1;
-            }
+            
+            AddBoxCount(true);
             boxPool.Release(box); //박스의 초기화
             box.Death -= handler; //했으면 빼주기
         };
@@ -150,8 +167,28 @@ public class PoolManager : MonoBehaviour
     {
         while (!GameManager.instance.isGameover) //게임오버가 아닐때까지 
         {
-            BoxSpawn();
-            yield return new WaitForSeconds(4f); //나중에 조절해준다.
+            if(GameManager.instance.isStage && GameManager.instance.remainBox > 0)
+            {
+                BoxSpawn();
+            }
+            else if(!GameManager.instance.isStage)
+            {
+                BoxSpawn();
+            }
+
+            if(GameManager.instance.stageIndex < 10)
+            {
+                yield return Before10; //나중에 조절해준다.
+            }
+            else if(GameManager.instance.stageIndex < 20)
+            {
+                yield return Before20;
+            }
+            else
+            {
+                yield return After20;
+            }
+            yield return null;
         }
     }
     IEnumerator InitObstacle()

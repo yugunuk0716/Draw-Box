@@ -73,7 +73,7 @@ public class Box : MonoBehaviour, IResettable
             Vector2 dest = new Vector2(0, 0.315f);
             RaycastHit2D hit = Physics2D.BoxCast(dest + (Vector2)gameObject.transform.position, gameObject.transform.lossyScale * 0.2f, 0, new Vector2(0, 0));
 
-            if (hit.collider == null || !hit.collider.CompareTag("Player") || hit.collider == col || !hit.collider.CompareTag("Obstacle")) //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우는 이동할 수 있는 경우임
+            if (hit.collider == null || !hit.collider.CompareTag("Player") || hit.collider == col) //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우는 이동할 수 있는 경우임
             {
 
                 dest = new Vector2(0, moveTime); //실제 위치를 받아온다
@@ -97,7 +97,7 @@ public class Box : MonoBehaviour, IResettable
             {
                 if (obj.lineIndex == (int)line || GameManager.instance.isFever) //박스의 라인과 목표 라인이 동일하거나 피버가 활성화중이라면
                 {
-                    DeathEvent(); // Death 이벤트를 실행
+                    Death(this, null); // Death 이벤트를 실행
                 }
             }
         }
@@ -105,8 +105,10 @@ public class Box : MonoBehaviour, IResettable
 
     }
    
-    public void DeathEvent()
+    public void DeathEvent() //장애물에 닿았을때 필요한 죽음이벤트
     {
+        PoolManager.instance.AddBoxCount(false);
+        GameManager.instance.boxCount--;
         Death(this, null);
     }
 

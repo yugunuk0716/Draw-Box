@@ -9,7 +9,7 @@ public class BeltManager : MonoBehaviour
 
     public  float beltSpeed = 120;
 
-    private int wave = 0;//웨이브 관리
+    //private int wave = 0;//웨이브 관리
 
     private Animator[] anim; 
 
