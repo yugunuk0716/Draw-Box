@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Order : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Order : MonoBehaviour
     public Text totalBoxCountText;
     public Text leftBoxCountText;
     public Button confirmButton;
+    public List<GameObject> boxObjs;
     private int leftBoxCount;
 
 
@@ -70,7 +72,19 @@ public class Order : MonoBehaviour
         {
             leftBoxCount--;
         }
-        //»óÀÚ ¿ÞÂÊÀ¸·Î Æ®À§´×
+        //»óÀÚ Æ®À§´×
+        //Sequence seq = DOTween.Sequence();
+        //GameObject box = boxObjs.Find(x => !x.activeSelf);
+        //box.SetActive(true);
+        //seq.Append(box.transform.DOLocalMoveX(4.5f, 1f).OnComplete(() =>
+        //{
+        //    box.transform.localPosition = new Vector3(-4.5f, 0);
+
+        //})).Join(boxObj2.transform.DOLocalMoveX(0f, 1f));
+
+
+
+
     }
 
 
