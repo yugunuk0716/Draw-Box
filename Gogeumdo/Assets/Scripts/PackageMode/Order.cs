@@ -5,30 +5,29 @@ using UnityEngine.UI;
 
 public class Order : MonoBehaviour
 {
-    [Header("orderSheet")]
-    [Range(0,5)]
-    private int orderIdx;
+    [Header("OrderSheet")]
     public Text orderText;
     public readonly string[] areas = new string[5] {"경기도","강원도","경상도","전라도","충청도" };
-
+    private int orderIdx;
 
     [Header("PackableBox")]
-    private int boxIdx;
     public Button substituteZeroButton;
     public Button substituteOneButton;
     public Button substituteTwoButton;
     public Button substituteThreeButton;
     public Button substituteFourButton;
+    private int boxIdx;
 
     [Header("Total")]
     public Text totalBoxCountText;
+    public Text leftBoxCountText;
     public Button confirmButton;
-    private int totalBoxCount;
+    private int leftBoxCount;
 
 
     private void Start()
     {
-        SetNext();
+        
 
         substituteZeroButton.onClick.AddListener(() => SubstituteNumberButton(0));
         substituteOneButton.onClick.AddListener(() => SubstituteNumberButton(1));
@@ -37,7 +36,10 @@ public class Order : MonoBehaviour
         substituteFourButton.onClick.AddListener(() => SubstituteNumberButton(4));
         confirmButton.onClick.AddListener(() => Confirm());
 
-        // totalBoxCount = ;
+        leftBoxCount = 50;//임시
+        totalBoxCountText.text = $"{leftBoxCount}";
+        //totalBoxCount = GameManager.instance.stageBox[GameManager.instance.stageIndex];//원래 이거임
+        SetNext();
     }
 
 
@@ -46,11 +48,13 @@ public class Order : MonoBehaviour
     {
         orderIdx = Random.Range(0, 5);
         orderText.text = $"{areas[orderIdx]}";
+        leftBoxCountText.text = $"{leftBoxCount}";
     }
 
     private void SubstituteNumberButton(int substituteNum)
     {
         boxIdx = substituteNum;
+        print(substituteNum);
     }
 
     private void Confirm() 
@@ -58,11 +62,13 @@ public class Order : MonoBehaviour
         if (boxIdx == orderIdx) 
         {
             GameManager.instance.boxIdxQueue.Enqueue(orderIdx);
+            leftBoxCount--;
+            SetNext();
             
         }
         else
         {
-            totalBoxCount--;
+            leftBoxCount--;
         }
         //상자 왼쪽으로 트위닝
     }
