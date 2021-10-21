@@ -16,7 +16,7 @@ public class PoolManager : MonoBehaviour
     public Transform spawnPoint; //박스의 소환지점
 
     public int obstacleCount = 0;
-    public Sprite[] boxSprite; //박스의 스프라이트들
+    public Sprite[] boxSprite; //박스의 스프라이트들 //0 = 기본 박스 1 = 피버 박스 2 = 시간 증가 박스 로 할 예정
 
     private void Awake()
     {
@@ -73,6 +73,7 @@ public class PoolManager : MonoBehaviour
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
         box.gameObject.SetActive(true); //액티브를 켜줌
+        //box.GetComponent<SpriteRenderer>().sprite = boxSprite[0];
         box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
     }
     public void FeverBoxSpawn()
@@ -95,6 +96,7 @@ public class PoolManager : MonoBehaviour
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
         box.gameObject.SetActive(true); //액티브를 켜줌
+        //box.GetComponent<SpriteRenderer>().sprite = boxSprite[1];
         box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
     }
     public void TimeIncreaseBoxSpawn()
@@ -115,6 +117,7 @@ public class PoolManager : MonoBehaviour
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
         box.gameObject.SetActive(true); //액티브를 켜줌
+        //box.GetComponent<SpriteRenderer>().sprite = boxSprite[2];
         box.gameObject.transform.position = new Vector2(MovementManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
     }
     

@@ -39,23 +39,22 @@ public class Box : MonoBehaviour, IResettable
         moveWS = new WaitForSeconds(moveTime);// 코루틴 대기시간 설정
 
         col = GetComponent<BoxCollider2D>();
+
+        
     }
-
-    
-
 
     public virtual void OnEnable() //풀링을 해서 다시 켜졌을 때 실행해야 할 것들 추가
     {
-        SetLine();
+        InitBox();
         StartCoroutine(BoxMove());
-        lineIdx = UnityEngine.Random.Range(0,4);
+        lineIdx = UnityEngine.Random.Range(0,5); //0 ~ 4번째 라인
     }
 
-    protected void SetLine() // 박스의 줄을 랜덤으로 설정
+    protected void InitBox() // 박스의 줄을 랜덤으로 설정
     {
-        int idx = UnityEngine.Random.Range(0, 4);
+        int idx = UnityEngine.Random.Range(0, 5); //0 ~ 4번째 라인
         line = (Line)idx;
-        gameObject.GetComponent<SpriteRenderer>().color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+        gameObject.GetComponent<SpriteRenderer>().color = GameManager.instance.lineColorDic[line];
         //print(idx);
     }
 
@@ -92,7 +91,7 @@ public class Box : MonoBehaviour, IResettable
             {
                 if (obj.lineIndex == (int)line || GameManager.instance.isFever) //박스의 라인과 목표 라인이 동일하거나 피버가 활성화중이라면
                 {
-                    Death(this, null); // Death 이벤트를 실행
+                    DeathEvent(); // Death 이벤트를 실행
                 }
             }
         }
@@ -100,9 +99,10 @@ public class Box : MonoBehaviour, IResettable
 
     }
    
-
-
-
+    public void DeathEvent()
+    {
+        Death(this, null);
+    }
 
 
     public void Reset()//Death 이벤트 발동시 실행되는 함수

@@ -24,5 +24,14 @@ public class Obstacle : Box
                 Death(this, null); // Death 이벤트를 실행
             }
         }
+        else if(col.gameObject.CompareTag("Player"))
+        {
+            Box box = col.gameObject.GetComponent<Box>();
+            if(box != null)
+            {
+                //이펙트가 필요하면 여기서 해야할듯?
+                box.DeathEvent();
+            }
+        }
     }
 }

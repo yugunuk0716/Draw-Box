@@ -31,7 +31,7 @@ public class BoxManager : MonoBehaviour
 
     public IEnumerator Fever()
     {
-        
+        if (GameManager.instance.isFever) yield break;
         GameManager.instance.isFever = true; //피버 시작
 
         yield return feverWs;

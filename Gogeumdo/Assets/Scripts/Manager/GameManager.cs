@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance; // 싱글톤
 
-    //public int boxCount = 0;
+    public Dictionary<Line, Color> lineColorDic; //라인별 컬러 딕셔너리
+
     public bool isGameover = false; // 게임오버 체크
     public bool isStage = false; //스테이지 모드인지 무한모드인지 체크하기 위한 변수
     public bool isFever = false; //피버인지 체크하기 위한 변수
@@ -27,13 +28,19 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+
+        lineColorDic = new Dictionary<Line, Color>()
+        {
+            {Line.a,Color.red },
+            {Line.b,Color.yellow },
+            {Line.c,Color.green },
+            {Line.d,Color.blue },
+            {Line.e, new Color(161f/255f,0f,255f/255f) /*보라색*/}
+        };
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A)) 
-        {
-            LoadManager.LoadScene("InGame");
-        }
+        
     }
 
     public void Init() 
