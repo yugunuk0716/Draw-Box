@@ -52,9 +52,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetRemainBox()
+    public void SetRemainBox(int idx)
     {
-        remainBox = stageBox[stageIndex];
+        remainBox = idx;
     }
 
     public void Init() 
