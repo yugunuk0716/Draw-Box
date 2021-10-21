@@ -19,7 +19,7 @@ public class StageManager : MonoBehaviour
             stageButton[idx - 1].onClick.AddListener(() =>
             {
                 GameManager.instance.stageIndex = idx; //게임매니저의 스테이지 인덱스를 바꿔줌
-                LoadManager.LoadScene("InGame");
+                LoadManager.LoadScene("InGamePackager");
             });
         }
     }

@@ -122,7 +122,14 @@ public class BoxManager : MonoBehaviour
             }
         }
 #endif
-        PoolManager.instance.EventBoxSpawn();
+        if(!GameManager.instance.isStage)
+            PoolManager.instance.EventBoxSpawn();
+
+        if(GameManager.instance.remainBox <= 0)
+        {
+            //클리어했을때의 처리
+            
+        }
     }
 
     public IEnumerator Fever()

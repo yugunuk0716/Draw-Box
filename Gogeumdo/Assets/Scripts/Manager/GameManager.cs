@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
             stageBox.Add(i, 10 + (i*2));
             if (i % 10 == 0)
             {
-                stageBox[i] += 3;
+                stageBox[i] += 4;
             }
         }
         for (int i = 1; i < 4; i++)
@@ -57,7 +57,10 @@ public class GameManager : MonoBehaviour
             stageStar.Add(i, new List<int>() {(int)(stageBox[i] * 0.5f), (int)(stageBox[i] * 0.75f), stageBox[i]}); //3별:100% 넣었을경우 2별:75% 1별:50%
         }
     }
-
+    public bool CompareCount(int stageIdx)
+    {
+        return stageStar[stageIndex][stageIdx] >= boxCount;
+    }
     public void SetRemainBox()
     {
         remainBox = boxIdxQueue.Count;
@@ -66,18 +69,25 @@ public class GameManager : MonoBehaviour
     public void Init() 
     {
         boxCount = 0;
+        boxIdxQueue.Clear();
         isFever = false;
         isGameover = false;
     }
-    public void AddScore(int score)
+    public void AddScore(int score) //박스갯수를 더해주며 
     {
+        this.boxCount += score;
         if (isStage)
         {
             this.remainBox -= score;
-        }
-        else
-        {
-            this.boxCount += score;
+
+            if (stageStar[stageIndex][1] >= boxCount)
+            {
+                PoolManager.instance.SetBoxSpeed(0.03f);
+            }
+            else if (stageStar[stageIndex][0] >= boxCount)
+            {
+                PoolManager.instance.SetBoxSpeed(0.02f);
+            }
         }
     }
 }
