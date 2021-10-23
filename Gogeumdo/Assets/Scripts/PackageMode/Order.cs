@@ -7,30 +7,30 @@ using DG.Tweening;
 public class Order : MonoBehaviour
 {
     [Header("OrderSheet")]
-    public Text orderText;
-    public readonly string[] areas = new string[5] {"경기도","강원도","경상도","전라도","충청도" };
-    private int orderIdx;
+    public Text orderText; // 상자 안에 들어가야 할 것 텍스트
+    public readonly string[] areas = new string[5] {"경기도","강원도","경상도","전라도","충청도" };// 텍스트 저장
+    private int orderIdx;// 랜덤으로 들어가야 할 것 설정
 
-    [Header("PackableBox")]
+    [Header("PackableBox")] // 상자 안에 인덱스를 넣는 버튼들
     public Button substituteZeroButton;
     public Button substituteOneButton;
     public Button substituteTwoButton;
     public Button substituteThreeButton;
     public Button substituteFourButton;
-    private int boxIdx;
+    private int boxIdx; // 상자에 들어가 있는 인덱스
 
     [Header("Total")]
-    public Text totalBoxCountText;
-    public Text leftBoxCountText;
-    public Button confirmButton;
-    public List<GameObject> boxObjs;
-    private int leftBoxCount;
+    public Text totalBoxCountText; // 스테이지 총 상자수 텍스트
+    public Text leftBoxCountText; // 남은 상자수 텍스트
+    public Button confirmButton; // 상자에 인덱스 넣을걸 확정하는 버튼
+    public List<GameObject> boxObjs; // 트위닝으로 애니메이션 만들 상자 오브젝트
+    private int leftBoxCount; // 남은 상자수
 
 
     private void Start()
     {
         
-
+        //버튼에 이벤트 추가
         substituteZeroButton.onClick.AddListener(() => SubstituteNumberButton(0));
         substituteOneButton.onClick.AddListener(() => SubstituteNumberButton(1));
         substituteTwoButton.onClick.AddListener(() => SubstituteNumberButton(2));
@@ -40,37 +40,36 @@ public class Order : MonoBehaviour
 
         leftBoxCount = 50;//임시
         totalBoxCountText.text = $"{leftBoxCount}";
-        //totalBoxCount = GameManager.instance.stageBox[GameManager.instance.stageIndex];//원래 이거임
-        SetNext();
+        //totalBoxCount = GameManager.instance.stageBox[GameManager.instance.stageIndex];//GameManager에서 스테이지별 상자를 가져와서 총 상자수로 설정
+        SetBox();//다음 
     }
 
 
 
-    private void SetNext() //한 상자를 포장했을 때 해줘야 할 것들
+    private void SetBox() //한 상자를 포장했을 때 해줘야 할 것들
     {
         orderIdx = Random.Range(0, 5);
         orderText.text = $"{areas[orderIdx]}";
         leftBoxCountText.text = $"{leftBoxCount}";
     }
 
-    private void SubstituteNumberButton(int substituteNum)
+    private void SubstituteNumberButton(int substituteNum) // 상자에 인덱스 대입
     {
         boxIdx = substituteNum;
-        print(substituteNum);
     }
 
-    private void Confirm() 
+    private void Confirm() //확인 버튼
     {
-        if (boxIdx == orderIdx) 
+        if (boxIdx == orderIdx) //boxIdx 와 orderIdx가 같다면 옳게 입력된거이므로
         {
-            GameManager.instance.boxIdxQueue.Enqueue(orderIdx);
-            leftBoxCount--;
-            SetNext();
+            GameManager.instance.boxIdxQueue.Enqueue(orderIdx);//다음 스테이지에서 쓰기 위해 queue에 넣어요
+            leftBoxCount--; //남은 상자수 줄여요
+            SetBox(); //새 상자를 내요
             
         }
         else
         {
-            leftBoxCount--;
+            leftBoxCount--;//아니라면 걍 남은 상자 수만 줄여준다
         }
         //상자 트위닝
         //Sequence seq = DOTween.Sequence();

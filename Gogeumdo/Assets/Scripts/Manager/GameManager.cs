@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; // 싱글톤
 
     public Dictionary<int, int> stageBox = new Dictionary<int, int>(); //스테이지별 박스갯수
-    public Dictionary<int, List<int>> stageStar = new Dictionary<int, List<int>>();
+    public Dictionary<int, List<int>> stageStar = new Dictionary<int, List<int>>(); // 스테이지 별 개수
     public Dictionary<Line, Color> lineColorDic; //라인별 컬러 딕셔너리
 
     public Queue<int> boxIdxQueue = new Queue<int>();
