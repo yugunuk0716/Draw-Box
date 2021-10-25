@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
-public class TitleManager : MonoBehaviour
+public class Title : MonoBehaviour
 {
     public PanelScript stOrInPanel; //stage나 infinite 모드를 고르기 위한 패널
     public Button[] stAndInBtns; //0 = stage //1 = infinite
