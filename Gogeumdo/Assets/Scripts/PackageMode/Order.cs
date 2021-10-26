@@ -25,8 +25,11 @@ public class Order : MonoBehaviour
     public Text timerText = null;//제한 시간 텍스트
     public float currentTime = 0f;//제한 시간
     public List<GameObject> boxObjs; // 트위닝으로 애니메이션 만들 상자 오브젝트
+    public Sprite[] boxSprites;
+    public GameObject targetBox;
     private int leftBoxCount; // 남은 상자수
     private int totalBoxCount;
+    private bool isTweening = false;
    
 
 
@@ -44,8 +47,8 @@ public class Order : MonoBehaviour
         substituteFourButton.onClick.AddListener(() => SubstituteNumberButton(4));
         confirmButton.onClick.AddListener(() => Confirm());
 
-       totalBoxCount = GameManager.instance.stageBox[GameManager.instance.stageIndex];//GameManager에서 스테이지별 상자를 가져와서 총 상자수로 설정
-        //totalBoxCount = 50;//임시
+        //totalBoxCount = GameManager.instance.stageBox[GameManager.instance.stageIndex];//GameManager에서 스테이지별 상자를 가져와서 총 상자수로 설정
+        totalBoxCount = 50;//임시
         leftBoxCount = totalBoxCount;
         SetBox();//다음 
 
@@ -76,23 +79,33 @@ public class Order : MonoBehaviour
         orderIdx = Random.Range(0, 5);
         orderText.text = $"{areas[orderIdx]}";
         totalPerLeftBoxCountText.text = $"{leftBoxCount} / {totalBoxCount}";
+        targetBox.GetComponent<SpriteRenderer>().sprite = boxSprites[orderIdx];
+        BoxTween(orderIdx);
     }
 
     private void SubstituteNumberButton(int substituteNum) // 상자에 인덱스 대입
     {
-        boxIdx = substituteNum;
+        if (!isTweening) 
+        {
+            GameObject box = boxObjs.Find(x => x.transform.position.x == 0f);
+            box.GetComponent<SpriteRenderer>().sprite = boxSprites[substituteNum];
+            boxIdx = substituteNum;
+        }
+        else
+        {
+            print("트위닝 중임");
+        }
     }
 
     private void Confirm() //확인 버튼
     {
-        if (boxIdx == orderIdx) //boxIdx 와 orderIdx가 같다면 옳게 입력된거이므로
+        if (boxIdx == orderIdx && !isTweening) //boxIdx 와 orderIdx가 같다면 옳게 입력된 것이므로
         {
-            GameManager.instance.boxIdxQueue.Enqueue(orderIdx);//다음 스테이지에서 쓰기 위해 queue에 넣어요
-            leftBoxCount--; //남은 상자수 줄여요
-            if (leftBoxCount <= 0) 
+            //GameManager.instance.boxIdxQueue.Enqueue(orderIdx);//다음 스테이지에서 쓰기 위해 queue에 넣는다
+            leftBoxCount--; //남은 상자수를 줄인다
+            if (leftBoxCount <= 0) //만약 남은 상자가 0이하라면
             {
-                LoadManager.LoadScene("InGame");
-                return;
+                LoadManager.LoadScene("InGame");//상자
 
             }
             else
@@ -104,16 +117,10 @@ public class Order : MonoBehaviour
         else
         {
             leftBoxCount--;//아니라면 걍 남은 상자 수만 줄여준다
+            totalBoxCount--;
+            SetBox();
         }
-        //상자 트위닝
-        //Sequence seq = DOTween.Sequence();
-        //GameObject box = boxObjs.Find(x => !x.activeSelf);
-        //box.SetActive(true);
-        //seq.Append(box.transform.DOLocalMoveX(4.5f, 1f).OnComplete(() =>
-        //{
-        //    box.transform.localPosition = new Vector3(-4.5f, 0);
-
-        //})).Join(boxObj2.transform.DOLocalMoveX(0f, 1f));
+        
 
 
 
@@ -121,6 +128,42 @@ public class Order : MonoBehaviour
     }
 
 
+    private void BoxTween(int curIdx) 
+    {
+        isTweening = true;
+        //상자 트위닝
+        Sequence seq = DOTween.Sequence();
+        GameObject box = boxObjs.Find(x => x.transform.position.x == 0);
+        GameObject box2 = boxObjs.Find(x => x.transform.position.x == -4.5f);
+        if (box == null || box2 == null)
+            return;
+        box.SetActive(true);
+        box2.SetActive(true);
+        box2.GetComponent<SpriteRenderer>().sprite = boxSprites[boxIdx];
+        if (totalBoxCount - leftBoxCount == 0) //첫 박스
+        {
+            box.SetActive(false);
+            box.transform.DOLocalMoveX(-4.5f,0.1f);
+            seq.Append(box2.transform.DOLocalMoveX(0f, 1f).OnComplete(() => isTweening = false));
+        }
+        else if(totalBoxCount - leftBoxCount == totalBoxCount)// 마지막 박스
+        {
+            seq.Append(box.transform.DOLocalMoveX(4.5f, 1f).OnComplete(() =>
+            {
+                box.transform.localPosition = new Vector3(-4.5f, 0);
+
+            }).OnComplete(() => isTweening = false));
+        }
+        else
+        {
+            seq.Append(box.transform.DOLocalMoveX(4.5f, 1f).OnComplete(() =>
+            {
+                box.transform.localPosition = new Vector3(-4.5f, 0);
+
+            })).Join(box2.transform.DOLocalMoveX(0f, 1f).OnComplete(() => isTweening = false));
+        }
+      
+    }
 
 
 
