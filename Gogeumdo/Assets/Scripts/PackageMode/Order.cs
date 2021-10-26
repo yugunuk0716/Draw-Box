@@ -44,9 +44,9 @@ public class Order : MonoBehaviour
         substituteFourButton.onClick.AddListener(() => SubstituteNumberButton(4));
         confirmButton.onClick.AddListener(() => Confirm());
 
-        totalBoxCount = 50;//임시
+       totalBoxCount = GameManager.instance.stageBox[GameManager.instance.stageIndex];//GameManager에서 스테이지별 상자를 가져와서 총 상자수로 설정
+        //totalBoxCount = 50;//임시
         leftBoxCount = totalBoxCount;
-       //totalBoxCount = GameManager.instance.stageBox[GameManager.instance.stageIndex];//GameManager에서 스테이지별 상자를 가져와서 총 상자수로 설정
         SetBox();//다음 
 
         currentTime = totalBoxCount * 3f;
