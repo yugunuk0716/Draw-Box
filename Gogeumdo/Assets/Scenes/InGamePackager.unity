@@ -688,7 +688,7 @@ GameObject:
   - component: {fileID: 1203925762}
   - component: {fileID: 1203925761}
   m_Layer: 5
-  m_Name: TotalBoxText
+  m_Name: TimerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -710,7 +710,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -256.31, y: -0.000059128}
+  m_AnchoredPosition: {x: 234, y: -0.000059128}
   m_SizeDelta: {x: 512.62, y: 174.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1203925761
@@ -746,7 +746,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCD1D \uC0C1\uC790\uC218"
+  m_Text: "\uD0C0\uC774\uBA38"
 --- !u!222 &1203925762
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1819,7 +1819,7 @@ GameObject:
   - component: {fileID: 1955284058}
   - component: {fileID: 1955284057}
   m_Layer: 5
-  m_Name: LeftBoxText
+  m_Name: totalPerLeftBoxText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1841,7 +1841,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 256.31, y: -0.000059128}
+  m_AnchoredPosition: {x: -278.62, y: 6.7}
   m_SizeDelta: {x: 512.62, y: 174.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1955284057
@@ -1988,9 +1988,11 @@ MonoBehaviour:
   substituteTwoButton: {fileID: 1349786944}
   substituteThreeButton: {fileID: 1597615763}
   substituteFourButton: {fileID: 1831029426}
-  totalBoxCountText: {fileID: 0}
-  leftBoxCountText: {fileID: 1955284057}
+  totalPerLeftBoxCountText: {fileID: 1955284057}
   confirmButton: {fileID: 1214337390}
+  timerText: {fileID: 1203925761}
+  currentTime: 0
+  boxObjs: []
 --- !u!4 &2048581377
 Transform:
   m_ObjectHideFlags: 0

@@ -20,11 +20,17 @@ public class Order : MonoBehaviour
     private int boxIdx; // 상자에 들어가 있는 인덱스
 
     [Header("Total")]
-    public Text totalBoxCountText; // 스테이지 총 상자수 텍스트
-    public Text leftBoxCountText; // 남은 상자수 텍스트
+    public Text totalPerLeftBoxCountText; // 남은 상자수 텍스트
     public Button confirmButton; // 상자에 인덱스 넣을걸 확정하는 버튼
+    public Text timerText = null;//제한 시간 텍스트
+    public float currentTime = 0f;//제한 시간
     public List<GameObject> boxObjs; // 트위닝으로 애니메이션 만들 상자 오브젝트
     private int leftBoxCount; // 남은 상자수
+    private int totalBoxCount;
+   
+
+
+  
 
 
     private void Start()
@@ -38,19 +44,38 @@ public class Order : MonoBehaviour
         substituteFourButton.onClick.AddListener(() => SubstituteNumberButton(4));
         confirmButton.onClick.AddListener(() => Confirm());
 
-        leftBoxCount = 50;//임시
-        totalBoxCountText.text = $"{leftBoxCount}";
-        //totalBoxCount = GameManager.instance.stageBox[GameManager.instance.stageIndex];//GameManager에서 스테이지별 상자를 가져와서 총 상자수로 설정
+        totalBoxCount = 50;//임시
+        leftBoxCount = totalBoxCount;
+       //totalBoxCount = GameManager.instance.stageBox[GameManager.instance.stageIndex];//GameManager에서 스테이지별 상자를 가져와서 총 상자수로 설정
         SetBox();//다음 
+
+        currentTime = totalBoxCount * 3f;
+        //상자 하나당 3초 드립니다
     }
 
+
+    private void Update()
+    {
+        currentTime -= Time.deltaTime;
+
+        int min = (int)currentTime / 60;
+        int hour = (int)currentTime / (60 * 60);
+
+        timerText.text = $"{hour % 60}:{(min % 60).ToString("00")}:{(currentTime % 60).ToString("00.00")}";
+
+        if (currentTime <= 0) 
+        {
+            //게임 오버 패널 띄워야댐
+            print("게임 오버");
+        }
+    }
 
 
     private void SetBox() //한 상자를 포장했을 때 해줘야 할 것들
     {
         orderIdx = Random.Range(0, 5);
         orderText.text = $"{areas[orderIdx]}";
-        leftBoxCountText.text = $"{leftBoxCount}";
+        totalPerLeftBoxCountText.text = $"{leftBoxCount} / {totalBoxCount}";
     }
 
     private void SubstituteNumberButton(int substituteNum) // 상자에 인덱스 대입
@@ -64,7 +89,16 @@ public class Order : MonoBehaviour
         {
             GameManager.instance.boxIdxQueue.Enqueue(orderIdx);//다음 스테이지에서 쓰기 위해 queue에 넣어요
             leftBoxCount--; //남은 상자수 줄여요
-            SetBox(); //새 상자를 내요
+            if (leftBoxCount <= 0) 
+            {
+                LoadManager.LoadScene("InGame");
+                return;
+
+            }
+            else
+            {
+                SetBox(); //새 상자를 내요
+            }
             
         }
         else
