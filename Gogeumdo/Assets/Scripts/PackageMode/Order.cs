@@ -47,8 +47,8 @@ public class Order : MonoBehaviour
         substituteFourButton.onClick.AddListener(() => SubstituteNumberButton(4));
         confirmButton.onClick.AddListener(() => Confirm());
 
-        //totalBoxCount = GameManager.instance.stageBox[GameManager.instance.stageIndex];//GameManager에서 스테이지별 상자를 가져와서 총 상자수로 설정
-        totalBoxCount = 50;//임시
+        totalBoxCount = GameManager.instance.stageBox[GameManager.instance.stageIndex];//GameManager에서 스테이지별 상자를 가져와서 총 상자수로 설정
+        //totalBoxCount = 50;//임시
         leftBoxCount = totalBoxCount;
         SetBox();//다음 
 
@@ -85,23 +85,18 @@ public class Order : MonoBehaviour
 
     private void SubstituteNumberButton(int substituteNum) // 상자에 인덱스 대입
     {
-        if (!isTweening) 
-        {
-            GameObject box = boxObjs.Find(x => x.transform.position.x == 0f);
-            box.GetComponent<SpriteRenderer>().sprite = boxSprites[substituteNum];
-            boxIdx = substituteNum;
-        }
-        else
-        {
-            print("트위닝 중임");
-        }
+        
+        GameObject box = boxObjs.Find(x => x.transform.position.x == 0f );
+        box.GetComponent<SpriteRenderer>().sprite = boxSprites[substituteNum];
+        boxIdx = substituteNum;
+       
     }
 
     private void Confirm() //확인 버튼
     {
         if (boxIdx == orderIdx && !isTweening) //boxIdx 와 orderIdx가 같다면 옳게 입력된 것이므로
         {
-            //GameManager.instance.boxIdxQueue.Enqueue(orderIdx);//다음 스테이지에서 쓰기 위해 queue에 넣는다
+            GameManager.instance.boxIdxQueue.Enqueue(orderIdx);//다음 스테이지에서 쓰기 위해 queue에 넣는다
             leftBoxCount--; //남은 상자수를 줄인다
             if (leftBoxCount <= 0) //만약 남은 상자가 0이하라면
             {
