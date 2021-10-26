@@ -23,6 +23,10 @@ public class ModeManager : MonoBehaviour
             return;
         }
         instance = this;
+    }
+
+    private void Start()
+    {
         StageOrRank(GameManager.instance.isStage, GameManager.instance.stageIndex);
     }
     private void Update()
@@ -39,6 +43,7 @@ public class ModeManager : MonoBehaviour
         {
             if(stageIdx != 0) //혹시모르니 예외처리
             {
+                print(GameManager.instance.boxIdxQueue.Count);
                 GameManager.instance.SetRemainBox();
             }
         }
