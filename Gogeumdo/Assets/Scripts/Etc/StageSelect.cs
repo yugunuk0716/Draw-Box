@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class StageManager : MonoBehaviour
+public class StageSelect : MonoBehaviour
 {
     public Transform btnParent; //스테이지 버튼들의 부모
     private Button[] stageButton; // 스테이지 넘어가는 버튼
