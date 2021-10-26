@@ -80,7 +80,18 @@ public class PoolManager : MonoBehaviour
             ob.Death -= handler;
         };
         ob.Death += handler;
-
+        RaycastHit2D hit; Vector2 dest; int idx;
+        do
+        {
+            idx = GameManager.instance.boxIdxQueue.Dequeue();
+            dest = new Vector2(BoxManager.instance.lineTrm[idx].position.x, PoolManager.instance.spawnPoint.position.y);
+            hit = Physics2D.BoxCast(dest, gameObject.transform.lossyScale * 0.2f, 0, new Vector2(0, 0));
+            if(hit.collider != null)
+            {
+                GameManager.instance.boxIdxQueue.Enqueue(idx);
+            }
+        } while (hit.collider != null);
+        idx = GameManager.instance.boxIdxQueue.Dequeue();
         ob.gameObject.SetActive(true);
         ob.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x, spawnPoint.position.y);
     }
