@@ -60,7 +60,8 @@ public class Box : MonoBehaviour, IResettable
         }
         else
         {
-            Debug.LogError("이게 왜 없음");
+            idx = UnityEngine.Random.Range(0, 5);
+            //랭크모드일때 idx를 랜덤으로 해줘야 함
         }
         line = (Line)idx;
         gameObject.GetComponent<SpriteRenderer>().color = GameManager.instance.lineColorDic[line];
