@@ -52,7 +52,16 @@ public class Box : MonoBehaviour, IResettable
 
     protected void InitBox() // 박스의 줄을 랜덤으로 설정
     {
-        int idx = UnityEngine.Random.Range(0, 5); //0 ~ 4번째 라인
+        int idx = 0;
+        //int idx = UnityEngine.Random.Range(0, 5); //0 ~ 4번째 라인
+        if (GameManager.instance.boxIdxQueue.Count >0)
+        {
+            idx = GameManager.instance.boxIdxQueue.Dequeue();
+        }
+        else
+        {
+            Debug.LogError("이게 왜 없음");
+        }
         line = (Line)idx;
         gameObject.GetComponent<SpriteRenderer>().color = GameManager.instance.lineColorDic[line];
         //print(idx);
