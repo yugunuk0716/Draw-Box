@@ -93,6 +93,8 @@ public class PoolManager : MonoBehaviour
     }
     public void SetBoxSpeed(float speed)
     {
+        if (boxPool.members[0].moveTime == speed) return;
+
         for (int i = 0; i < boxPool.members.Count; i++)
         {
             boxPool.members[i].SetMoveSpeed(speed);

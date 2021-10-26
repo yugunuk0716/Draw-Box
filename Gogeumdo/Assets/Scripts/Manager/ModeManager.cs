@@ -7,9 +7,13 @@ public class ModeManager : MonoBehaviour
 {
     public static ModeManager instance;
 
-
+    [Header("타이머 관련")]
+    private bool isTimer = false;
+    private float limitTime = 300f;
     private int min = 5;
     private float sec = 1f;
+
+    private int limitObstacle = 2;
 
     private void Awake()
     {
@@ -21,7 +25,13 @@ public class ModeManager : MonoBehaviour
         instance = this;
         StageOrRank(GameManager.instance.isStage, GameManager.instance.stageIndex);
     }
-
+    private void Update()
+    {
+        if(isTimer)
+        {
+            Timer();
+        }
+    }
 
     public void StageOrRank(bool isStage, int stageIdx = 0) //스테이지와 랭크모드인지 확인하고 그에 따른 작업을 해주는 곳
     {
@@ -35,33 +45,23 @@ public class ModeManager : MonoBehaviour
         else
         {
             //랭크모드
-            Timer();
+            isTimer = true;
         }
     }
     
 
     public void Timer() //랭크 모드를위한 타이머
     {
-        sec = Mathf.Clamp(sec -= Time.deltaTime, 0, 59);
+        limitTime -= Time.deltaTime;
+        min = (int)(limitTime / 60);
+        sec = limitTime % 60;
 
-        TimeCompare();
-    }
-    public void SetTime(bool addTime) //타임 아이템
-    {
-        sec += addTime ? 5f : -5f;
-
-        TimeCompare();
-    }
-    public void TimeCompare()
-    {
-        if (sec <= 0f)
+        if (limitTime <= 0f)
         {
-            sec = 59f;
-            min--;
-            if(min % 2 == 0)
-            {
-                PoolManager.instance.ObstacleSpawn();
-            }
+            GameManager.instance.isGameover = true;
+        }
+        //분에 따라서 해줘야 할것들
+        {
             switch (min)
             {
                 case 0:
@@ -69,28 +69,36 @@ public class ModeManager : MonoBehaviour
                     break;
                 case 1:
                     PoolManager.instance.SetBoxSpeed(0.04f);
+                    if(limitObstacle == 1)
+                    {
+                        PoolManager.instance.ObstacleSpawn();
+                        limitObstacle--;
+                    }
                     break;
                 case 2:
                     PoolManager.instance.SetBoxSpeed(0.03f);
                     break;
                 case 3:
                     PoolManager.instance.SetBoxSpeed(0.02f);
+                    if (limitObstacle == 2)
+                    {
+                        PoolManager.instance.ObstacleSpawn();
+                        limitObstacle--;
+                    }
                     break;
                 default:
                     break;
             }
-        }
-        else if (sec >= 59f)
-        {
-            sec = 0f;
-            min++;
+
         }
 
-        if (min <= 0)
-        {
-            GameManager.instance.isGameover = true;
-        }
-
-        //여기서 텍스트를 바꿔줘야할듯?
+        UIManager.instance.ChangeTimerText($"{min}:{(int)sec}");
+    }
+    public void SetTime(bool addTime) //타임 아이템
+    {
+        limitTime += addTime ? 5f : -5f;
+        min = (int)(limitTime / 60);
+        sec = limitTime % 60;
+        UIManager.instance.ChangeTimerText($"{min}:{(int)sec}");
     }
 }

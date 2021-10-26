@@ -11,6 +11,9 @@ public class UIManager : MonoBehaviour
     public MenuPanel menuPanel;
     public Button menuBtn;
 
+    public Text scoreAndBoxText;
+    public Text timerText;
+
     private CanvasGroup cv;
 
     Dictionary<string, PanelScript> panelDic = new Dictionary<string, PanelScript>();
@@ -34,6 +37,26 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 0;
             OpenPanel("menu");
         });
+
+        if(!GameManager.instance.isStage)
+        {
+            ChangeScoreAndBoxText($"0점");
+            timerText.gameObject.SetActive(true);
+        }
+        else
+        {
+            ChangeScoreAndBoxText($"남은 박스 : {GameManager.instance.remainBox}");
+        }
+    }
+
+    public void ChangeScoreAndBoxText(string str)
+    {
+        scoreAndBoxText.text = str;
+    }
+
+    public void ChangeTimerText(string str)
+    {
+        timerText.text = str;
     }
 
     public void OpenPanel(string name) 

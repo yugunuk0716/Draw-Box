@@ -12,23 +12,27 @@ public class Obstacle : Box
     {
         base.OnEnable();
         //속도 랜덤 조정을 추가해야 한다.
-        SetMoveSpeed(UnityEngine.Random.Range(0.01f, 0.05f)); //속도 랜덤 조정
+        SetMoveSpeed(UnityEngine.Random.Range(0.03f, 0.07f)); //속도 랜덤 조정
     }
 
     protected override void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("ConveyorBelt"))// 컨베이어 벨트 도착점에 닿았을 때
+        
+    }
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("ConveyorBelt"))// 컨베이어 벨트 도착점에 닿았을 때
         {
-            ConveyorBeltLine obj = col.gameObject.GetComponent<ConveyorBeltLine>();//컨베이어 벨트라인 스크립트를 받아온다
+            ConveyorBeltLine obj = col.GetComponent<ConveyorBeltLine>();//컨베이어 벨트라인 스크립트를 받아온다
             if (obj != null)//널 체크
             {
                 Death(this, null); // Death 이벤트를 실행
             }
         }
-        else if(col.gameObject.CompareTag("Player"))
+        else if (col.CompareTag("Player"))
         {
-            Box box = col.gameObject.GetComponent<Box>();
-            if(box != null)
+            Box box = col.GetComponent<Box>();
+            if (box != null)
             {
                 //이펙트가 필요하면 여기서 해야할듯?
                 box.DeathEvent();

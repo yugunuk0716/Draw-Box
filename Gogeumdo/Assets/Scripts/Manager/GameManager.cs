@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         if (isStage)
         {
             this.remainBox -= score;
-
+            UIManager.instance.ChangeScoreAndBoxText($"남은 박스 : {remainBox}");
             if (stageStar[stageIndex][1] >= boxCount)
             {
                 PoolManager.instance.SetBoxSpeed(0.03f);
@@ -88,6 +88,10 @@ public class GameManager : MonoBehaviour
             {
                 PoolManager.instance.SetBoxSpeed(0.02f);
             }
+        }
+        else
+        {
+            UIManager.instance.ChangeScoreAndBoxText($"{(boxCount * 100)}점");
         }
     }
 }
