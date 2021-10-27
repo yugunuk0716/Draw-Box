@@ -22,9 +22,9 @@ public class PoolManager : MonoBehaviour
     public Sprite[] boxSprite; //박스의 스프라이트들 
     //0 = 기본 박스 1 = 피버 박스 2 = 시간 증가 박스 로 할 예정
 
-    private WaitForSeconds Before10;
-    private WaitForSeconds Before20;
-    private WaitForSeconds After20;
+    private WaitForSeconds Before10 = new WaitForSeconds(4f);
+    private WaitForSeconds Before20 = new WaitForSeconds(3f);
+    private WaitForSeconds After20 = new WaitForSeconds(2f);
 
     private void Awake()
     {
@@ -43,7 +43,8 @@ public class PoolManager : MonoBehaviour
 
     private void Start()
     {
-        boxPool = new Pool<Box>(new PrefabFactory<Box>(boxPrefab), 25); //25개만큼 미리 만들고
+        boxPool = new Pool<Box>(new PrefabFactory<Box>(boxPrefab),25);
+        //boxPool = new Pool<Box>(new PrefabFactory<Box>(boxPrefab), 25); //25개만큼 미리 만들고
         boxPool.members.ForEach(b => b.gameObject.SetActive(false)); //전부 꺼두기
 
         obstaclePool = new Pool<Obstacle>(new PrefabFactory<Obstacle>(obstaclePrefab), 25);
@@ -80,21 +81,23 @@ public class PoolManager : MonoBehaviour
             ob.Death -= handler;
         };
         ob.Death += handler;
+        StartCoroutine(Wait(ob));
+    }
+    IEnumerator Wait(Obstacle ob)
+    {
         RaycastHit2D hit; Vector2 dest; int idx;
         do
         {
-            idx = GameManager.instance.boxIdxQueue.Dequeue();
-            dest = new Vector2(BoxManager.instance.lineTrm[idx].position.x, PoolManager.instance.spawnPoint.position.y);
+            Debug.Log("장애물 충돌");
+            dest = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x, PoolManager.instance.spawnPoint.position.y);
             hit = Physics2D.BoxCast(dest, gameObject.transform.lossyScale * 0.2f, 0, new Vector2(0, 0));
-            if(hit.collider != null)
-            {
-                GameManager.instance.boxIdxQueue.Enqueue(idx);
-            }
+            yield return new WaitForSeconds(0.3f);
         } while (hit.collider != null);
-        idx = GameManager.instance.boxIdxQueue.Dequeue();
+        yield return null;
         ob.gameObject.SetActive(true);
         ob.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x, spawnPoint.position.y);
     }
+
     public void AddBoxCount(bool add)
     {
         for (int i = 0; i < boxCount.Length; i++)
@@ -114,7 +117,7 @@ public class PoolManager : MonoBehaviour
     public void BoxSpawn()
     {
         Box box = boxPool.Allocate(); //박스의 풀에 박스가있다면 가져오고 없다면 새로 만들기
-
+        GameManager.instance.RemainBox(1);
         EventHandler handler = null;
         handler = (s, e) =>
         {
@@ -182,15 +185,18 @@ public class PoolManager : MonoBehaviour
         {
             if(GameManager.instance.isStage && GameManager.instance.remainBox > 0)
             {
+                print("정상");
                 BoxSpawn();
             }
             else if(!GameManager.instance.isStage)
             {
+                print("랭크일떄");
                 BoxSpawn();
             }
 
             if(GameManager.instance.stageIndex < 10)
             {
+                print("이게 왜 안됨");
                 yield return Before10; //나중에 조절해준다.
             }
             else if(GameManager.instance.stageIndex < 20)

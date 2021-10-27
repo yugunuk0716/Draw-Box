@@ -50,12 +50,13 @@ public class Box : MonoBehaviour, IResettable
         lineIdx = UnityEngine.Random.Range(0,5); //0 ~ 4번째 라인
     }
 
-    public void InitBox() // 박스의 줄을 랜덤으로 설정
+    public virtual void InitBox() // 박스의 줄을 랜덤으로 설정
     {
         int idx = 0;
         //int idx = UnityEngine.Random.Range(0, 5); //0 ~ 4번째 라인
-        if (GameManager.instance.boxIdxQueue.Count >0)
+        if (GameManager.instance.boxIdxQueue.Count > 0)
         {
+            print("InitBox");
             idx = GameManager.instance.boxIdxQueue.Dequeue();
         }
         else
@@ -63,6 +64,7 @@ public class Box : MonoBehaviour, IResettable
             idx = UnityEngine.Random.Range(0, 5);
             //랭크모드일때 idx를 랜덤으로 해줘야 함
         }
+        lineIdx = UnityEngine.Random.Range(0, 5);
         line = (Line)idx;
         gameObject.GetComponent<SpriteRenderer>().color = GameManager.instance.lineColorDic[line];
         //print(idx);
@@ -80,7 +82,7 @@ public class Box : MonoBehaviour, IResettable
         while (true)
         {
             // transform.position += new Vector3(0, 0.01f, 0);
-            Vector2 dest = new Vector2(0, 0.315f);
+            Vector2 dest = new Vector2(0, 0.53f);
             RaycastHit2D hit = Physics2D.BoxCast(dest + (Vector2)gameObject.transform.position, gameObject.transform.lossyScale * 1f, 0, new Vector2(0, 0));
             
             if (hit.collider == null ||  hit.collider == col) //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우는 이동할 수 있는 경우임

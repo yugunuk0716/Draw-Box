@@ -20,6 +20,13 @@ public class GameManager : MonoBehaviour
     public int boxCount = 0; //일단 박스가 들어간만큼 올라가는 변수
     public int remainBox = 0; // 박스 갯수 (스테이지용)
 
+    public int count = 0;
+
+    private void Update()
+    {
+        count = boxIdxQueue.Count;
+    }
+
     private void Awake()
     {
         if(instance != null)// 싱글톤 중복 체크
@@ -66,16 +73,24 @@ public class GameManager : MonoBehaviour
         remainBox = boxIdxQueue.Count;
     }
 
-    public void Init() 
+    public void Init()
     {
         boxCount = 0;
         boxIdxQueue.Clear();
         isFever = false;
         isGameover = false;
+        print("초기화");
     }
     public void AddScore(int score) //박스갯수를 더해주며 
     {
         this.boxCount += score;
+        if(!isStage)
+        {
+            UIManager.instance.ChangeScoreAndBoxText($"{(boxCount * 100)}점");
+        }
+    }
+    public void RemainBox(int score)
+    {
         if (isStage)
         {
             this.remainBox -= score;
@@ -88,10 +103,6 @@ public class GameManager : MonoBehaviour
             {
                 PoolManager.instance.SetBoxSpeed(0.02f);
             }
-        }
-        else
-        {
-            UIManager.instance.ChangeScoreAndBoxText($"{(boxCount * 100)}점");
         }
     }
 }
