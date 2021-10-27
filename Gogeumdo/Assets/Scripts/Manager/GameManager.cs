@@ -24,7 +24,16 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        count = boxIdxQueue.Count;
+        if (Input.GetKeyDown(KeyCode.O)) 
+        {
+            for (int i = 0; i < stageBox[1]; i++)
+            {
+                boxIdxQueue.Enqueue(Random.Range(0, 5));
+            }
+            stageIndex = 1;
+            LoadManager.LoadScene("InGame");
+
+        }
     }
 
     private void Awake()

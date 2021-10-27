@@ -82,17 +82,28 @@ public class Box : MonoBehaviour, IResettable
         while (true)
         {
             // transform.position += new Vector3(0, 0.01f, 0);
-            Vector2 dest = new Vector2(0, 0.53f);
+            Vector2 dest = new Vector2(0, 0.6f);
             RaycastHit2D hit = Physics2D.BoxCast(dest + (Vector2)gameObject.transform.position, gameObject.transform.lossyScale * 1f, 0, new Vector2(0, 0));
             
-            if (hit.collider == null ||  hit.collider == col) //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우는 이동할 수 있는 경우임
+            if (hit.collider == null ||  hit.collider == col || this.gameObject.CompareTag("Obstacle")) //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우는 이동할 수 있는 경우임
             {
-                if (hit.collider != null) 
-                {
-                    print(hit.collider.gameObject.name + "근데 이제 " +gameObject.name + "를 곁들인" );
-                }
                 dest = new Vector2(0, moveTime); //실제 위치를 받아온다
-                //print(dest + " " + moveTime);
+                if (hit.collider != null)
+                {
+                    ConveyorBeltLine line = hit.collider.gameObject.GetComponent<ConveyorBeltLine>();
+
+                    if (line != null)
+                    {
+                        if (line.lineIndex != lineIdx)
+                        {
+                            print("멈춰!");
+                            dest = Vector2.zero;
+
+                        }
+                    }
+                }
+                print(dest + "  " + this.gameObject.name);
+
                 gameObject.transform.position += (Vector3)dest;// 실제 이동
             }
 
