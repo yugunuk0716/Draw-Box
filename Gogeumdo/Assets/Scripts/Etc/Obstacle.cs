@@ -15,6 +15,13 @@ public class Obstacle : Box
         SetMoveSpeed(UnityEngine.Random.Range(0.03f, 0.07f)); //속도 랜덤 조정
     }
 
+    public override void InitBox()
+    {
+        int idx = UnityEngine.Random.Range(0, 5);
+        line = (Line)idx;
+        gameObject.GetComponent<SpriteRenderer>().color = GameManager.instance.lineColorDic[line];
+    }
+
     protected override void OnCollisionEnter2D(Collision2D col)
     {
         

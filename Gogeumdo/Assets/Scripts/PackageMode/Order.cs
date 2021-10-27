@@ -29,7 +29,6 @@ public class Order : MonoBehaviour
     public GameObject targetBox;
     private int leftBoxCount; // 남은 상자수
     private int totalBoxCount;
-    private bool isTweening = false;
    
 
 
@@ -86,7 +85,7 @@ public class Order : MonoBehaviour
     private void SubstituteNumberButton(int substituteNum) // 상자에 인덱스 대입
     {
         
-        GameObject box = boxObjs.Find(x => x.transform.position.x == 0f );
+        GameObject box = boxObjs.Find(x => Vector3.Distance(x.transform.position, Vector3.zero) < 3f);
         box.GetComponent<SpriteRenderer>().sprite = boxSprites[substituteNum];
         boxIdx = substituteNum;
        
@@ -94,9 +93,10 @@ public class Order : MonoBehaviour
 
     private void Confirm() //확인 버튼
     {
-        if (boxIdx == orderIdx && !isTweening) //boxIdx 와 orderIdx가 같다면 옳게 입력된 것이므로
+        if (boxIdx == orderIdx) //boxIdx 와 orderIdx가 같다면 옳게 입력된 것이므로
         {
             GameManager.instance.boxIdxQueue.Enqueue(orderIdx);//다음 스테이지에서 쓰기 위해 queue에 넣는다
+            print(orderIdx);
             leftBoxCount--; //남은 상자수를 줄인다
             if (leftBoxCount <= 0) //만약 남은 상자가 0이하라면
             {
@@ -125,11 +125,10 @@ public class Order : MonoBehaviour
 
     private void BoxTween(int curIdx) 
     {
-        isTweening = true;
         //상자 트위닝
         Sequence seq = DOTween.Sequence();
-        GameObject box = boxObjs.Find(x => x.transform.position.x == 0);
-        GameObject box2 = boxObjs.Find(x => x.transform.position.x == -4.5f);
+        GameObject box = boxObjs.Find(x => Vector3.Distance(x.transform.position, Vector3.zero) < 3f);
+        GameObject box2 = boxObjs.Find(x => Vector3.Distance(x.transform.position, new Vector3(-4.5f, 0, 0)) < 3f);
         if (box == null || box2 == null)
             return;
         box.SetActive(true);
@@ -139,7 +138,7 @@ public class Order : MonoBehaviour
         {
             box.SetActive(false);
             box.transform.DOLocalMoveX(-4.5f,0.1f);
-            seq.Append(box2.transform.DOLocalMoveX(0f, 1f).OnComplete(() => isTweening = false));
+            seq.Append(box2.transform.DOLocalMoveX(0f, 1f));
         }
         else if(totalBoxCount - leftBoxCount == totalBoxCount)// 마지막 박스
         {
@@ -147,7 +146,7 @@ public class Order : MonoBehaviour
             {
                 box.transform.localPosition = new Vector3(-4.5f, 0);
 
-            }).OnComplete(() => isTweening = false));
+            }));
         }
         else
         {
@@ -155,7 +154,7 @@ public class Order : MonoBehaviour
             {
                 box.transform.localPosition = new Vector3(-4.5f, 0);
 
-            })).Join(box2.transform.DOLocalMoveX(0f, 1f).OnComplete(() => isTweening = false));
+            })).Join(box2.transform.DOLocalMoveX(0f, 1f));
         }
       
     }
