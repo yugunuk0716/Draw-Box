@@ -26,8 +26,8 @@ public class Box : MonoBehaviour, IResettable
     public virtual event EventHandler Death; // 상자가 목표에 도달했을 때 실행되는 이벤트
     public float moveTime = 0.01f; 
     //박스 속도 : 벨트 속도 = 1/100 : 20
+    public bool canMoveUp = true;
     public WaitForSeconds moveWS;
-
     private BoxCollider2D col;
 
 
@@ -82,30 +82,17 @@ public class Box : MonoBehaviour, IResettable
         while (true)
         {
             // transform.position += new Vector3(0, 0.01f, 0);
-            Vector2 dest = new Vector2(0, 0.6f);
-            RaycastHit2D hit = Physics2D.BoxCast(dest + (Vector2)gameObject.transform.position, gameObject.transform.lossyScale * 1f, 0, new Vector2(0, 0));
-            
-            if (hit.collider == null ||  hit.collider == col || this.gameObject.CompareTag("Obstacle")) //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우는 이동할 수 있는 경우임
+            Vector2 dest = new Vector2(0, moveTime);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, transform.position.y + moveTime);
+            if ((hit.collider == null || hit.collider == col || !hit.collider.CompareTag("Player") ||this.gameObject.CompareTag("Obstacle")) && canMoveUp) //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우 또는 이 함수를 쓰는 오브젝트의 태그가 장애물이라면 이동할 수 있는 경우임
             {
                 dest = new Vector2(0, moveTime); //실제 위치를 받아온다
-                if (hit.collider != null)
-                {
-                    ConveyorBeltLine line = hit.collider.gameObject.GetComponent<ConveyorBeltLine>();
-
-                    if (line != null)
-                    {
-                        if (line.lineIndex != lineIdx)
-                        {
-                            print("멈춰!");
-                            dest = Vector2.zero;
-
-                        }
-                    }
-                }
-                print(dest + "  " + this.gameObject.name);
 
                 gameObject.transform.position += (Vector3)dest;// 실제 이동
+                  
             }
+
+
 
             yield return moveWS;
         }
@@ -125,10 +112,30 @@ public class Box : MonoBehaviour, IResettable
                 {
                     Death(this, null); // Death 이벤트를 실행
                 }
+                else
+                {
+                    canMoveUp = false;
+                }
             }
+        }
+
+        else if (col.gameObject.CompareTag("Player")) 
+        {
+            canMoveUp = false;
         }
        
 
+    }
+    protected virtual void OnCollisionExit2D(Collision2D col) 
+    {
+        if (col.gameObject.CompareTag("ConveyorBelt"))// 컨베이어 벨트 도착점에 닿았을 때
+        {
+            canMoveUp = true;
+        }
+        else if (col.gameObject.CompareTag("Player"))
+        {
+            canMoveUp = true;
+        }
     }
    
     public void DeathEvent() //장애물에 닿았을때 필요한 죽음이벤트
@@ -144,6 +151,12 @@ public class Box : MonoBehaviour, IResettable
         gameObject.SetActive(false);
     }
 
-    
+
+
+
+
+
+
+
 }
 

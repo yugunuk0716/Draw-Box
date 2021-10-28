@@ -45,7 +45,6 @@ public class BoxManager : MonoBehaviour
 
                 if (coll != null && coll.gameObject.CompareTag("Player"))
                 {
-                    print("상자 찾음");
                     box = coll.gameObject.GetComponent<Box>();
                 }
             }
@@ -53,7 +52,6 @@ public class BoxManager : MonoBehaviour
             else if (Input.GetMouseButtonUp(0))
             {
                 mouseTrms.Add(Input.mousePosition);
-                print("마우스 입력 끝");
                 if (box != null)
                 {
                     if (Mathf.Abs(mouseTrms[0].x - mouseTrms[mouseTrms.Count - 1].x) > Mathf.Abs(mouseTrms[0].y - mouseTrms[mouseTrms.Count - 1].y))
@@ -78,7 +76,10 @@ public class BoxManager : MonoBehaviour
                         }
                         else if (mouseTrms[0].y < mouseTrms[mouseTrms.Count - 1].y) 
                         {
-                            Move(Vector2.up);
+                            if (box.canMoveUp) 
+                            {
+                                Move(Vector2.up);
+                            }
                         }
                     }
                 }
@@ -181,20 +182,22 @@ public class BoxManager : MonoBehaviour
             {
                 canRightMove = false;
             }
+          
 
-            Vector2 dest = new Vector2(lineTrm[vec.y == -1 ? box.lineIdx : GetNextLineIndex(canRightMove, box.lineIdx)].localPosition.x, box.transform.position.y + vec.y * 0.53f);//갈 곳에 위치를 담아놓는 변수
+            Vector2 dest = new Vector2(lineTrm[vec.y == -1 ? box.lineIdx : GetNextLineIndex(canRightMove, box.lineIdx)].localPosition.x, box.transform.position.y + vec.y);//갈 곳에 위치를 담아놓는 변수
             //Vector2 dest = box.gameObject.transform.position + new Vector3(vec.x * 0.53f, vec.y * 0.53f);
 
             RaycastHit2D hit = Physics2D.BoxCast(dest, box.gameObject.transform.lossyScale * 0.2f, 0, new Vector2(0, 0)); // 위의 dest 변수를 가져와 Boxcast로 갈 위치에 충돌체를 저장하는 변수
 
-            if ((hit.collider == null) || (!hit.collider.CompareTag("Player")) && hit.collider.CompareTag("Obstacle")) //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우는 이동할 수 있는 경우임
+            if ((hit.collider == null) || (!hit.collider.CompareTag("Player")) && hit.collider.CompareTag("Obstacle") ) //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우는 이동할 수 있는 경우임
             {
                 if (vec.y != -1 && vec.y != 1)//아래쪽으로 이동시엔 라인인덱스를 바꾸지 않기 위한 조건문
                 {
                     SetLineIndex(canRightMove);
                 }
+              
 
-                dest = new Vector2(lineTrm[box.lineIdx].localPosition.x, box.transform.position.y + vec.y * 0.53f); //실제 위치를 받아온다
+                dest = new Vector2(lineTrm[box.lineIdx].localPosition.x, box.transform.position.y + vec.y * 0.7f); //실제 위치를 받아온다
                 box.gameObject.transform.position = dest;// 실제 이동
             }
             mouseTrms.Clear();// 한번 이동 했으므로 저장해 두었던 마우스 위치를 지움
