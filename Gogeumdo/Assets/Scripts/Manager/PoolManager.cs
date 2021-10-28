@@ -122,7 +122,7 @@ public class PoolManager : MonoBehaviour
         handler = (s, e) =>
         {
             GameManager.instance.AddScore(1);
-            
+            GameManager.instance.StageClear();
             AddBoxCount(true);
             boxPool.Release(box); //박스의 초기화
             box.Death -= handler; //했으면 빼주기
