@@ -87,6 +87,8 @@ public class GameManager : MonoBehaviour
     public void Init()
     {
         boxCount = 0;
+        tempBox = 0;
+        remainBox = 0;
         boxIdxQueue.Clear();
         isFever = false;
         isGameover = false;
