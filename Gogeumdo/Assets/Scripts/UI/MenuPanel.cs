@@ -8,6 +8,7 @@ public class MenuPanel : PanelScript
     public Button continueBtn; 
     public Button retryBtn;
     public Button homeBtn;
+    public Text stageIdxText;
 
 
     protected override void Awake()
@@ -25,6 +26,8 @@ public class MenuPanel : PanelScript
         });
         homeBtn.onClick.AddListener(() => OnClickHomeBtn());
         retryBtn.onClick.AddListener(() => OnClickRetryBtn());
+        stageIdxText.text = $"Stage {GameManager.instance.stageIndex}";
+        
     }
 
     public override void Open()
