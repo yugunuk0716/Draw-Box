@@ -128,7 +128,8 @@ public class GameManager : MonoBehaviour
         if (!isStage) return;
         if(tempBox <= 0)
         {
-
+            UIManager.instance.OpenPanel("claer");
+            
         }
         //스테이지 모드의 경우
     }

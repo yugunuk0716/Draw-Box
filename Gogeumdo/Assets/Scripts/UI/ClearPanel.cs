@@ -25,6 +25,7 @@ public class ClearPanel : PanelScript
     public override void Open(object data = null, int closeCount = 1)
     {
         base.Open();
+        Time.timeScale = 0;
     }
 
     public override void Close()
@@ -35,15 +36,18 @@ public class ClearPanel : PanelScript
     public override void OnClickHomeBtn()
     {
         base.OnClickHomeBtn();
+        Time.timeScale = 1;
     }
     public override void OnClickRetryBtn()
     {
         base.OnClickRetryBtn();
+        Time.timeScale = 1;
     }
     public void OnClickNextStageBtn()
     {
         GameManager.instance.stageIndex++;
-        base.OnClickRetryBtn();
+        LoadManager.LoadScene("InGamePackage");
+        Time.timeScale = 1;
 
     }
 
