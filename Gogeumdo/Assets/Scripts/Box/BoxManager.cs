@@ -125,12 +125,6 @@ public class BoxManager : MonoBehaviour
 #endif
         if(!GameManager.instance.isStage)
             PoolManager.instance.EventBoxSpawn();
-
-        if(GameManager.instance.tempBox <= 0)
-        {
-            //클리어했을때의 처리
-            
-        }
     }
 
     public IEnumerator Fever()
