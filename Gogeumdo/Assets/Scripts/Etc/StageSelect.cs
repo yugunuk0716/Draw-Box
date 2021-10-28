@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class StageSelect : MonoBehaviour
 {
     public Transform btnParent; //스테이지 버튼들의 부모
     private Button[] stageButton; // 스테이지 넘어가는 버튼
+    public Button HomeBtn;
 
     private void Start()
     {
@@ -22,5 +24,9 @@ public class StageSelect : MonoBehaviour
                 LoadManager.LoadScene("InGamePackager");
             });
         }
+        HomeBtn.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene(0); //메인씬
+        });
     }
 }

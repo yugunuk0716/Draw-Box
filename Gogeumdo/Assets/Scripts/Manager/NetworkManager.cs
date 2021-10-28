@@ -13,20 +13,15 @@ public class NetworkManager : MonoBehaviour
 
     private string token = "";
 
-    public Button logoutBtn;
-    public Button loginBtn;
+    
 
     public void SetToken(string token)
     {
         this.token = token;
         PlayerPrefs.SetString("token", token);
-        ShowBtn(false);
+        PopupManager.instance.ShowBtn(false);
     }
-    public void ShowBtn(bool on)
-    {
-        loginBtn.gameObject.SetActive(on);
-        logoutBtn.gameObject.SetActive(!on);
-    }
+    
 
     private void Awake()
     {
@@ -43,19 +38,16 @@ public class NetworkManager : MonoBehaviour
     {
         if (!token.Equals(""))
         {
-            ShowBtn(false);
+            PopupManager.instance.ShowBtn(false);
         }
-        logoutBtn.onClick.AddListener(() =>
-        {
-            Logout();
-        });
+        
     }
 
     public void Logout()
     {
         token = null;
         PlayerPrefs.DeleteKey("token");
-        ShowBtn(true);
+        PopupManager.instance.ShowBtn(true);
     }
 
     public void SendGetRequest(string url, string queryString, Action<string> callBack)

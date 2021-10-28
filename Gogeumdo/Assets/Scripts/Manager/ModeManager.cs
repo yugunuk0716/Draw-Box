@@ -65,7 +65,7 @@ public class ModeManager : MonoBehaviour
 
         if (limitTime <= 0f)
         {
-            GameManager.instance.isGameover = true;
+            GameManager.instance.Clear();
         }
         //분에 따라서 해줘야 할것들
         {
