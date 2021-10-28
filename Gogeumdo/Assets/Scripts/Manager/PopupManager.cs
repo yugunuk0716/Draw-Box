@@ -10,6 +10,7 @@ public class PopupManager : MonoBehaviour
 
     public Button registerPopupBtn;
     public Button loginPopupBtn;
+    public Button logoutBtn;
     public Transform popupParent;
 
     private CanvasGroup popupCanvasGroup;
@@ -48,6 +49,15 @@ public class PopupManager : MonoBehaviour
 
         registerPopupBtn.onClick.AddListener(() => OpenPopup("register"));
         loginPopupBtn.onClick.AddListener(() => OpenPopup("login"));
+        logoutBtn.onClick.AddListener(() =>
+        {
+            NetworkManager.instance.Logout();
+        });
+    }
+    public void ShowBtn(bool on)
+    {
+        loginPopupBtn.gameObject.SetActive(on);
+        logoutBtn.gameObject.SetActive(!on);
     }
     public void OpenPopup(string name, object data = null,int closeCount = 1)
     {
