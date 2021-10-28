@@ -19,7 +19,7 @@ public class PanelScript : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
     }
 
-    public virtual void Open()
+    public virtual void Open(object data = null, int closeCount = 1)
     {
         SetAlpha(true);
     }

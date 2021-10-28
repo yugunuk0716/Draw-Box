@@ -126,7 +126,7 @@ public class BoxManager : MonoBehaviour
         if(!GameManager.instance.isStage)
             PoolManager.instance.EventBoxSpawn();
 
-        if(GameManager.instance.remainBox <= 0)
+        if(GameManager.instance.tempBox <= 0)
         {
             //클리어했을때의 처리
             

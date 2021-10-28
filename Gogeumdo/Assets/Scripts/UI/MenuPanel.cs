@@ -30,7 +30,7 @@ public class MenuPanel : PanelScript
         
     }
 
-    public override void Open()
+    public override void Open(object data = null, int closeCount = 1)
     {
         base.Open();
     }

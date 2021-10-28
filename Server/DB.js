@@ -6,7 +6,7 @@ const pool = mysql.createPool(secret);
 const promisePool = pool.promise(); //프로미스 기반의 풀을 만듦
 
 async function insertData(name, msg, score,id) {
-    let sql = `INSERT INTO high_scores (name,msg,score,user) VALUES (?,?,?,?)`;
+    let sql = `INSERT INTO box_high_scores (name,msg,score,user) VALUES (?,?,?,?)`;
     let result = await promisePool.query(sql,[name,msg,score,id]);
 
     //console.log(result[0]);
