@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     public Transform panelParent;
     public MenuPanel menuPanel;
-    public ClearPanel clearPanel;
+    public StageClearPanel clearPanel;
     public Button menuBtn;
 
     public Text scoreAndBoxText;
