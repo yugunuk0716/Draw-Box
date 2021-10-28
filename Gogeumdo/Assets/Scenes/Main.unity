@@ -202,7 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseUrl: http://localhost:54000
   logoutBtn: {fileID: 704734271}
-  loginBtn: {fileID: 0}
+  loginBtn: {fileID: 389911637}
 --- !u!1 &232552474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1660,6 +1660,7 @@ MonoBehaviour:
   stageIndex: 0
   boxCount: 0
   remainBox: 0
+  tempBox: 0
   count: 0
 --- !u!4 &2073110558
 Transform:

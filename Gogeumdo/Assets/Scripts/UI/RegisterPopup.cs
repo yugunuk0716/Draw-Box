@@ -19,6 +19,7 @@ public class RegisterPopup : PanelScript
         base.Awake();
         registerBtn.onClick.AddListener(() =>
         {
+            //Á¤±Ô½Ä
             {
                 Regex reg = new Regex(@"^[°¡-ÆRa-zA-Z]{2,8}$");
                 if (!reg.IsMatch(nameInput.text))
@@ -27,7 +28,20 @@ public class RegisterPopup : PanelScript
                     PopupManager.instance.OpenPopup("alert", "ÀÌ¸§Àº ¹İµå½Ã ÇÑ±Û ¶Ç´Â ¿µ¹®À¸·Î 2-3±ÛÀÚ¿©¾ß ÇÕ´Ï´Ù");
                     return;
                 }
-                reg = new Regex(@"^[a-zA-z0-9]{8}$");
+                reg = new Regex(@"^[a-zA-z0-9]{8,}$");
+                if(!reg.IsMatch(passInput.text))
+                {
+                    Debug.Log("ºñ¹Ğ¹øÈ£´Â ¹İµå½Ã ¿µ¹®,¼ıÀÚ·Î 8±ÛÀÚ ÀÌ»óÀÌ¾î¾ß ÇÕ´Ï´Ù");
+                    PopupManager.instance.OpenPopup("alert", "ºñ¹Ğ¹øÈ£´Â ¹İµå½Ã ¿µ¹®ÀÌ³ª ¼ıÀÚ·Î 8±ÛÀÚ ÀÌ»óÀÌ¾î¾ß ÇÕ´Ï´Ù");
+                    return;
+                }
+
+                if(!passInput.text.Equals(passConfirmInput.text))
+                {
+                    Debug.Log("ºñ¹Ğ¹øÈ£¿Í ºñ¹Ğ¹øÈ£ È®ÀÎÀÌ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù");
+                    PopupManager.instance.OpenPopup("alert", "ºñ¹Ğ¹øÈ£¿Í ºñ¹Ğ¹øÈ£ È®ÀÎÀÌ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù");
+                    return;
+                }
             }
 
             RegisterVO vo = new RegisterVO(nameInput.text, idInput.text, passInput.text);
