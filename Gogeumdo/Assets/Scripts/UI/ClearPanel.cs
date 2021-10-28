@@ -3,34 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuPanel : PanelScript
+public class ClearPanel : PanelScript
 {
-    public Button continueBtn; 
-    public Button retryBtn;
     public Button homeBtn;
+    public Button retryBtn;
+    public Button nextStageBtn;
     public Text stageIdxText;
-
-
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
 
     private void Start()
     {
-        continueBtn.onClick.AddListener(() => 
-        {
-            Close();
-            Time.timeScale = 1;
-        });
         homeBtn.onClick.AddListener(() => OnClickHomeBtn());
         retryBtn.onClick.AddListener(() => OnClickRetryBtn());
-        if (GameManager.instance.isStage)
+        nextStageBtn.onClick.AddListener(() => OnClickNextStageBtn());
+        if (GameManager.instance.isStage) 
         {
             stageIdxText.text = $"Stage {GameManager.instance.stageIndex}";
         }
-
+        
     }
 
     public override void Open(object data = null, int closeCount = 1)
@@ -43,13 +32,20 @@ public class MenuPanel : PanelScript
         base.Close();
     }
 
-    public override void OnClickHomeBtn() 
+    public override void OnClickHomeBtn()
     {
         base.OnClickHomeBtn();
     }
-
-    public override void OnClickRetryBtn() 
+    public override void OnClickRetryBtn()
     {
         base.OnClickRetryBtn();
     }
+    public void OnClickNextStageBtn()
+    {
+        GameManager.instance.stageIndex++;
+        base.OnClickRetryBtn();
+
+    }
+
+
 }

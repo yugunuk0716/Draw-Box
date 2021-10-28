@@ -27,6 +27,21 @@ public class PanelScript : MonoBehaviour
     {
         SetAlpha(false);
     }
+    public virtual void OnClickHomeBtn()
+    {
+        Close();
+        LoadManager.LoadScene("Stage");
+    }
+
+    public virtual void OnClickRetryBtn()
+    {
+        GameManager.instance.Init();
+        Close();
+        LoadManager.LoadScene("InGame");
+    }
+
+   
+
 
     public virtual void SetAlpha(bool on) //open과 close를 불 변수로 받아 알파를 바꿔줌
     {

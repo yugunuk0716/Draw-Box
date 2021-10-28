@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     public Transform panelParent;
     public MenuPanel menuPanel;
+    public ClearPanel clearPanel;
     public Button menuBtn;
 
     public Text scoreAndBoxText;
@@ -32,10 +33,11 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         panelDic.Add("menu", Instantiate(menuPanel, panelParent));
+        panelDic.Add("claer", Instantiate(clearPanel, panelParent));
         menuBtn.onClick.AddListener(() => 
         {
             Time.timeScale = 0;
-            OpenPanel("menu");
+            OpenPanel("menu"); 
         });
 
         if(!GameManager.instance.isStage)
