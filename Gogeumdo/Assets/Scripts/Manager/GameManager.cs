@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
         if (!isStage) return;
         if(tempBox <= 0)
         {
-            UIManager.instance.OpenPanel("claer");
+            UIManager.instance.OpenPanel("stageClear");
             
         }
         //스테이지 모드의 경우
@@ -137,6 +137,6 @@ public class GameManager : MonoBehaviour
     {
         if (isStage) return;
 
-        //랭크모드의 경우
+        UIManager.instance.OpenPanel("rankClear");
     }
 }

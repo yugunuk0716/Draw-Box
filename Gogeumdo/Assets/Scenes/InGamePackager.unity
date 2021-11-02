@@ -441,6 +441,7 @@ MonoBehaviour:
   stageIndex: 0
   boxCount: 0
   remainBox: 0
+  tempBox: 0
   count: 0
 --- !u!4 &231358383
 Transform:
@@ -2291,11 +2292,11 @@ MonoBehaviour:
   - {fileID: 204549768}
   - {fileID: 1368131882}
   boxSprites:
-  - {fileID: 7499154508442906066, guid: 3966b177bafb7c1419ec75e5532b9272, type: 3}
-  - {fileID: 4069613528921803867, guid: 854d2bdd456e79046a86d801c8ca246b, type: 3}
-  - {fileID: -5995530912355140868, guid: 854d2bdd456e79046a86d801c8ca246b, type: 3}
-  - {fileID: -4751441601245812612, guid: 3966b177bafb7c1419ec75e5532b9272, type: 3}
-  - {fileID: 7066681014253760950, guid: 477b1fcf381970f4586a0b04a96cf472, type: 3}
+  - {fileID: 7013027040292579433, guid: 236d21d4cb9be544d95e1a5504d8eeee, type: 3}
+  - {fileID: 6989017245261426072, guid: 236d21d4cb9be544d95e1a5504d8eeee, type: 3}
+  - {fileID: -4028971264209293900, guid: 236d21d4cb9be544d95e1a5504d8eeee, type: 3}
+  - {fileID: -5940150932476679264, guid: 236d21d4cb9be544d95e1a5504d8eeee, type: 3}
+  - {fileID: 6774937938510847489, guid: 236d21d4cb9be544d95e1a5504d8eeee, type: 3}
   targetBox: {fileID: 82500833}
 --- !u!4 &2048581377
 Transform:

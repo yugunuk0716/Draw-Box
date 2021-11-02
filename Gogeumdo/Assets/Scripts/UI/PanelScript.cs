@@ -31,6 +31,7 @@ public class PanelScript : MonoBehaviour
     {
         Close();
         LoadManager.LoadScene("Stage");
+        GameManager.instance.Init();
     }
 
     public virtual void OnClickRetryBtn()

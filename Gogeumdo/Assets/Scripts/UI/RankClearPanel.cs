@@ -9,6 +9,9 @@ public class RankClearPanel : PanelScript
     public Button retryBtn;
     public Button rankBtn;
 
+    public Text curScoreText;
+    public Text highScoreText;
+
     protected override void Awake()
     {
         base.Awake();

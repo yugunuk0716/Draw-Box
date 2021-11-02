@@ -9,7 +9,8 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     public Transform panelParent;
     public MenuPanel menuPanel;
-    public StageClearPanel clearPanel;
+    public StageClearPanel stageClearPanel;
+    public RankClearPanel rankClearPanel;
     public Button menuBtn;
 
     public Text scoreAndBoxText;
@@ -33,7 +34,10 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         panelDic.Add("menu", Instantiate(menuPanel, panelParent));
-        panelDic.Add("claer", Instantiate(clearPanel, panelParent));
+        panelDic.Add("stageClear", Instantiate(stageClearPanel, panelParent));
+        panelDic.Add("rankClear", Instantiate(rankClearPanel, panelParent));
+
+
         menuBtn.onClick.AddListener(() => 
         {
             Time.timeScale = 0;
