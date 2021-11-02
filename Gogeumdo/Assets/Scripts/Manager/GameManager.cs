@@ -4,13 +4,32 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance; // 싱글톤
+    private static GameManager _instance; // 싱글톤
+
+    public static GameManager instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                GameObject obj = new GameObject("GameManager");
+                obj.AddComponent<GameManager>();
+                obj.AddComponent<NetworkManager>();
+                DontDestroyOnLoad(obj);
+                _instance = obj.GetComponent<GameManager>();
+            }
+
+            return _instance;
+        }
+    }
+
 
     public Dictionary<int, int> stageBox = new Dictionary<int, int>(); //스테이지별 박스갯수
     public Dictionary<int, List<int>> stageStar = new Dictionary<int, List<int>>(); // 스테이지 별 개수
-    public Dictionary<Line, Color> lineColorDic; //라인별 컬러 딕셔너리
+    public Dictionary<Line, Sprite> lineSpriteDic; //라인별 박스 스프라이트 딕셔너리
 
     public Queue<int> boxIdxQueue = new Queue<int>();
+    public Sprite[] boxSprite;
 
     public bool isGameover = false; // 게임오버 체크
     public bool isStage = false; //스테이지 모드인지 무한모드인지 체크하기 위한 변수
@@ -39,26 +58,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance != null)// 싱글톤 중복 체크
+        lineSpriteDic = new Dictionary<Line, Sprite>();
+        for (int i = 0; i < 5; i++)
         {
-            Debug.LogError("다수의 게임매니저가 실행중");
-            Destroy(this.gameObject);
-            return;
+            lineSpriteDic.Add((Line)i, boxSprite[i]);
         }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-
-        lineColorDic = new Dictionary<Line, Color>()
-        {
-            {Line.a,Color.red },
-            {Line.b,Color.yellow },
-            {Line.c,Color.green },
-            {Line.d,Color.blue },
-            {Line.e, new Color(161f/255f,0f,255f/255f) /*보라색*/}
-        };
 
         for (int i = 1; i < 4; i++)
         {

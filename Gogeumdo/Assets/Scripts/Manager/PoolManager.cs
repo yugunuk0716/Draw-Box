@@ -20,7 +20,7 @@ public class PoolManager : MonoBehaviour
     [Header("박스관련 배열들")]
     public int[] boxCount;
     public Sprite[] boxSprite; //박스의 스프라이트들 
-    //0 = 기본 박스 1 = 피버 박스 2 = 시간 증가 박스 로 할 예정
+    //0 = 피버 박스 1 = 시간 증가 박스 로 할 예정
 
     private WaitForSeconds Before10 = new WaitForSeconds(4f);
     private WaitForSeconds Before20 = new WaitForSeconds(3f);
@@ -89,7 +89,7 @@ public class PoolManager : MonoBehaviour
         do
         {
             Debug.Log("장애물 충돌");
-            dest = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x, PoolManager.instance.spawnPoint.position.y);
+            dest = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x,spawnPoint.position.y);
             hit = Physics2D.BoxCast(dest, gameObject.transform.lossyScale * 0.2f, 0, new Vector2(0, 0));
             yield return new WaitForSeconds(0.3f);
         } while (hit.collider != null);
@@ -154,7 +154,7 @@ public class PoolManager : MonoBehaviour
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
         box.gameObject.SetActive(true); //액티브를 켜줌
-        //box.GetComponent<SpriteRenderer>().sprite = boxSprite[1];
+        //box.spriteRenderer.sprite = boxSprite[0];
         box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
     }
     public void TimeIncreaseBoxSpawn()
@@ -174,7 +174,7 @@ public class PoolManager : MonoBehaviour
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
         box.gameObject.SetActive(true); //액티브를 켜줌
-        //box.GetComponent<SpriteRenderer>().sprite = boxSprite[2];
+        //box.spriteRenderer.sprite = boxSprite[1];
         box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
     }
     

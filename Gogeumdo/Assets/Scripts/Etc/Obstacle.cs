@@ -19,7 +19,7 @@ public class Obstacle : Box
     {
         int idx = UnityEngine.Random.Range(0, 5);
         line = (Line)idx;
-        gameObject.GetComponent<SpriteRenderer>().color = GameManager.instance.lineColorDic[line];
+        //gameObject.GetComponent<SpriteRenderer>().color = GameManager.instance.lineColorDic[line];
     }
 
     protected override void OnCollisionEnter2D(Collision2D col)

@@ -77,6 +77,17 @@ app.post("/login", async (req,res) => {
         res.json({result:false, payload:"존재하지 않는 회원입니다"});
     }
 });
+app.get("/ranklist", async (req,res) => {
+    if(req.loginUser != null) {
+        let sql = `SELECT * FROM box_high_scores ORDER BY score DESC LIMIT 0,10`;
+        let [list] = await pool.query(sql);
+
+        res.json({result:true,payload:JSON.stringify({list})});
+    }
+    else {
+        res.json({result:false,payload:"잘못된 토큰입니다."})
+    }
+});
     
 server.listen(54000, () => {
     console.log("서버가 54000번 포트에서 구동중입니다");

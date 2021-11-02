@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public MenuPanel menuPanel;
     public StageClearPanel stageClearPanel;
     public RankClearPanel rankClearPanel;
+
     public Button menuBtn;
 
     public Text scoreAndBoxText;
@@ -36,7 +37,6 @@ public class UIManager : MonoBehaviour
         panelDic.Add("menu", Instantiate(menuPanel, panelParent));
         panelDic.Add("stageClear", Instantiate(stageClearPanel, panelParent));
         panelDic.Add("rankClear", Instantiate(rankClearPanel, panelParent));
-
 
         menuBtn.onClick.AddListener(() => 
         {

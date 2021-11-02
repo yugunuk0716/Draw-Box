@@ -1640,6 +1640,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2092a02dbb0958e44b7fe3dde9afdc38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxSprite:
+  - {fileID: -6007857137893288414, guid: 98dcbc4d2560c3144aba43371f6c76b1, type: 3}
+  - {fileID: 360050356498797049, guid: 98dcbc4d2560c3144aba43371f6c76b1, type: 3}
+  - {fileID: -7732569738864306783, guid: 98dcbc4d2560c3144aba43371f6c76b1, type: 3}
+  - {fileID: 4245052342988409972, guid: 98dcbc4d2560c3144aba43371f6c76b1, type: 3}
+  - {fileID: 6951114633567200485, guid: 98dcbc4d2560c3144aba43371f6c76b1, type: 3}
   isGameover: 0
   isStage: 0
   isFever: 0

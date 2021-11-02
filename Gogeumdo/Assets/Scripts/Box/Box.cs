@@ -24,21 +24,27 @@ public class Box : MonoBehaviour, IResettable
 
     public Line line = Line.a; //이 상자의 목표 줄
     public virtual event EventHandler Death; // 상자가 목표에 도달했을 때 실행되는 이벤트
+
     public float moveTime = 0.01f; 
     //박스 속도 : 벨트 속도 = 1/100 : 20
     public bool canMoveUp = true;
+
     public WaitForSeconds moveWS;
     private BoxCollider2D col;
+    public SpriteRenderer spriteRenderer;
 
 
     public int lineIdx = 2; //현재 줄
 
-
+    private void Awake()
+    {
+        col = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
     public void Start()
     {
         moveWS = new WaitForSeconds(moveTime);// 코루틴 대기시간 설정
 
-        col = GetComponent<BoxCollider2D>();
 
         
     }
@@ -66,7 +72,7 @@ public class Box : MonoBehaviour, IResettable
         }
         lineIdx = UnityEngine.Random.Range(0, 5);
         line = (Line)idx;
-        gameObject.GetComponent<SpriteRenderer>().color = GameManager.instance.lineColorDic[line];
+        spriteRenderer.sprite = GameManager.instance.lineSpriteDic[line];
         //print(idx);
     }
 
