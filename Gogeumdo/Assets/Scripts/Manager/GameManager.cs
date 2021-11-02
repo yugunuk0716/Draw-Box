@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+
+        boxSprite = Resources.LoadAll<Sprite>("CloseBox/CloseBox");
         lineSpriteDic = new Dictionary<Line, Sprite>();
         for (int i = 0; i < 5; i++)
         {
