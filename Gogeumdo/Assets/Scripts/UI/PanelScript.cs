@@ -46,6 +46,7 @@ public class PanelScript : MonoBehaviour
 
     public virtual void SetAlpha(bool on) //open과 close를 불 변수로 받아 알파를 바꿔줌
     {
+       // DG.Tweening.Core.Debugger.LogSafeModeReport(this);
         DOTween.To(() => canvasGroup.alpha, value => canvasGroup.alpha = value, on ? 1f : 0f, 0.8f).OnComplete(() => {
             canvasGroup.interactable = on;
             canvasGroup.blocksRaycasts = on;

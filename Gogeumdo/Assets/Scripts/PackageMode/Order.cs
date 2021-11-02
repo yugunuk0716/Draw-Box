@@ -20,24 +20,32 @@ public class Order : MonoBehaviour
     private int boxIdx; // 상자에 들어가 있는 인덱스
 
     [Header("Total")]
+    public Image timeProgress;
     public Text totalPerLeftBoxCountText; // 남은 상자수 텍스트
     public Button confirmButton; // 상자에 인덱스 넣을걸 확정하는 버튼
-    public Text timerText = null;//제한 시간 텍스트
     public float currentTime = 0f;//제한 시간
     public List<GameObject> boxObjs; // 트위닝으로 애니메이션 만들 상자 오브젝트
-    public Sprite[] boxSprites;
+    public Sprite[] openBoxSprites;
+    public Sprite[] closedBoxSprites;
     public GameObject targetBox;
+    private bool isSetTimerProgress = false;
     private int leftBoxCount; // 남은 상자수
     private int totalBoxCount;
-   
 
 
-  
+    IEnumerator progressCoroutine;
+
+
+
+
+    
+
+
 
 
     private void Start()
     {
-        
+        progressCoroutine = SetProgress();
         //버튼에 이벤트 추가
         substituteZeroButton.onClick.AddListener(() => SubstituteNumberButton(0));
         substituteOneButton.onClick.AddListener(() => SubstituteNumberButton(1));
@@ -53,22 +61,19 @@ public class Order : MonoBehaviour
 
         currentTime = totalBoxCount * 3f;
         //상자 하나당 3초 드립니다
+
+      
+       
+        
     }
 
 
     private void Update()
     {
-        currentTime -= Time.deltaTime;
-
-        int min = (int)currentTime / 60;
-        int hour = (int)currentTime / (60 * 60);
-
-        timerText.text = $"{hour % 60}:{(min % 60).ToString("00")}:{(currentTime % 60).ToString("00.00")}";
-
-        if (currentTime <= 0) 
+       
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            //게임 오버 패널 띄워야댐
-            print("게임 오버");
+            StartCoroutine(SetProgress());
         }
     }
 
@@ -78,21 +83,28 @@ public class Order : MonoBehaviour
         orderIdx = Random.Range(0, 5);
         orderText.text = $"{areas[orderIdx]}";
         totalPerLeftBoxCountText.text = $"{leftBoxCount} / {totalBoxCount}";
-        targetBox.GetComponent<SpriteRenderer>().sprite = boxSprites[orderIdx];
-        BoxTween(orderIdx);
+        targetBox.GetComponent<SpriteRenderer>().sprite = openBoxSprites[orderIdx];
+        BoxTween();
+
+        progressCoroutine = SetProgress();
+        StartCoroutine(progressCoroutine);
+        
+
     }
 
     private void SubstituteNumberButton(int substituteNum) // 상자에 인덱스 대입
     {
         
         GameObject box = boxObjs.Find(x => Vector3.Distance(x.transform.position, Vector3.zero) < 3f);
-        box.GetComponent<SpriteRenderer>().sprite = boxSprites[substituteNum];
+        box.GetComponent<SpriteRenderer>().sprite = closedBoxSprites[substituteNum];
         boxIdx = substituteNum;
        
     }
 
     private void Confirm() //확인 버튼
     {
+        StopCoroutine(progressCoroutine);
+
         if (boxIdx == orderIdx) //boxIdx 와 orderIdx가 같다면 옳게 입력된 것이므로
         {
             GameManager.instance.boxIdxQueue.Enqueue(orderIdx);//다음 스테이지에서 쓰기 위해 queue에 넣는다
@@ -115,25 +127,24 @@ public class Order : MonoBehaviour
             totalBoxCount--;
             SetBox();
         }
-        
-
 
 
 
     }
 
 
-    private void BoxTween(int curIdx) 
+    private void BoxTween() 
     {
         //상자 트위닝
         Sequence seq = DOTween.Sequence();
         GameObject box = boxObjs.Find(x => Vector3.Distance(x.transform.position, Vector3.zero) < 3f);
         GameObject box2 = boxObjs.Find(x => Vector3.Distance(x.transform.position, new Vector3(-4.5f, 0, 0)) < 3f);
+        box.GetComponent<SpriteRenderer>().sprite = closedBoxSprites[boxIdx];
         if (box == null || box2 == null)
             return;
         box.SetActive(true);
         box2.SetActive(true);
-        box2.GetComponent<SpriteRenderer>().sprite = boxSprites[boxIdx];
+        box2.GetComponent<SpriteRenderer>().sprite = openBoxSprites[boxIdx];
         if (totalBoxCount - leftBoxCount == 0) //첫 박스
         {
             box.SetActive(false);
@@ -156,7 +167,31 @@ public class Order : MonoBehaviour
 
             })).Join(box2.transform.DOLocalMoveX(0f, 1f));
         }
-      
+
+    }
+
+    IEnumerator SetProgress()
+    {
+        isSetTimerProgress = true;
+        timeProgress.fillAmount = 1f;
+        float time = 3f;
+        float t = 0f;
+        while (true)
+        {
+            yield return null;
+            t += Time.deltaTime;
+            if (t >= time)
+            {
+                break;
+            }
+            timeProgress.fillAmount = Mathf.Lerp(1f, 0f, t / time);
+        }
+        
+        leftBoxCount--;//아니라면 걍 남은 상자 수만 줄여준다
+        totalBoxCount--;
+        isSetTimerProgress = false;
+        SetBox();
+        
     }
 
 
