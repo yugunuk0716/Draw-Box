@@ -9,9 +9,11 @@ public class ModeManager : MonoBehaviour
 
     [Header("타이머 관련")]
     private bool isTimer = false;
-    private float limitTime = 300f;
+    private float limitTime = 20f;
     private int min = 5;
     private float sec = 1f;
+
+    private bool check = false;
 
     private int limitObstacle = 2;
 
@@ -63,9 +65,10 @@ public class ModeManager : MonoBehaviour
         min = (int)(limitTime / 60);
         sec = limitTime % 60;
 
-        if (limitTime <= 0f)
+        if (limitTime <= 0f && !check)
         {
             GameManager.instance.RankClear();
+            check = true;
         }
         //분에 따라서 해줘야 할것들
         {

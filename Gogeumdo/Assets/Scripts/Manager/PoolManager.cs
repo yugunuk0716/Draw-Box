@@ -28,7 +28,7 @@ public class PoolManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Debug.LogError("다수의 풀매니저가 실행중");
             return;
@@ -43,7 +43,7 @@ public class PoolManager : MonoBehaviour
 
     private void Start()
     {
-        boxPool = new Pool<Box>(new PrefabFactory<Box>(boxPrefab),25);
+        boxPool = new Pool<Box>(new PrefabFactory<Box>(boxPrefab), 25);
         //boxPool = new Pool<Box>(new PrefabFactory<Box>(boxPrefab), 25); //25개만큼 미리 만들고
         boxPool.members.ForEach(b => b.gameObject.SetActive(false)); //전부 꺼두기
 
@@ -55,7 +55,7 @@ public class PoolManager : MonoBehaviour
 
     public void EventBoxSpawn() //박스가 몇개씩 사라지고 생성되는 아이템인지 체크
     {
-
+        if (GameManager.instance.isStage) return;
         if (boxCount[0] >= 5)
         {
             FeverBoxSpawn();
@@ -89,7 +89,7 @@ public class PoolManager : MonoBehaviour
         do
         {
             Debug.Log("장애물 충돌");
-            dest = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x,spawnPoint.position.y);
+            dest = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x, spawnPoint.position.y);
             hit = Physics2D.BoxCast(dest, gameObject.transform.lossyScale * 0.2f, 0, new Vector2(0, 0));
             yield return new WaitForSeconds(0.3f);
         } while (hit.collider != null);
@@ -124,6 +124,8 @@ public class PoolManager : MonoBehaviour
             GameManager.instance.AddScore(1);
             GameManager.instance.StageClear();
             AddBoxCount(true);
+            EventBoxSpawn();
+
             boxPool.Release(box); //박스의 초기화
             box.Death -= handler; //했으면 빼주기
         };
@@ -137,14 +139,14 @@ public class PoolManager : MonoBehaviour
     }
     public void FeverBoxSpawn()
     {
-        Box box =  boxPool.Allocate();
+        Box box = boxPool.Allocate();
 
         EventHandler handler = null;
 
         handler = (s, e) =>
         {
             //피버 실행
-            
+
             StartCoroutine(BoxManager.instance.Fever());
             boxPool.Release(box);
             box.Death -= handler;
@@ -177,29 +179,28 @@ public class PoolManager : MonoBehaviour
         //box.spriteRenderer.sprite = boxSprite[1];
         box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
     }
-    
+
 
     IEnumerator SpawnBox()
     {
         while (!GameManager.instance.isGameover) //게임오버가 아닐때까지 
         {
-            if(GameManager.instance.isStage && GameManager.instance.remainBox > 0)
+            if (GameManager.instance.isStage && GameManager.instance.remainBox > 0)
             {
                 print("정상");
                 BoxSpawn();
             }
-            else if(!GameManager.instance.isStage)
+            else if (!GameManager.instance.isStage)
             {
                 print("랭크일떄");
                 BoxSpawn();
             }
 
-            if(GameManager.instance.stageIndex < 10)
+            if (GameManager.instance.stageIndex < 10)
             {
-                print("이게 왜 안됨");
                 yield return Before10; //나중에 조절해준다.
             }
-            else if(GameManager.instance.stageIndex < 20)
+            else if (GameManager.instance.stageIndex < 20)
             {
                 yield return Before20;
             }
@@ -225,6 +226,6 @@ public class PoolManager : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        StartCoroutine(InitObstacle());   
+        StartCoroutine(InitObstacle());
     }
 }

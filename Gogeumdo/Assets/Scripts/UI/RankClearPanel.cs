@@ -68,6 +68,8 @@ public class RankClearPanel : PanelScript
             if(res.result)
             {
                 ScoreListVO vo = JsonUtility.FromJson<ScoreListVO>(res.payload);
+
+
                 for (int i = 1; i < childs.Length; i++)
                 {
                     Destroy(childs[i].gameObject);

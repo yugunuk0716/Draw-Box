@@ -32,6 +32,7 @@ public class LoginPopup : PanelScript
                 {
                     //회원가입창도 같이 닫히게
                     PopupManager.instance.OpenPopup("alert", "로그인 성공", 2);
+                    //print(vo.payload);
                     NetworkManager.instance.SetToken(vo.payload); //토큰 저장
 
                 }

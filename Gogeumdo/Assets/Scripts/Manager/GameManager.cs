@@ -61,7 +61,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-
+        if(_instance == null)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            _instance = this;
+        }
         if (boxSprite.Count == 0) 
         {
             boxSpriteObj = Resources.Load<GameObject>("BoxSprites");
@@ -155,7 +159,21 @@ public class GameManager : MonoBehaviour
     public void RankClear()
     {
         if (isStage) return;
-
+        int score = boxCount * 100;
+        ScoreVO vo = new ScoreVO("", score);
+        string json = JsonUtility.ToJson(vo);
+        NetworkManager.instance.SendPostRequest("scorerecord", json, res =>
+        {
+            ResponseVO vo = JsonUtility.FromJson<ResponseVO>(res);
+            if (vo.result)
+            {
+                print(vo.payload);
+            }
+            else
+            {
+                print(vo.payload);
+            }
+        });
         UIManager.instance.OpenPanel("rankClear");
     }
 }
