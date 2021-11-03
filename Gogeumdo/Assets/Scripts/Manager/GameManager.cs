@@ -28,8 +28,9 @@ public class GameManager : MonoBehaviour
     public Dictionary<int, List<int>> stageStar = new Dictionary<int, List<int>>(); // 스테이지 별 개수
     public Dictionary<Line, Sprite> lineSpriteDic; //라인별 박스 스프라이트 딕셔너리
 
+
     public Queue<int> boxIdxQueue = new Queue<int>();
-    public Sprite[] boxSprite;
+    public List<Sprite> boxSprite = new List<Sprite>();
 
     public bool isGameover = false; // 게임오버 체크
     public bool isStage = false; //스테이지 모드인지 무한모드인지 체크하기 위한 변수
@@ -41,6 +42,8 @@ public class GameManager : MonoBehaviour
     public int tempBox = 0;
 
     public int count = 0;
+
+    private GameObject boxSpriteObj;
 
     private void Update()
     {
@@ -59,7 +62,17 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
 
-        boxSprite = Resources.LoadAll<Sprite>("CloseBox/CloseBox");
+        if (boxSprite.Count == 0) 
+        {
+            boxSpriteObj = Resources.Load<GameObject>("BoxSprites");
+            SpriteRenderer[] sprites = boxSpriteObj.GetComponentsInChildren<SpriteRenderer>();
+            for (int i = 0; i < sprites.Length; i++)
+            {
+                boxSprite.Add(sprites[i].sprite);
+            }
+            
+        }
+
         lineSpriteDic = new Dictionary<Line, Sprite>();
         for (int i = 0; i < 5; i++)
         {
