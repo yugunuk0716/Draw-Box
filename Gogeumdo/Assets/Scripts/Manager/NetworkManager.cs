@@ -9,7 +9,7 @@ public class NetworkManager : MonoBehaviour
 {
     public static NetworkManager instance;
 
-    public string baseUrl = "http://localhost:54000";
+    private string baseUrl = "http://localhost:54000";
 
     private string token = "";
 
@@ -19,6 +19,7 @@ public class NetworkManager : MonoBehaviour
     {
         this.token = token;
         PlayerPrefs.SetString("token", token);
+        print(token);
         PopupManager.instance.ShowBtn(false);
     }
     
@@ -33,6 +34,7 @@ public class NetworkManager : MonoBehaviour
         instance = this;
 
         token = PlayerPrefs.GetString("token", ""); //¾øÀ¸¸é null
+        //print(token);
     }
     private void Start()
     {
@@ -64,6 +66,7 @@ public class NetworkManager : MonoBehaviour
         UnityWebRequest req = UnityWebRequest.Get(url);
 
         req.SetRequestHeader("Authorization", "Bearer " + token);
+        //print(token);
         yield return req.SendWebRequest();
 
         if (req.result == UnityWebRequest.Result.Success)
@@ -80,7 +83,8 @@ public class NetworkManager : MonoBehaviour
     {
         UnityWebRequest req = UnityWebRequest.Post(url, payload);
         req.SetRequestHeader("Content-Type", "application/json");
-        req.SetRequestHeader("Authorization", "Bearer " + token);
+        print(token);
+        req.SetRequestHeader("Authorization", $"Bearer {token}");
 
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(payload);
         req.uploadHandler = new UploadHandlerRaw(jsonToSend);

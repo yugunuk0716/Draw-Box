@@ -123,8 +123,7 @@ public class BoxManager : MonoBehaviour
             }
         }
 #endif
-        if(!GameManager.instance.isStage)
-            PoolManager.instance.EventBoxSpawn();
+        
     }
 
     public IEnumerator Fever()
