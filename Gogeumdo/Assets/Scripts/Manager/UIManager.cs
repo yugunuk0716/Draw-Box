@@ -8,7 +8,8 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
     public Transform panelParent;
-    public MenuPanel menuPanel;
+    public StageMenuPanel stageMenuPanel;
+    public RankMenuPanel rankMenuPanel;
     public StageClearPanel stageClearPanel;
     public RankClearPanel rankClearPanel;
 
@@ -34,14 +35,22 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        panelDic.Add("menu", Instantiate(menuPanel, panelParent));
+        panelDic.Add("stageMenu", Instantiate(stageMenuPanel, panelParent));
+        panelDic.Add("rankMenu", Instantiate(rankMenuPanel, panelParent));
         panelDic.Add("stageClear", Instantiate(stageClearPanel, panelParent));
         panelDic.Add("rankClear", Instantiate(rankClearPanel, panelParent));
 
         menuBtn.onClick.AddListener(() => 
         {
             Time.timeScale = 0;
-            OpenPanel("menu"); 
+            if (GameManager.instance.isStage) 
+            {
+                OpenPanel("stageMenu");
+            }
+            else
+            {
+                OpenPanel("rankMenu");
+            }
         });
 
         if(!GameManager.instance.isStage)

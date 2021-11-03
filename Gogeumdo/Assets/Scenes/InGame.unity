@@ -274,7 +274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelParent: {fileID: 3391948337371088670}
-  menuPanel: {fileID: 6977826036323172432, guid: 113cb0875f95f1846abea427f283d382, type: 3}
+  stageMenuPanel: {fileID: 6977826036323172432, guid: 113cb0875f95f1846abea427f283d382, type: 3}
+  rankMenuPanel: {fileID: 2680554194502967622, guid: d634340de82e124489f617bde102af3c, type: 3}
   stageClearPanel: {fileID: 5733561614657060254, guid: 2474809830ada35419ff3c8f208d86c9, type: 3}
   rankClearPanel: {fileID: 646693638545778344, guid: 23bb8a52c99902a4bbdd45213ed19a79, type: 3}
   menuBtn: {fileID: 1617738462}
