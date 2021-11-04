@@ -25,20 +25,20 @@ public class Order : MonoBehaviour
     public Button confirmButton; // 상자에 인덱스 넣을걸 확정하는 버튼
     public float currentTime = 0f;//제한 시간
     public List<GameObject> boxObjs; // 트위닝으로 애니메이션 만들 상자 오브젝트
-    public Sprite[] openBoxSprites;
-    public Sprite[] closedBoxSprites;
-    public GameObject targetBox;
+    public Sprite[] openBoxSprites;// 인덱스별 열린 상자를 저장해놓은 배열
+    public Sprite[] closedBoxSprites;// 인덱스별 닫힌 상자를 저장해놓은 배열
+    public GameObject targetBox; // 목표 상자의 이미지
     private bool isSetTimerProgress = false;
     private int leftBoxCount; // 남은 상자수
-    private int totalBoxCount;
+    private int totalBoxCount;// 분류 스테이지에서 분류해야할 상자 수
 
 
-    IEnumerator progressCoroutine;
+    IEnumerator progressCoroutine;// StopCoroutine을 실행하기 위해 코루틴을 변수로 선언해놓는다
 
 
 
 
-    
+
 
 
 
@@ -122,7 +122,7 @@ public class Order : MonoBehaviour
         else
         {
             leftBoxCount--;//아니라면 걍 남은 상자 수만 줄여준다
-            totalBoxCount--;
+            totalBoxCount--;//
             SetBox();
         }
 
@@ -168,7 +168,7 @@ public class Order : MonoBehaviour
 
     }
 
-    IEnumerator SetProgress()
+    IEnumerator SetProgress()// 시간을 나타내는 slider의 filamount 값을 조절하는 코루틴
     {
         isSetTimerProgress = true;
         timeProgress.fillAmount = 1f;
@@ -185,7 +185,7 @@ public class Order : MonoBehaviour
             timeProgress.fillAmount = Mathf.Lerp(1f, 0f, t / time);
         }
         
-        leftBoxCount--;//아니라면 걍 남은 상자 수만 줄여준다
+        leftBoxCount--;//fillamount가 1이 되면 그 상자는 분류 실패
         totalBoxCount--;
         isSetTimerProgress = false;
         SetBox();

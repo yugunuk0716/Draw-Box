@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class StageMenuPanel : PanelScript
 {
-    public Button continueBtn; 
+    public Button continueBtn;
     public Button retryBtn;
     public Button homeBtn;
     public Text stageIdxText;
