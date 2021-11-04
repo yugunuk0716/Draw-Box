@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     public RankClearPanel rankClearPanel;
     public AlertPopup alertPopup;
 
+    public Sprite[] starSprite;
+
     public Button menuBtn;
 
     public Text scoreAndBoxText;
@@ -83,6 +85,10 @@ public class UIManager : MonoBehaviour
     public void ChangeTimerText(string str)
     {
         timerText.text = str;
+    }
+    public Sprite ChangeStarSprite(int idx)
+    {
+        return GameManager.instance.CompareCount(idx) ? starSprite[1] : starSprite[0];
     }
 
     public void OpenPanel(string name, object data = null, int closeCount = 1)

@@ -1172,6 +1172,7 @@ MonoBehaviour:
   retryBtn: {fileID: 6182993345612325686}
   nextStageBtn: {fileID: 6182993344260108323}
   stageIdxText: {fileID: 6182993346102171004}
+  starParent: {fileID: 6182993344117925805}
 --- !u!1 &8773086167442710531
 GameObject:
   m_ObjectHideFlags: 0
