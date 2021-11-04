@@ -76,7 +76,7 @@ public class BoxManager : MonoBehaviour
                         }
                         else if (mouseTrms[0].y < mouseTrms[mouseTrms.Count - 1].y) 
                         {
-                            if (box.canMoveUp) 
+                            if (!box.isCollisionBox && !box.isCollisionBelt) 
                             {
                                 Move(Vector2.up);
                             }

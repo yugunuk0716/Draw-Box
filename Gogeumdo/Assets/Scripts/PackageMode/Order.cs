@@ -83,7 +83,7 @@ public class Order : MonoBehaviour
         orderIdx = Random.Range(0, 5);
         orderText.text = $"{areas[orderIdx]}";
         totalPerLeftBoxCountText.text = $"{leftBoxCount} / {totalBoxCount}";
-        targetBox.GetComponent<SpriteRenderer>().sprite = openBoxSprites[orderIdx];
+        targetBox.GetComponent<SpriteRenderer>().sprite = closedBoxSprites[orderIdx];
         BoxTween();
 
         progressCoroutine = SetProgress();
