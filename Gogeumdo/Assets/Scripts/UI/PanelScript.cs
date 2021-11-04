@@ -29,7 +29,6 @@ public class PanelScript : MonoBehaviour
     public virtual void Close()
     {
         SetAlpha(false);
-        Time.timeScale = 1f;
     }
     public virtual void OnClickHomeBtn(string str)
     {
