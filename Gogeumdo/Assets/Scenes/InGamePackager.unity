@@ -2320,6 +2320,7 @@ MonoBehaviour:
   - {fileID: -4028971264209293900, guid: 236d21d4cb9be544d95e1a5504d8eeee, type: 3}
   - {fileID: -5940150932476679264, guid: 236d21d4cb9be544d95e1a5504d8eeee, type: 3}
   - {fileID: 6774937938510847489, guid: 236d21d4cb9be544d95e1a5504d8eeee, type: 3}
+  - {fileID: 5167869829373702734, guid: 91e5fb104f94cf44a8564be62954c67c, type: 3}
   closedBoxSprites:
   - {fileID: -6007857137893288414, guid: 98dcbc4d2560c3144aba43371f6c76b1, type: 3}
   - {fileID: 360050356498797049, guid: 98dcbc4d2560c3144aba43371f6c76b1, type: 3}

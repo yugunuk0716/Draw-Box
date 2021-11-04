@@ -280,6 +280,7 @@ MonoBehaviour:
   stageClearPanel: {fileID: 5733561614657060254, guid: 2474809830ada35419ff3c8f208d86c9, type: 3}
   rankClearPanel: {fileID: 646693638545778344, guid: 23bb8a52c99902a4bbdd45213ed19a79, type: 3}
   alertPopup: {fileID: 5725441705771941071, guid: 881b3a851bfe37342bf71eca935c9b33, type: 3}
+  gameOverPanel: {fileID: 7782355509506468822, guid: 91323b0ead1944b43ab05c1d8be3f8ab, type: 3}
   starSprite:
   - {fileID: 21300000, guid: 4d9d8366b9ba72849ac8aa176d68f94f, type: 3}
   - {fileID: 21300000, guid: ed0b976efb282514aa0a91c324457a86, type: 3}
