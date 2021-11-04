@@ -83,14 +83,14 @@ public class PoolManager : MonoBehaviour
         ob.Death += handler;
         StartCoroutine(Wait(ob));
     }
-    IEnumerator Wait(Obstacle ob)
+    IEnumerator Wait(Box ob)
     {
         RaycastHit2D hit; Vector2 dest; int idx;
         do
         {
             Debug.Log("장애물 충돌");
             dest = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x, spawnPoint.position.y);
-            hit = Physics2D.BoxCast(dest, gameObject.transform.lossyScale * 0.2f, 0, new Vector2(0, 0));
+            hit = Physics2D.BoxCast(dest, ob.transform.lossyScale * 0.2f, 0, new Vector2(0, 0));
             yield return new WaitForSeconds(0.3f);
         } while (hit.collider != null);
         yield return null;
@@ -133,9 +133,10 @@ public class PoolManager : MonoBehaviour
 
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        box.gameObject.SetActive(true); //액티브를 켜줌
+        //box.gameObject.SetActive(true); //액티브를 켜줌
         //box.GetComponent<SpriteRenderer>().sprite = boxSprite[0];
-        box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
+        //box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
+        StartCoroutine(Wait(box));
     }
     public void FeverBoxSpawn()
     {
@@ -155,9 +156,10 @@ public class PoolManager : MonoBehaviour
 
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        box.gameObject.SetActive(true); //액티브를 켜줌
+        //box.gameObject.SetActive(true); //액티브를 켜줌
         //box.spriteRenderer.sprite = boxSprite[0];
-        box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
+        //box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
+        StartCoroutine(Wait(box));
     }
     public void TimeIncreaseBoxSpawn()
     {
@@ -175,9 +177,10 @@ public class PoolManager : MonoBehaviour
 
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        box.gameObject.SetActive(true); //액티브를 켜줌
+        //box.gameObject.SetActive(true); //액티브를 켜줌
         //box.spriteRenderer.sprite = boxSprite[1];
-        box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
+        //box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
+        StartCoroutine(Wait(box));
     }
 
 
