@@ -260,7 +260,8 @@ MonoBehaviour:
   obstacleCount: 0
   boxCount: 
   boxSprite:
-  - {fileID: 7499154508442906066, guid: 3966b177bafb7c1419ec75e5532b9272, type: 3}
+  - {fileID: 8853548355333447529, guid: 088cf526f3492dc4398e21bb7fd17096, type: 3}
+  - {fileID: 1038692359126570242, guid: 088cf526f3492dc4398e21bb7fd17096, type: 3}
 --- !u!114 &204508296
 MonoBehaviour:
   m_ObjectHideFlags: 0
