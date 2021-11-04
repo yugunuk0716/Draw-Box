@@ -28,7 +28,6 @@ public class NetworkManager : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogError("다수의 네트워크 매니저가 실행중");
             return;
         }
         instance = this;

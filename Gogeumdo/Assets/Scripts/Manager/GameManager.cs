@@ -66,6 +66,10 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             _instance = this;
         }
+        else
+        {
+            Destroy(this.gameObject);
+        }
         if (boxSprite.Count == 0) 
         {
             boxSpriteObj = Resources.Load<GameObject>("BoxSprites");
