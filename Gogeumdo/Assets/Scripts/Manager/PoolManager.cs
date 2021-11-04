@@ -88,15 +88,16 @@ public class PoolManager : MonoBehaviour
         RaycastHit2D hit; Vector2 dest; int idx;
         do
         {
-            Debug.Log("장애물 충돌");
             dest = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x, spawnPoint.position.y);
-            hit = Physics2D.BoxCast(dest, ob.transform.lossyScale * 0.2f, 0, new Vector2(0, 0));
+            hit = Physics2D.BoxCast(dest, ob.transform.lossyScale, 0, new Vector2(0, 0));
             yield return new WaitForSeconds(0.3f);
         } while (hit.collider != null);
         yield return null;
         ob.gameObject.SetActive(true);
         ob.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x, spawnPoint.position.y);
     }
+
+    
 
     public void AddBoxCount(bool add)
     {

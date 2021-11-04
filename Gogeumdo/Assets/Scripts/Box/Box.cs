@@ -151,6 +151,10 @@ public class Box : MonoBehaviour, IResettable
         GameManager.instance.boxCount--;
         Death(this, null);
     }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawCube(new Vector2(BoxManager.instance.lineTrm[lineIdx].position.x, PoolManager.instance.spawnPoint.position.y), transform.lossyScale);
+    //}
 
 
     public void Reset()//Death 이벤트 발동시 실행되는 함수
