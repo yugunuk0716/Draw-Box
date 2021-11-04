@@ -63,7 +63,6 @@ public class PopupManager : MonoBehaviour
     {
         if(popupStack.Count == 0)
         {
-            popupCanvasGroup.interactable = true;
             DOTween.To(() => popupCanvasGroup.alpha, value => popupCanvasGroup.alpha = value, 1, 0.8f).OnComplete(() =>
             {
                 popupCanvasGroup.interactable = true;

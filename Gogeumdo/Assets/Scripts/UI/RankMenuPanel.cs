@@ -20,6 +20,7 @@ public class RankMenuPanel : PanelScript
 
     public Text stageIdxText;
 
+    CanvasGroup cv;
 
     protected override void Awake()
     {
@@ -29,6 +30,7 @@ public class RankMenuPanel : PanelScript
 
     private void Start()
     {
+        cv = GetComponent<CanvasGroup>();
         continueBtn.onClick.AddListener(() =>
         {
             Close();
@@ -91,6 +93,11 @@ public class RankMenuPanel : PanelScript
         rankListPanel.interactable = on;
     }
 
-
+    public override void SetAlpha(bool on)
+    {
+        cv.alpha = on ? 1f : 0f;
+        cv.interactable = on;
+        cv.blocksRaycasts = on;
+    }
 
 }

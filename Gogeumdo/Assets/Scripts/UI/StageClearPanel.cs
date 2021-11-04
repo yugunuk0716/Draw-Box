@@ -10,6 +10,7 @@ public class StageClearPanel : PanelScript
     public Button nextStageBtn;
     public Text stageIdxText;
 
+    CanvasGroup cv;
     protected override void Awake()
     {
         base.Awake();
@@ -17,6 +18,7 @@ public class StageClearPanel : PanelScript
 
     private void Start()
     {
+        cv = GetComponent<CanvasGroup>();
         homeBtn.onClick.AddListener(() => OnClickHomeBtn("Stage"));
         retryBtn.onClick.AddListener(() => OnClickRetryBtn());
         nextStageBtn.onClick.AddListener(() => OnClickNextStageBtn());
@@ -42,5 +44,10 @@ public class StageClearPanel : PanelScript
 
     }
 
-
+    public override void SetAlpha(bool on)
+    {
+        cv.alpha = on ? 1f : 0f;
+        cv.interactable = on;
+        cv.blocksRaycasts = on;
+    }
 }

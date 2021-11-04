@@ -191,12 +191,10 @@ public class PoolManager : MonoBehaviour
         {
             if (GameManager.instance.isStage && GameManager.instance.remainBox > 0)
             {
-                print("Á¤»ó");
                 BoxSpawn();
             }
             else if (!GameManager.instance.isStage)
             {
-                print("·©Å©ÀÏ‹š");
                 BoxSpawn();
             }
 

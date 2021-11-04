@@ -17,6 +17,8 @@ public class RankClearPanel : PanelScript
     public Transform content;
     public ScoreRank rankPrefab;
 
+    CanvasGroup cv;
+
     protected override void Awake()
     {
         base.Awake();
@@ -24,6 +26,7 @@ public class RankClearPanel : PanelScript
 
     private void Start()
     {
+        cv = GetComponent<CanvasGroup>();
         homeBtn.onClick.AddListener(() => OnClickHomeBtn("Main"));
         retryBtn.onClick.AddListener(() => OnClickRetryBtn());
         rankBtn.onClick.AddListener(() => OnClickRankBtn());
@@ -63,6 +66,7 @@ public class RankClearPanel : PanelScript
             else
             {
                 //오류 발생 시
+                UIManager.instance.OpenPanel("alert",res.payload);
             }
         });
 
@@ -76,6 +80,10 @@ public class RankClearPanel : PanelScript
         rankListPanel.interactable = on;
     }
 
-
-
+    public override void SetAlpha(bool on)
+    {
+        cv.alpha = on ? 1f : 0f;
+        cv.interactable = on;
+        cv.blocksRaycasts = on;
+    }
 }

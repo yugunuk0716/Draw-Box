@@ -10,7 +10,7 @@ public class StageMenuPanel : PanelScript
     public Button homeBtn;
     public Text stageIdxText;
 
-
+    CanvasGroup cv;
     protected override void Awake()
     {
         base.Awake();
@@ -19,6 +19,7 @@ public class StageMenuPanel : PanelScript
 
     private void Start()
     {
+        cv = GetComponent<CanvasGroup>();
         continueBtn.onClick.AddListener(() => 
         {
             Close();
@@ -48,5 +49,12 @@ public class StageMenuPanel : PanelScript
     public override void OnClickRetryBtn() 
     {
         base.OnClickRetryBtn();
+    }
+
+    public override void SetAlpha(bool on)
+    {
+        cv.alpha = on ? 1f : 0f;
+        cv.interactable = on;
+        cv.blocksRaycasts = on;
     }
 }

@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public RankMenuPanel rankMenuPanel;
     public StageClearPanel stageClearPanel;
     public RankClearPanel rankClearPanel;
+    public AlertPopup alertPopup;
 
     public Button menuBtn;
 
@@ -26,7 +27,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null) 
+        if (instance != null)
         {
             Debug.LogError("다수의 UIManager가 실행중입니다");
         }
@@ -35,15 +36,24 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        cv = panelParent.GetComponent<CanvasGroup>();
+        if (cv == null)
+        {
+            cv = panelParent.gameObject.AddComponent<CanvasGroup>();
+        }
+        cv.alpha = 0;
+        cv.interactable = false;
+        cv.blocksRaycasts = false;
+
         panelDic.Add("stageMenu", Instantiate(stageMenuPanel, panelParent));
         panelDic.Add("rankMenu", Instantiate(rankMenuPanel, panelParent));
         panelDic.Add("stageClear", Instantiate(stageClearPanel, panelParent));
         panelDic.Add("rankClear", Instantiate(rankClearPanel, panelParent));
+        panelDic.Add("alert", Instantiate(alertPopup, panelParent)); //alert는 항상 맨 밑에 있어야 함
 
-        menuBtn.onClick.AddListener(() => 
+        menuBtn.onClick.AddListener(() =>
         {
-            Time.timeScale = 0;
-            if (GameManager.instance.isStage) 
+            if (GameManager.instance.isStage)
             {
                 OpenPanel("stageMenu");
             }
@@ -51,9 +61,10 @@ public class UIManager : MonoBehaviour
             {
                 OpenPanel("rankMenu");
             }
+            Time.timeScale = 0;
         });
 
-        if(!GameManager.instance.isStage)
+        if (!GameManager.instance.isStage)
         {
             ChangeScoreAndBoxText($"0점");
             timerText.gameObject.SetActive(true);
@@ -74,34 +85,35 @@ public class UIManager : MonoBehaviour
         timerText.text = str;
     }
 
-    public void OpenPanel(string name) 
+    public void OpenPanel(string name, object data = null, int closeCount = 1)
     {
-        cv = panelDic[name].GetComponent<CanvasGroup>();
-        cv.interactable = true;
-        cv.alpha = 1f; 
-        cv.blocksRaycasts = true;
-        
-
+        if (panelStack.Count == 0)
+        {
+            cv.alpha = 1f;
+            cv.interactable = true;
+            cv.blocksRaycasts = true;
+        }
         panelStack.Push(panelDic[name]);
-        panelDic[name].Open();
+        panelDic[name].Open(data, closeCount);
     }
 
-    public void ClosePanel() 
+    public void ClosePanel()
     {
-        cv = panelStack.Peek().GetComponent<CanvasGroup>();
+        //cv = panelStack.Peek().GetComponent<CanvasGroup>();
         panelStack.Pop().Close();
-
-        cv.alpha = 0f;
-        cv.interactable = false;
-        cv.blocksRaycasts = false;
-
+        if (panelStack.Count == 0)
+        {
+            cv.alpha = 0f;
+            cv.interactable = false;
+            cv.blocksRaycasts = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    
+
 }
