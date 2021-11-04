@@ -80,6 +80,11 @@ public class Order : MonoBehaviour
 
     private void SetBox() //한 상자를 포장했을 때 해줘야 할 것들
     {
+        if (leftBoxCount <= 0) //만약 남은 상자가 0이하라면
+        {
+            LoadManager.LoadScene("InGame");//상자
+
+        }
         orderIdx = Random.Range(0, 5);
         orderText.text = $"{areas[orderIdx]}";
         totalPerLeftBoxCountText.text = $"{leftBoxCount} / {totalBoxCount}";
@@ -88,6 +93,8 @@ public class Order : MonoBehaviour
 
         progressCoroutine = SetProgress();
         StartCoroutine(progressCoroutine);
+
+        
         
 
     }
@@ -110,16 +117,7 @@ public class Order : MonoBehaviour
             GameManager.instance.boxIdxQueue.Enqueue(orderIdx);//다음 스테이지에서 쓰기 위해 queue에 넣는다
             print(orderIdx);
             leftBoxCount--; //남은 상자수를 줄인다
-            if (leftBoxCount <= 0) //만약 남은 상자가 0이하라면
-            {
-                LoadManager.LoadScene("InGame");//상자
-
-            }
-            else
-            {
-                SetBox(); //새 상자를 내요
-            }
-            
+            SetBox(); //새 상자를 내요
         }
         else
         {
