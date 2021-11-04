@@ -32,10 +32,11 @@ public class PanelScript : MonoBehaviour
     }
     public virtual void OnClickHomeBtn(string str)
     {
+       
         Close();
         Time.timeScale = 1f;
-        LoadManager.LoadScene(str);
         GameManager.instance.Init();
+        LoadManager.LoadScene(str);
     }
 
     public virtual void OnClickRetryBtn()

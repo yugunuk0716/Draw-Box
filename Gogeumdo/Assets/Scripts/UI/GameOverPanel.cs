@@ -9,6 +9,8 @@ public class GameOverPanel : PanelScript
     public Button retryBtn;
     public Text stageIdxText;
 
+    CanvasGroup cv;
+
     protected override void Awake()
     {
         base.Awake();
@@ -17,9 +19,21 @@ public class GameOverPanel : PanelScript
 
     private void Start()
     {
-        homeBtn.onClick.AddListener(() => OnClickHomeBtn("Stage"));
+
+        cv = GetComponent<CanvasGroup>();
+
         retryBtn.onClick.AddListener(() => OnClickRetryBtn());
+        homeBtn.onClick.AddListener(() => 
+        {
+            OnClickHomeBtn("Stage"); 
+        });
 
         stageIdxText.text = $"{GameManager.instance.stageIndex} 스테이지";
+    }
+
+    public override void OnClickHomeBtn(string str)
+    {
+        
+        base.OnClickHomeBtn(str);
     }
 }

@@ -140,9 +140,9 @@ public class Order : MonoBehaviour
         Sequence seq = DOTween.Sequence();
         GameObject box = boxObjs.Find(x => Vector3.Distance(x.transform.position, Vector3.zero) < 3f);
         GameObject box2 = boxObjs.Find(x => Vector3.Distance(x.transform.position, new Vector3(-4.5f, 0, 0)) < 3f);
-        if (boxIdx <= closedBoxSprites.Length) 
+        if (boxIdx >= closedBoxSprites.Length) 
         {
-            box.GetComponent<SpriteRenderer>().sprite = closedBoxSprites[5];
+            box.GetComponent<SpriteRenderer>().sprite = openBoxSprites[5];
         }
         else
         {
