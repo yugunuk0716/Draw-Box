@@ -91,7 +91,8 @@ public class Box : MonoBehaviour, IResettable
             // transform.position += new Vector3(0, 0.01f, 0);
             Vector2 dest = new Vector2(0, moveTime);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, transform.position.y + moveTime);
-            if ((hit.collider == null || hit.collider == col || !hit.collider.CompareTag("Player") ||this.gameObject.CompareTag("Obstacle")) && !isCollisionBelt && !isCollisionBox) //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우 또는 이 함수를 쓰는 오브젝트의 태그가 장애물이라면 이동할 수 있는 경우임
+            if ((hit.collider == null || hit.collider == col || !hit.collider.CompareTag("Player") ||this.gameObject.CompareTag("Obstacle")) && !isCollisionBelt && !isCollisionBox) 
+                //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우 또는 이 함수를 쓰는 오브젝트의 태그가 장애물이라면 이동할 수 있는 경우이고 다른 물체에 닿아있는 상태라면 이동 불가
             {
                 dest = new Vector2(0, moveTime); //실제 위치를 받아온다
 
@@ -126,7 +127,7 @@ public class Box : MonoBehaviour, IResettable
             }
         }
 
-        else if (col.gameObject.CompareTag("Player")) 
+        else if (col.gameObject.CompareTag("Player")) //다른 상자에 닿았을 때
         {
             isCollisionBox = true;
         }
@@ -135,11 +136,11 @@ public class Box : MonoBehaviour, IResettable
     }
     protected virtual void OnCollisionExit2D(Collision2D col) 
     {
-        if (col.gameObject.CompareTag("ConveyorBelt"))// 컨베이어 벨트 도착점에 닿았을 때
+        if (col.gameObject.CompareTag("ConveyorBelt"))// 컨베이어 벨트 도착점에서 떨어졌을 때
         {
             isCollisionBelt = false;
         }
-        else if (col.gameObject.CompareTag("Player"))
+        else if (col.gameObject.CompareTag("Player"))// 다른 상자에서 떨어졌을 때
         {
             isCollisionBox = false;
         }
