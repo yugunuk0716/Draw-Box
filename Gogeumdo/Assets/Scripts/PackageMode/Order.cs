@@ -80,6 +80,7 @@ public class Order : MonoBehaviour
 
     private void SetBox() //한 상자를 포장했을 때 해줘야 할 것들
     {
+
         if (leftBoxCount <= 0) //만약 남은 상자가 0이하라면
         {
             LoadManager.LoadScene("InGame");//상자

@@ -27,10 +27,9 @@ public class StageMenuPanel : PanelScript
         });
         homeBtn.onClick.AddListener(() => OnClickHomeBtn("Stage"));
         retryBtn.onClick.AddListener(() => OnClickRetryBtn());
-        if (GameManager.instance.isStage)
-        {
-            stageIdxText.text = $"Stage {GameManager.instance.stageIndex}";
-        }
+       
+        stageIdxText.text = $"{GameManager.instance.stageIndex} 스테이지";
+        
 
     }
 
@@ -41,15 +40,7 @@ public class StageMenuPanel : PanelScript
 
     }
 
-    public override void Close()
-    {
-        base.Close();
-    }
-
-    public override void OnClickRetryBtn() 
-    {
-        base.OnClickRetryBtn();
-    }
+   
 
     public override void SetAlpha(bool on)
     {

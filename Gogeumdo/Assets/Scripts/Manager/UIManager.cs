@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public StageClearPanel stageClearPanel;
     public RankClearPanel rankClearPanel;
     public AlertPopup alertPopup;
+    public GameOverPanel gameOverPanel;
 
     public Sprite[] starSprite;
 
@@ -51,7 +52,12 @@ public class UIManager : MonoBehaviour
         panelDic.Add("rankMenu", Instantiate(rankMenuPanel, panelParent));
         panelDic.Add("stageClear", Instantiate(stageClearPanel, panelParent));
         panelDic.Add("rankClear", Instantiate(rankClearPanel, panelParent));
+        panelDic.Add("gameOver", Instantiate(gameOverPanel, panelParent));
+
+
         panelDic.Add("alert", Instantiate(alertPopup, panelParent)); //alert는 항상 맨 밑에 있어야 함
+
+        
 
         menuBtn.onClick.AddListener(() =>
         {
