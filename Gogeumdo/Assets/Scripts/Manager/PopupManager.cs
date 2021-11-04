@@ -75,6 +75,7 @@ public class PopupManager : MonoBehaviour
     public void ClosePopup()
     {
         popupStack.Pop().Close();
+
         if (popupStack.Count == 0)
         {
             DOTween.To(() => popupCanvasGroup.alpha, value => popupCanvasGroup.alpha = value, 0, 0.8f).OnComplete(() =>

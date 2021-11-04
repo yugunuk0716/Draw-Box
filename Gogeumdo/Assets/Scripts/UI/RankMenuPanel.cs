@@ -80,6 +80,7 @@ public class RankMenuPanel : PanelScript
             else
             {
                 //오류 발생 시
+                UIManager.instance.OpenPanel("alert", res.payload);
             }
         });
 
