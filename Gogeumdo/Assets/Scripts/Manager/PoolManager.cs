@@ -133,10 +133,6 @@ public class PoolManager : MonoBehaviour
         box.Death += handler; //생성된 박스의 Death에 추가해줌
 
 
-        //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        //box.gameObject.SetActive(true); //액티브를 켜줌
-        //box.GetComponent<SpriteRenderer>().sprite = boxSprite[0];
-        //box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
         StartCoroutine(Wait(box));
     }
     public void FeverBoxSpawn()
@@ -157,9 +153,7 @@ public class PoolManager : MonoBehaviour
 
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        //box.gameObject.SetActive(true); //액티브를 켜줌
-        //box.spriteRenderer.sprite = boxSprite[0];
-        //box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
+        box.spriteRenderer.sprite = boxSprite[0];
         StartCoroutine(Wait(box));
     }
     public void TimeIncreaseBoxSpawn()
@@ -178,9 +172,7 @@ public class PoolManager : MonoBehaviour
 
 
         //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        //box.gameObject.SetActive(true); //액티브를 켜줌
-        //box.spriteRenderer.sprite = boxSprite[1];
-        //box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[box.lineIdx].position.x, spawnPoint.position.y); //박스의 포지션을 스폰포인트로 해주고
+        box.spriteRenderer.sprite = boxSprite[1];
         StartCoroutine(Wait(box));
     }
 
