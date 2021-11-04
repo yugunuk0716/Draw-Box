@@ -24,7 +24,7 @@ public class StageMenuPanel : PanelScript
             Close();
             Time.timeScale = 1;
         });
-        homeBtn.onClick.AddListener(() => OnClickHomeBtn());
+        homeBtn.onClick.AddListener(() => OnClickHomeBtn("Stage"));
         retryBtn.onClick.AddListener(() => OnClickRetryBtn());
         if (GameManager.instance.isStage)
         {
@@ -36,16 +36,13 @@ public class StageMenuPanel : PanelScript
     public override void Open(object data = null, int closeCount = 1)
     {
         base.Open();
+        Time.timeScale = 0f;
+
     }
 
     public override void Close()
     {
         base.Close();
-    }
-
-    public override void OnClickHomeBtn() 
-    {
-        base.OnClickHomeBtn();
     }
 
     public override void OnClickRetryBtn() 

@@ -1029,7 +1029,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4bd8c634e8c924c84615daa476a57a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseUrl: http://localhost:54000
 --- !u!114 &1085759257
 MonoBehaviour:
   m_ObjectHideFlags: 0

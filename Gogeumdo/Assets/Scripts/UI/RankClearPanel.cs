@@ -24,52 +24,30 @@ public class RankClearPanel : PanelScript
 
     private void Start()
     {
-        homeBtn.onClick.AddListener(() => OnClickHomeBtn());
+        homeBtn.onClick.AddListener(() => OnClickHomeBtn("Main"));
         retryBtn.onClick.AddListener(() => OnClickRetryBtn());
         rankBtn.onClick.AddListener(() => OnClickRankBtn());
         backBtn.onClick.AddListener(() => RankListPanel(false));
     }
-    public void RankListPanel(bool on)
-    {
-        rankListPanel.alpha = on ? 1 : 0;
-        rankListPanel.blocksRaycasts = on;
-        rankListPanel.interactable = on;
-    }
+
     public override void Open(object data = null, int closeCount = 1)
     {
-        base.Open();
-        Time.timeScale = 0;
+        base.Open(data, closeCount);
+        Time.timeScale = 0f;
+
     }
 
-    public override void Close()
-    {
-        base.Close();
-    }
-
-    public override void OnClickHomeBtn()
-    {
-        base.OnClickHomeBtn();
-        Time.timeScale = 1;
-    }
-    public override void OnClickRetryBtn()
-    {
-        base.OnClickRetryBtn();
-        Time.timeScale = 1;
-    }
-
-    public void OnClickRankBtn() 
+    public void OnClickRankBtn()
     {
         //여기서 하시면 댐
-        NetworkManager.instance.SendGetRequest("ranklist", "",json =>
+        NetworkManager.instance.SendGetRequest("ranklist", "", json =>
         {
             Transform[] childs = content.GetComponentsInChildren<Transform>();
             ResponseVO res = JsonUtility.FromJson<ResponseVO>(json);
 
-            if(res.result)
+            if (res.result)
             {
                 ScoreListVO vo = JsonUtility.FromJson<ScoreListVO>(res.payload);
-
-
                 for (int i = 1; i < childs.Length; i++)
                 {
                     Destroy(childs[i].gameObject);
@@ -89,4 +67,15 @@ public class RankClearPanel : PanelScript
         });
 
     }
+
+
+    public void RankListPanel(bool on)
+    {
+        rankListPanel.alpha = on ? 1 : 0;
+        rankListPanel.blocksRaycasts = on;
+        rankListPanel.interactable = on;
+    }
+
+
+
 }
