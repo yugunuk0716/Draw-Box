@@ -101,9 +101,13 @@ public class GameManager : MonoBehaviour
             stageStar.Add(i, new List<int>() {(int)(stageBox[i] * 0.5f), (int)(stageBox[i] * 0.75f), stageBox[i]}); //3별:100% 넣었을경우 2별:75% 1별:50%
         }
     }
+    private void Start()
+    {
+    }
     public bool CompareCount(int stageIdx)
     {
-        return stageStar[stageIndex][stageIdx] >= boxCount;
+        print(boxCount + " " + stageStar[stageIndex][stageIdx]);
+        return stageStar[stageIndex][stageIdx] <= boxCount;
     }
     public void SetRemainBox()
     {
@@ -156,9 +160,7 @@ public class GameManager : MonoBehaviour
         if(tempBox <= 0)
         {
             UIManager.instance.OpenPanel("stageClear");
-            
         }
-        //스테이지 모드의 경우
     }
     public void RankClear()
     {
