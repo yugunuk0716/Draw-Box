@@ -91,6 +91,18 @@ public class TutorialHandler : MonoBehaviour
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
+        ShowText("할말", 1f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+
+        ShowText("할말", 1f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+
+        ShowText("할말", 1f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+
         HidePanel(true, 2f);
         yield return oneSecWait;
         yield return oneSecWait;
