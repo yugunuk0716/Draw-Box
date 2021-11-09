@@ -117,6 +117,7 @@ public class Order : MonoBehaviour
         if (boxIdx == orderIdx) //boxIdx 와 orderIdx가 같다면 옳게 입력된 것이므로
         {
             GameManager.instance.boxIdxQueue.Enqueue(orderIdx);//다음 스테이지에서 쓰기 위해 queue에 넣는다
+            EffectManager.instance.BoxDieEffect(true, Vector2.zero, 0.5f);
             print(orderIdx);
             leftBoxCount--; //남은 상자수를 줄인다
             SetBox(); //새 상자를 내요
@@ -125,6 +126,7 @@ public class Order : MonoBehaviour
         {
             leftBoxCount--;//아니라면 걍 남은 상자 수만 줄여준다
             totalBoxCount--;//
+            EffectManager.instance.BoxDieEffect(false, Vector2.zero, 0.5f);
             SetBox();
         }
 
@@ -199,6 +201,7 @@ public class Order : MonoBehaviour
         leftBoxCount--;//fillamount가 1이 되면 그 상자는 분류 실패
         totalBoxCount--;
         isSetTimerProgress = false;
+        EffectManager.instance.BoxDieEffect(false, Vector2.zero);
         SetBox();
         
     }

@@ -56,7 +56,7 @@ public class EffectManager : MonoBehaviour
     }
 
 
-    public void BoxDieEffect(bool result, Vector2 position)
+    public void BoxDieEffect(bool result, Vector2 position, float duration = 1.5f)
     {
         if (result)
         {
@@ -68,7 +68,7 @@ public class EffectManager : MonoBehaviour
         }
         imageBase.transform.position = position;
         imageBase.SetActive(true);
-        Invoke(nameof(SetImageFalse), 2f);
+        Invoke(nameof(SetImageFalse), duration);
     }
 
     private void SetImageFalse()
