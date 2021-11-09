@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -41,16 +42,28 @@ public class NetworkManager : MonoBehaviour
         {
             PopupManager.instance.ShowBtn(false);
         }
-        
+        SceneManager.sceneLoaded += OnSceneLoad;
     }
-
+    public bool TokenConfirm()
+    {
+        return (token != "" && token != null);
+    }
     public void Logout()
     {
         token = null;
         PlayerPrefs.DeleteKey("token");
         PopupManager.instance.ShowBtn(true);
     }
-
+    public void OnSceneLoad(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.buildIndex == 0)
+        {
+            if (!token.Equals(""))
+            {
+                PopupManager.instance.ShowBtn(false);
+            }
+        }
+    }
     public void SendGetRequest(string url, string queryString, Action<string> callBack)
     {
         StartCoroutine(SendGet($"{baseUrl}/{url}{queryString}", callBack));

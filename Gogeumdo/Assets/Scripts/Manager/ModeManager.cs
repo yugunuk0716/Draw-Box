@@ -26,7 +26,7 @@ public class ModeManager : MonoBehaviour
         }
         instance = this;
 
-        StageOrRank(GameManager.instance.isStage, GameManager.instance.stageIndex);
+        EventManager.AddEvent("StageOrRank",() => StageOrRank(GameManager.instance.isStage, GameManager.instance.stageIndex));
     }
 
     private void Start()
@@ -56,8 +56,9 @@ public class ModeManager : MonoBehaviour
             //랭크모드
             isTimer = true;
         }
+        EventManager.Invoke("BoxSpawn");
     }
-    
+
 
     public void Timer() //랭크 모드를위한 타이머
     {

@@ -26,9 +26,16 @@ public class Title : MonoBehaviour
         });
         stAndInBtns[1].onClick.AddListener(() =>
         {
-            GameManager.instance.isStage = false;
-            //랭크모드로 이동
-            LoadManager.LoadScene("InGame");
+            if(NetworkManager.instance.TokenConfirm())
+            {
+                GameManager.instance.isStage = false;
+                //랭크모드로 이동
+                LoadManager.LoadScene("InGame");
+            }
+            else
+            {
+                PopupManager.instance.OpenPopup("alert", "로그인 시 이용할 수 있습니다.");
+            }
         });
     }
 
@@ -50,4 +57,5 @@ public class Title : MonoBehaviour
             }
         }
     }
+
 }

@@ -50,7 +50,10 @@ public class PoolManager : MonoBehaviour
         obstaclePool = new Pool<Obstacle>(new PrefabFactory<Obstacle>(obstaclePrefab), 25);
         obstaclePool.members.ForEach(x => x.gameObject.SetActive(false));
 
-        StartCoroutine(InitSpawn());
+        EventManager.AddEvent("BoxSpawn", () =>
+        {
+            StartCoroutine(InitSpawn());
+        });
     }
 
     public void EventBoxSpawn() //박스가 몇개씩 사라지고 생성되는 아이템인지 체크

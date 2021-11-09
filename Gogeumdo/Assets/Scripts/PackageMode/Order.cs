@@ -53,7 +53,12 @@ public class Order : MonoBehaviour
         substituteThreeButton.onClick.AddListener(() => SubstituteNumberButton(3));
         substituteFourButton.onClick.AddListener(() => SubstituteNumberButton(4));
         confirmButton.onClick.AddListener(() => Confirm());
+        EventManager.AddEvent("OnPackageStart", OnPackageStart);
+        
+    }
 
+    public void OnPackageStart()
+    {
         totalBoxCount = GameManager.instance.stageBox[GameManager.instance.stageIndex];//GameManager에서 스테이지별 상자를 가져와서 총 상자수로 설정
         //totalBoxCount = 50;//임시
         leftBoxCount = totalBoxCount;
@@ -61,10 +66,6 @@ public class Order : MonoBehaviour
 
         currentTime = totalBoxCount * 3f;
         //상자 하나당 3초 드립니다
-
-      
-       
-        
     }
 
 
