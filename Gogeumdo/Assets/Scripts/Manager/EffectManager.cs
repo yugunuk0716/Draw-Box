@@ -34,6 +34,8 @@ public class EffectManager : MonoBehaviour
 
         successImage = Resources.Load<Sprite>("success");
         failImage = Resources.Load<Sprite>("fail");
+        print(successImage);
+        print(failImage);
 
     }
     private void Start()
@@ -54,9 +56,9 @@ public class EffectManager : MonoBehaviour
     }
 
 
-    public void BoxDieEffect(bool result, Vector2 position) 
+    public void BoxDieEffect(bool result, Vector2 position)
     {
-        if (result) 
+        if (result)
         {
             imageBase.GetComponent<SpriteRenderer>().sprite = successImage;
         }

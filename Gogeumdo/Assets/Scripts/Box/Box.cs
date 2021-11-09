@@ -121,6 +121,7 @@ public class Box : MonoBehaviour, IResettable
                     if (this.gameObject.CompareTag("Player"))
                     {
                         EffectManager.instance.SetCamShake(0.5f);
+                        EffectManager.instance.BoxDieEffect(true, this.gameObject.transform.position);
                     }
                     Death(this, null); // Death 이벤트를 실행
                 }
@@ -157,6 +158,7 @@ public class Box : MonoBehaviour, IResettable
         if (this.gameObject.CompareTag("Player")) 
         {
             EffectManager.instance.SetCamShake(0.5f, 4f);
+            EffectManager.instance.BoxDieEffect(false, this.gameObject.transform.position);
         }
         Death(this, null);
     }
