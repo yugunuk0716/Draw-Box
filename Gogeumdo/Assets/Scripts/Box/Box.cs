@@ -118,6 +118,10 @@ public class Box : MonoBehaviour, IResettable
             {
                 if (obj.lineIndex == (int)line || GameManager.instance.isFever) //박스의 라인과 목표 라인이 동일하거나 피버가 활성화중이라면
                 {
+                    if (this.gameObject.CompareTag("Player"))
+                    {
+                        EffectManager.instance.SetCamShake(0.5f);
+                    }
                     Death(this, null); // Death 이벤트를 실행
                 }
                 else
@@ -150,6 +154,10 @@ public class Box : MonoBehaviour, IResettable
     {
         PoolManager.instance.AddBoxCount(false);
         GameManager.instance.boxCount--;
+        if (this.gameObject.CompareTag("Player")) 
+        {
+            EffectManager.instance.SetCamShake(0.5f, 4f);
+        }
         Death(this, null);
     }
     //private void OnDrawGizmos()
@@ -160,6 +168,7 @@ public class Box : MonoBehaviour, IResettable
 
     public void Reset()//Death 이벤트 발동시 실행되는 함수
     {
+        
         gameObject.SetActive(false);
     }
 
