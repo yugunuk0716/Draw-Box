@@ -11,7 +11,7 @@ public class BeltManager : MonoBehaviour
 
     //private int wave = 0;//웨이브 관리
 
-    private Animator[] anim; 
+    private Animator anim; 
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class BeltManager : MonoBehaviour
 
     void Start()
     {
-        anim = GetComponentsInChildren<Animator>();// 애니메이터 받아오기
+        anim = GetComponentInChildren<Animator>();// 애니메이터 받아오기
         SetBeltSpeed(beltSpeed);
     }
 
@@ -35,9 +35,6 @@ public class BeltManager : MonoBehaviour
 
     private void SetBeltSpeed(float beltSpeed) 
     {
-        for (int i = 0; i < anim.Length; i++)
-        {
-            anim[i].speed = beltSpeed; // 애니메이션 속도 조절
-        }
+        anim.speed = beltSpeed;
     }
 }

@@ -465,7 +465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49cfb87d689587341b7333917ba80d36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beltSpeed: 20
+  beltSpeed: 2
 --- !u!1 &478047963
 GameObject:
   m_ObjectHideFlags: 0
