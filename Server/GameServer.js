@@ -80,6 +80,7 @@ app.post("/login", async (req,res) => {
         res.json({result:false, payload:"존재하지 않는 회원입니다"});
     }
 });
+
 app.post("/scorerecord", async (req,res) => {
     if(req.loginUser != null) {
         let {score} = req.body;
@@ -124,6 +125,20 @@ app.get("/ranklist", async (req,res) => {
     }
     else {
         res.json({result:false,payload:"로그인 시 이용할 수 있습니다."})
+    }
+});
+app.get("/rankconfirm", async (req,res) => {
+    if(req.loginUser != null) {
+        let userId = req.loginUser.id
+        let sql = `SELECT * FROM box_high_scores WHERE box_user = ?`;
+        let [list] = await pool.query(sql,[userId]);
+
+        if(list.length > 0) {
+            res.json({result:true,payload:"처음 플레이하는 유저가 아닙니다."});
+        }
+        else {
+            res.json({result:false,payload:"처음 플레이하는 유저입니다."});
+        }
     }
 });
     
