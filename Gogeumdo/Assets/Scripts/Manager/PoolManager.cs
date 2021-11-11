@@ -44,15 +44,23 @@ public class PoolManager : MonoBehaviour
     private void Start()
     {
         boxPool = new Pool<Box>(new PrefabFactory<Box>(boxPrefab), 25);
-        //boxPool = new Pool<Box>(new PrefabFactory<Box>(boxPrefab), 25); //25개만큼 미리 만들고
         boxPool.members.ForEach(b => b.gameObject.SetActive(false)); //전부 꺼두기
 
         obstaclePool = new Pool<Obstacle>(new PrefabFactory<Obstacle>(obstaclePrefab), 25);
         obstaclePool.members.ForEach(x => x.gameObject.SetActive(false));
 
-        EventManager.AddEvent("BoxSpawn", () =>
+        EventManager.AddEvent("InitSpawn", () =>
         {
             StartCoroutine(InitSpawn());
+        });
+        EventManager.AddEvent("StopBoxCoroutine", () =>
+        {
+            StopCoroutine(SpawnBox());
+        });
+        EventManager.AddEvent("PackagerEnd", () =>
+        {
+            StartCoroutine(SpawnBox());
+            ObstacleSpawn();
         });
     }
 
@@ -121,6 +129,7 @@ public class PoolManager : MonoBehaviour
     public void BoxSpawn()
     {
         Box box = boxPool.Allocate(); //박스의 풀에 박스가있다면 가져오고 없다면 새로 만들기
+        print("BoxSpawn");
         GameManager.instance.RemainBox(1);
         EventHandler handler = null;
         handler = (s, e) =>
@@ -221,8 +230,10 @@ public class PoolManager : MonoBehaviour
     {
         StartCoroutine(SpawnBox()); //코루틴 시작
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
 
-        StartCoroutine(InitObstacle());
+        //StartCoroutine(InitObstacle());
+        ObstacleSpawn();
+        TutorialManager.instance.isObstacle = true;
     }
 }

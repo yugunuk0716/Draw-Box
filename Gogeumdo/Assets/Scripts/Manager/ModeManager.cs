@@ -47,7 +47,7 @@ public class ModeManager : MonoBehaviour
         {
             if(stageIdx != 0) //혹시모르니 예외처리
             {
-                //print(GameManager.instance.boxIdxQueue.Count + "ㅁㄴㅇ");
+                print(GameManager.instance.boxIdxQueue.Count + "ㅁㄴㅇ");
                 GameManager.instance.SetRemainBox();
             }
         }
@@ -56,7 +56,7 @@ public class ModeManager : MonoBehaviour
             //랭크모드
             isTimer = true;
         }
-        EventManager.Invoke("BoxSpawn");
+        EventManager.Invoke("InitSpawn");
     }
 
 
