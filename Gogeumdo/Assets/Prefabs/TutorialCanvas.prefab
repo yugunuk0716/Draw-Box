@@ -153,7 +153,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: text
+  m_Text: 
 --- !u!1 &5452088852646419317
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +296,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 40b06b16776500a40ab7a02c60b73f63, type: 3}
-    m_FontSize: 55
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -416,8 +416,9 @@ MonoBehaviour:
   tutorialText: {fileID: 5452088851516055986}
   skipImg: {fileID: 5452088852646419319}
   tipText: {fileID: 5452088853016964498}
-  exImg: {fileID: 74936570134729928}
   isObstacle: 0
+  isFever: 0
+  isTime: 0
 --- !u!1 &5452088853284854117
 GameObject:
   m_ObjectHideFlags: 0
