@@ -44,12 +44,22 @@ public class TutorialManager : MonoBehaviour
         skipImg.enabled = false;
         skipImg.transform.DOLocalMoveY(skipImg.transform.localPosition.y + 10f, 0.5f).SetLoops(-1, LoopType.Yoyo);
 
-        InitTutorial();
         //SceneManager.sceneLoaded += (scene, mode) => InitTutorial(); //나중을 위해
+    }
+
+    private void Start()
+    {
+        //InitTutorial();
+        StartCoroutine(InitTuto());
     }
     private void Update()
     {
         SkipText();
+    }
+    IEnumerator InitTuto()
+    {
+        yield return new WaitForSeconds(0.1f);
+        InitTutorial();
     }
 
     public void InitTutorial()
@@ -76,6 +86,7 @@ public class TutorialManager : MonoBehaviour
                 else
                 {
                     EventManager.Invoke("StageOrRank");
+                    gameObject.SetActive(false);
                 }
             }
         }
@@ -88,6 +99,7 @@ public class TutorialManager : MonoBehaviour
                 if (vo.result)
                 {
                     EventManager.Invoke("StageOrRank");
+                    gameObject.SetActive(false);
                 }
                 else
                 {
@@ -99,8 +111,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator StagePackagerTutorial()
     {
-        HidePanel(false, 2f);
-        yield return oneSecWait;
+        HidePanel(false, 1f);
         yield return oneSecWait;
 
         //ShowText("할말", 1f);
@@ -125,8 +136,7 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator StagePackager()
     {
-        HidePanel(false, 2f);
-        yield return oneSecWait;
+        HidePanel(false, 1f);
         yield return oneSecWait;
 
         ShowText("택배가 몰려오고 있습니다", 1f);
@@ -141,8 +151,7 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        HidePanel(true, 2f);
-        yield return oneSecWait;
+        HidePanel(true, 1f);
         yield return oneSecWait;
 
         EventManager.Invoke("OnPackageStart");
@@ -150,8 +159,7 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator StageTutorial()
     {
-        HidePanel(false, 2f);
-        yield return oneSecWait;
+        HidePanel(false, 1f);
         yield return oneSecWait;
 
         ShowText("주어진 상자들을 훌륭하게 포장했군요!", 1.2f);
@@ -170,17 +178,14 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        skipImg.enabled = false;
-        HidePanel(true, 2f);
-        yield return oneSecWait;
+        HidePanel(true, 1f);
         yield return oneSecWait;
 
         EventManager.Invoke("StageOrRank");
         yield return new WaitUntil(() => isObstacle);
 
-        EventManager.Invoke("StopBoxCoroutine");
-        HidePanel(false, 2f);
-        yield return oneSecWait;
+        //EventManager.Invoke("StopBoxCoroutine");
+        HidePanel(false, 1f);
         yield return oneSecWait;
 
         ShowText("오 이런! 다른 직원의 실수로 컨베이어 벨트에 경고판이 올라왔군요", 2f);
@@ -195,9 +200,8 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        skipImg.enabled = false;
-        HidePanel(true, 2f);
-        yield return oneSecWait;
+        isObstacle = false;
+        HidePanel(true, 1f);
         yield return oneSecWait;
 
         EventManager.Invoke("PackagerEnd");
@@ -205,12 +209,10 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator RankTutorial()
     {
-        HidePanel(false, 2f);
-        yield return oneSecWait;
+        HidePanel(false, 1f);
         yield return oneSecWait;
 
-        HidePanel(true, 2f);
-        yield return oneSecWait;
+        HidePanel(true, 1f);
         yield return oneSecWait;
 
         EventManager.Invoke("StageOrRank");

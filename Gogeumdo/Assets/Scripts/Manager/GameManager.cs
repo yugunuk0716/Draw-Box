@@ -116,8 +116,8 @@ public class GameManager : MonoBehaviour
             isGameover = true;
             return;
         }
-        remainBox = boxIdxQueue.Count;
-        tempBox = remainBox;
+        tempBox = remainBox = boxIdxQueue.Count;
+        UIManager.instance.ChangeScoreAndBoxText($"남은 박스 : {remainBox}");
     }
 
     public void Init()

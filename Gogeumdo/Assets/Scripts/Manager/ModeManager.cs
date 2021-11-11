@@ -47,7 +47,6 @@ public class ModeManager : MonoBehaviour
         {
             if(stageIdx != 0) //혹시모르니 예외처리
             {
-                print(GameManager.instance.boxIdxQueue.Count + "ㅁㄴㅇ");
                 GameManager.instance.SetRemainBox();
                 if(stageIdx == 1)
                 {

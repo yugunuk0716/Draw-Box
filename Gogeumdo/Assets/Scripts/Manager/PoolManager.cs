@@ -39,6 +39,8 @@ public class PoolManager : MonoBehaviour
         Before10 = new WaitForSeconds(4f);
         Before20 = new WaitForSeconds(3f);
         After20 = new WaitForSeconds(2f);
+
+        
     }
 
     private void Start()
@@ -56,10 +58,6 @@ public class PoolManager : MonoBehaviour
         EventManager.AddEvent("StageInitSpawn", () =>
         {
             StartCoroutine(StageInitSpawn());
-        });
-        EventManager.AddEvent("StopBoxCoroutine", () =>
-        {
-            StopCoroutine(SpawnBox());
         });
         EventManager.AddEvent("PackagerEnd", () =>
         {
@@ -148,7 +146,7 @@ public class PoolManager : MonoBehaviour
         };
         box.Death += handler; //생성된 박스의 Death에 추가해줌
 
-
+        box.InitBox();
         StartCoroutine(Wait(box));
     }
     public void FeverBoxSpawn()
@@ -232,11 +230,10 @@ public class PoolManager : MonoBehaviour
 
     IEnumerator StageInitSpawn()
     {
-        StartCoroutine(SpawnBox()); //코루틴 시작
+        BoxSpawn();
 
         yield return new WaitForSeconds(2f);
 
-        //StartCoroutine(InitObstacle());
         ObstacleSpawn();
         TutorialManager.instance.isObstacle = true;
     }
@@ -247,6 +244,5 @@ public class PoolManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         StartCoroutine(InitObstacle());
-        TutorialManager.instance.isObstacle = true;
     }
 }

@@ -79,7 +79,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            ChangeScoreAndBoxText($"남은 박스 : {GameManager.instance.remainBox}");
+            ChangeScoreAndBoxText($"남은 박스 : ?");
         }
     }
 
