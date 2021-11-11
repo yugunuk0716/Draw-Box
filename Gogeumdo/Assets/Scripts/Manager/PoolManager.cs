@@ -53,6 +53,10 @@ public class PoolManager : MonoBehaviour
         {
             StartCoroutine(InitSpawn());
         });
+        EventManager.AddEvent("StageInitSpawn", () =>
+        {
+            StartCoroutine(StageInitSpawn());
+        });
         EventManager.AddEvent("StopBoxCoroutine", () =>
         {
             StopCoroutine(SpawnBox());
@@ -226,14 +230,23 @@ public class PoolManager : MonoBehaviour
         }
     }
 
+    IEnumerator StageInitSpawn()
+    {
+        StartCoroutine(SpawnBox()); //코루틴 시작
+
+        yield return new WaitForSeconds(2f);
+
+        //StartCoroutine(InitObstacle());
+        ObstacleSpawn();
+        TutorialManager.instance.isObstacle = true;
+    }
     IEnumerator InitSpawn()
     {
         StartCoroutine(SpawnBox()); //코루틴 시작
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
 
-        //StartCoroutine(InitObstacle());
-        ObstacleSpawn();
+        StartCoroutine(InitObstacle());
         TutorialManager.instance.isObstacle = true;
     }
 }

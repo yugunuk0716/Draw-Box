@@ -125,6 +125,10 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator StagePackager()
     {
+        HidePanel(false, 2f);
+        yield return oneSecWait;
+        yield return oneSecWait;
+
         ShowText("택배가 몰려오고 있습니다", 1f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;

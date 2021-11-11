@@ -52,6 +52,7 @@ public class Box : MonoBehaviour, IResettable
 
     public virtual void OnEnable() //풀링을 해서 다시 켜졌을 때 실행해야 할 것들 추가
     {
+        print("시발");
         InitBox();
         StartCoroutine(BoxMove());
         lineIdx = UnityEngine.Random.Range(0,5); //0 ~ 4번째 라인

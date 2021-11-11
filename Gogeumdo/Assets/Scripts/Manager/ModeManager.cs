@@ -49,6 +49,11 @@ public class ModeManager : MonoBehaviour
             {
                 print(GameManager.instance.boxIdxQueue.Count + "¤±¤¤¤·");
                 GameManager.instance.SetRemainBox();
+                if(stageIdx == 1)
+                {
+                    EventManager.Invoke("StageInitSpawn");
+                    return;
+                }
             }
         }
         else
