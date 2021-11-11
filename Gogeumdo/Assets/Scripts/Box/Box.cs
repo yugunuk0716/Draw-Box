@@ -52,6 +52,7 @@ public class Box : MonoBehaviour, IResettable
 
     public virtual void OnEnable() //풀링을 해서 다시 켜졌을 때 실행해야 할 것들 추가
     {
+        print("시발");
         InitBox();
         StartCoroutine(BoxMove());
         lineIdx = UnityEngine.Random.Range(0,5); //0 ~ 4번째 라인
@@ -63,7 +64,6 @@ public class Box : MonoBehaviour, IResettable
         //int idx = UnityEngine.Random.Range(0, 5); //0 ~ 4번째 라인
         if (GameManager.instance.boxIdxQueue.Count > 0)
         {
-            print("InitBox");
             idx = GameManager.instance.boxIdxQueue.Dequeue();
         }
         else
@@ -91,7 +91,7 @@ public class Box : MonoBehaviour, IResettable
             // transform.position += new Vector3(0, 0.01f, 0);
             Vector2 dest = new Vector2(0, moveTime);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, transform.position.y + moveTime);
-            if ((hit.collider == null || hit.collider == col || !hit.collider.CompareTag("Player") ||this.gameObject.CompareTag("Obstacle")) && !isCollisionBelt && !isCollisionBox) 
+            if (((hit.collider == null || hit.collider == col || !hit.collider.CompareTag("Player") ||this.gameObject.CompareTag("Obstacle")) && !isCollisionBelt && !isCollisionBox) && !TutorialManager.instance.isObstacle) 
                 //충돌체가 없거나 충돌체가 다른 박스가 아닐 경우 또는 이 함수를 쓰는 오브젝트의 태그가 장애물이라면 이동할 수 있는 경우이고 다른 물체에 닿아있는 상태라면 이동 불가
             {
                 dest = new Vector2(0, moveTime); //실제 위치를 받아온다
