@@ -19,8 +19,10 @@ public class EffectManager : MonoBehaviour
 
     #region BoxDieEffect
     public GameObject imageBase;
+    public GameObject fullImageBase;
     private Sprite successImage;
     private Sprite failImage;
+    private Sprite bloodScreenImage;
 
     #endregion
 
@@ -34,8 +36,8 @@ public class EffectManager : MonoBehaviour
 
         successImage = Resources.Load<Sprite>("success");
         failImage = Resources.Load<Sprite>("fail");
-        print(successImage);
-        print(failImage);
+        bloodScreenImage = Resources.Load<Sprite>("blood");
+        
 
     }
     private void Start()
@@ -65,6 +67,8 @@ public class EffectManager : MonoBehaviour
         else
         {
             imageBase.GetComponent<SpriteRenderer>().sprite = failImage;
+            fullImageBase.GetComponent<SpriteRenderer>().sprite = bloodScreenImage;
+            fullImageBase.SetActive(true);
         }
         imageBase.transform.position = position;
         imageBase.SetActive(true);
@@ -74,6 +78,7 @@ public class EffectManager : MonoBehaviour
     private void SetImageFalse()
     {
         imageBase.SetActive(false);
+        fullImageBase.SetActive(false);
     }
 
 }
