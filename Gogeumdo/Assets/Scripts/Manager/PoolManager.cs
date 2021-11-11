@@ -51,18 +51,20 @@ public class PoolManager : MonoBehaviour
         obstaclePool = new Pool<Obstacle>(new PrefabFactory<Obstacle>(obstaclePrefab), 25);
         obstaclePool.members.ForEach(x => x.gameObject.SetActive(false));
 
-        EventManager.AddEvent("InitSpawn", () =>
-        {
-            StartCoroutine(InitSpawn());
-        });
-        EventManager.AddEvent("StageInitSpawn", () =>
-        {
-            StartCoroutine(StageInitSpawn());
-        });
+        EventManager.AddEvent("InitSpawn", () => StartCoroutine(InitSpawn()));
+        EventManager.AddEvent("StageInitSpawn", () => StartCoroutine(StageInitSpawn()));
+        EventManager.AddEvent("RankInitSpawn", () => StartCoroutine(RankInitSpawn()));
         EventManager.AddEvent("PackagerEnd", () =>
         {
-            StartCoroutine(SpawnBox());
-            ObstacleSpawn();
+            StartCoroutine(PackagerEnd());
+        });
+    }
+
+    public void RemoveBox()
+    {
+        boxPool.members.FindAll(x => x.gameObject.activeSelf).ForEach(x => {
+            boxPool.members.Remove(x);
+            Destroy(x.gameObject);
         });
     }
 
@@ -232,17 +234,38 @@ public class PoolManager : MonoBehaviour
     {
         BoxSpawn();
 
-        yield return new WaitForSeconds(2f);
+        yield return After20;
 
         ObstacleSpawn();
         TutorialManager.instance.isObstacle = true;
+    }
+    IEnumerator RankInitSpawn()
+    {
+        yield return After20;
+
+        FeverBoxSpawn();
+        TutorialManager.instance.isFever = true;
+
+        yield return new WaitUntil(() => !TutorialManager.instance.isFever);
+
+        yield return new WaitForSeconds(0.5f);
+
+        TimeIncreaseBoxSpawn();
+        TutorialManager.instance.isTime = true;
+
     }
     IEnumerator InitSpawn()
     {
         StartCoroutine(SpawnBox()); //코루틴 시작
 
-        yield return new WaitForSeconds(2f);
+        yield return After20;
 
         StartCoroutine(InitObstacle());
+    }
+    IEnumerator PackagerEnd()
+    {
+        StartCoroutine(SpawnBox());
+        yield return After20;
+        ObstacleSpawn();
     }
 }

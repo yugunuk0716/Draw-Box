@@ -169,7 +169,7 @@ public class BoxManager : MonoBehaviour
 
     public void Move(Vector2 vec) // 상자를 이동시키는 함수
     {
-
+        if (TutorialManager.instance.IsTuto()) return;
         if (box != null) //널 체크
         {
             if (vec.x == 1)//갈 방향이 오른쪽인지 아닌지 체크

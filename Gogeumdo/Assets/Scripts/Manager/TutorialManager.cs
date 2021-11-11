@@ -15,15 +15,17 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Text tutorialText = null;
     [SerializeField] private Image skipImg = null;
     [SerializeField] private Text tipText = null;
-    [SerializeField] private Image exImg = null;
 
     private string curText;
 
     private bool isText = false;
 
+    
     private bool isTextEnd = false;
     private bool isFinished = false;
     public bool isObstacle = false;
+    public bool isFever = false;
+    public bool isTime = false;
 
     private Tweener textTween = null;
 
@@ -56,6 +58,12 @@ public class TutorialManager : MonoBehaviour
     {
         SkipText();
     }
+
+    public bool IsTuto()
+    {
+        return (isObstacle || isFever || isTime);
+    }
+
     IEnumerator InitTuto()
     {
         yield return new WaitForSeconds(0.1f);
@@ -132,7 +140,23 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        StartCoroutine(StagePackager());
+        ShowText("택배가 몰려오고 있습니다", 1f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+
+        ShowText("주어진 시간안에 상자를 포장하세요", 1f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+
+        ShowText("그럼 건투를 빕니다", 1f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+
+        HidePanel(true, 1f);
+        yield return oneSecWait;
+
+        EventManager.Invoke("OnPackageStart");
+        gameObject.SetActive(false);
     }
     IEnumerator StagePackager()
     {
@@ -185,6 +209,7 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitUntil(() => isObstacle);
 
         //EventManager.Invoke("StopBoxCoroutine");
+        tutorialText.text = "";
         HidePanel(false, 1f);
         yield return oneSecWait;
 
@@ -200,10 +225,10 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        isObstacle = false;
         HidePanel(true, 1f);
         yield return oneSecWait;
 
+        isObstacle = false;
         EventManager.Invoke("PackagerEnd");
         gameObject.SetActive(false);
     }
@@ -212,9 +237,51 @@ public class TutorialManager : MonoBehaviour
         HidePanel(false, 1f);
         yield return oneSecWait;
 
+        ShowText("여기선 다른 직원들과 실적을 겨룰 수 있습니다", 1.5f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+
+        ShowText("주어진 시간안에 다른 사람보다 많은 택배를 분류하세요!", 1.5f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+
+        ShowText("아이템 설명을 해드리겠습니다", 1.5f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+
+        EventManager.Invoke("RankInitSpawn");
+
+        yield return new WaitUntil(() => isFever);
+
+        ShowText("이 상자는 지역에 상관없이 상자를 분류할 수 있게 해주는 상자입니다!", 2.5f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+        //PoolManager.instance.RemoveBox();
+        isFever = false;
+
+        yield return new WaitUntil(() => isTime);
+
+        ShowText("이 상자는 분류할 수 있는 시간을 늘려주는 상자입니다", 2.5f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+
+        ShowText("이 상자들은 상자를 일정개수 분류할 때마다 등장합니다!", 1.5f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+
+        ShowText("이 상자들을 활용하여 더 많은 상자를 분류해 보세요", 1.5f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+
+        ShowText("그럼 건투를 빕니다", 1f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+
+        PoolManager.instance.RemoveBox();
+
         HidePanel(true, 1f);
         yield return oneSecWait;
-
+        isTime = false;
         EventManager.Invoke("StageOrRank");
         gameObject.SetActive(false);
     }
@@ -239,11 +306,6 @@ public class TutorialManager : MonoBehaviour
                         skipImg.enabled = true;
                         tipText.DOFade(1, 0.75f).SetLoops(-1, LoopType.Yoyo);
                     });
-    }
-    private void ShowExImg(bool isShow,Sprite sprite = null)
-    {
-        exImg.sprite = sprite;
-        exImg.enabled = isShow;
     }
 
     private void HidePanel(bool isHide, float dur = 1f)
