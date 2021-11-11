@@ -44,7 +44,7 @@ public class PanelScript : MonoBehaviour
         GameManager.instance.Init();
         Time.timeScale = 1f;
         Close();
-        LoadManager.LoadScene("InGame");
+        LoadManager.LoadScene("InGamePackager");
     }
 
    
