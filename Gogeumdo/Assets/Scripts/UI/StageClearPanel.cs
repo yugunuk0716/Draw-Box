@@ -52,7 +52,7 @@ public class StageClearPanel : PanelScript
     public void OnClickNextStageBtn()
     {
         GameManager.instance.stageIndex++;
-        LoadManager.LoadScene("InGamePackage");
+        LoadManager.LoadScene("InGamePackager");
         Time.timeScale = 1;
 
     }
