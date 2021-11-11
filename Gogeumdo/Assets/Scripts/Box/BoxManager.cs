@@ -33,7 +33,7 @@ public class BoxManager : MonoBehaviour
 
     void Update()
     {
-#if UNITY_EDITOR
+
         if (!EventSystem.current.IsPointerOverGameObject())
         {
             if (Input.GetMouseButtonDown(0))
@@ -74,9 +74,9 @@ public class BoxManager : MonoBehaviour
                         {
                             Move(Vector2.down);
                         }
-                        else if (mouseTrms[0].y < mouseTrms[mouseTrms.Count - 1].y) 
+                        else if (mouseTrms[0].y < mouseTrms[mouseTrms.Count - 1].y)
                         {
-                            if (!box.isCollisionBox && !box.isCollisionBelt) 
+                            if (!box.isCollisionBox && !box.isCollisionBelt)
                             {
                                 Move(Vector2.up);
                             }
@@ -87,43 +87,48 @@ public class BoxManager : MonoBehaviour
             }
         }
 
-#else
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            switch (touch.phase)
-            {
-                case TouchPhase.Began:
-                    touchPos.position = touch.position;
-                    break;
-                case TouchPhase.Ended:
-                    if (Input.touchCount > 5)
-                    {
-                        if (Input.GetTouch(touch.tapCount - 1).position.x > touchPos.position.x)
-                        {
-                            Move(Vector2.right);
-                        }
-                        if (Input.GetTouch(touch.tapCount - 1).position.x < touchPos.position.x)
-                        {
-                            Move(Vector2.left);
-                        }
-                        if (Input.GetTouch(touch.tapCount - 1).position.y > touchPos.position.y)
-                        {
-                            Move(Vector2.up);
-                        }
-                        if (Input.GetTouch(touch.tapCount - 1).position.y > touchPos.position.y)
-                        {
-                            Move(Vector2.down);
-                        }
-                    }
-                    break;
 
-                default:
-                    break;
-            }
-        }
-#endif
-        
+        #region 모바일용
+        //if (EventSystem.current.IsPointerOverGameObject())
+        //{
+        //    if (Input.touchCount > 0)
+        //    {
+        //        Touch touch = Input.GetTouch(0);
+        //        switch (touch.phase)
+        //        {
+        //            case TouchPhase.Began:
+        //                touchPos.position = touch.position;
+        //                break;
+        //            case TouchPhase.Ended:
+        //                if (Input.touchCount > 5)
+        //                {
+        //                    if (Input.GetTouch(touch.tapCount - 1).position.x > touchPos.position.x)
+        //                    {
+        //                        Move(Vector2.right);
+        //                    }
+        //                    if (Input.GetTouch(touch.tapCount - 1).position.x < touchPos.position.x)
+        //                    {
+        //                        Move(Vector2.left);
+        //                    }
+        //                    if (Input.GetTouch(touch.tapCount - 1).position.y > touchPos.position.y)
+        //                    {
+        //                        Move(Vector2.up);
+        //                    }
+        //                    if (Input.GetTouch(touch.tapCount - 1).position.y > touchPos.position.y)
+        //                    {
+        //                        Move(Vector2.down);
+        //                    }
+        //                }
+        //                break;
+
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //}
+        //#endif
+        #endregion
+
     }
 
     public IEnumerator Fever()
