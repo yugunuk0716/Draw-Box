@@ -195,7 +195,7 @@ public class Order : MonoBehaviour
             {
                 break;
             }
-            timeProgress.fillAmount = Mathf.Lerp(1f, 0f, t / time);
+            float x = Mathf.Lerp(1f, 0f, t / time);
         }
         
         leftBoxCount--;//fillamount가 1이 되면 그 상자는 분류 실패

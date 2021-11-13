@@ -7,10 +7,21 @@ public class LoadManager : MonoBehaviour
 {
     [SerializeField]
     Image progressBar;
+    Vector2 loadingBarDefaultSize;
+    float timer = 0f;
+
 
     static string nextScene;
 
     public static bool isLoaded = false;
+
+    private void Awake()
+    {
+        loadingBarDefaultSize = progressBar.GetComponent<RectTransform>().sizeDelta;
+        progressBar.GetComponent<RectTransform>().sizeDelta = new Vector2(0, loadingBarDefaultSize.y);
+
+    }
+
     void Start()
     {
         StartCoroutine(LoadSceneProgress());
@@ -24,32 +35,33 @@ public class LoadManager : MonoBehaviour
     }
 
 
+
     IEnumerator LoadSceneProgress()
     {
-        yield return null;
-        AsyncOperation async = SceneManager.LoadSceneAsync(nextScene);
         isLoaded = false;
+        yield return new WaitForSeconds(1);
+        AsyncOperation async = SceneManager.LoadSceneAsync(nextScene);
         if (async == null) yield break;
         async.allowSceneActivation = false;
 
-        float timer = 0f;
         while (!async.isDone)
         {
-            yield return null;
-
-            if (async.progress < 0.9f)
+        
+           
+            if (async.progress < 0.9f) 
             {
                 yield return null;
             }
             else
             {
-                timer += Time.unscaledDeltaTime;
-                progressBar.fillAmount = Mathf.Lerp(0f, 1f, timer);
-                if (progressBar.fillAmount >= 1f)
+
+                timer += 0.01f;
+                progressBar.rectTransform.sizeDelta = new Vector2(loadingBarDefaultSize.x * timer, loadingBarDefaultSize.y);
+                if (progressBar.rectTransform.sizeDelta.x >= 835f) 
                 {
+                    yield return new WaitForSeconds(1);
                     isLoaded = true;
                     async.allowSceneActivation = true;
-                    yield break;
                 }
             }
             yield return null;
