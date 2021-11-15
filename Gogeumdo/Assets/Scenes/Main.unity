@@ -690,11 +690,11 @@ MonoBehaviour:
   bgmSource: {fileID: 1624484444}
   sfxSource: {fileID: 1002403521}
   textSfxSource: {fileID: 1659955258}
-  packagerBgm: {fileID: 0}
-  inGameBgm: {fileID: 0}
-  endLineSfx: {fileID: 0}
-  deathBoxSfx: {fileID: 0}
-  textAudioSfx: {fileID: 0}
+  packagerBgm: {fileID: 8300000, guid: 0f94f0b6435317941837feb1d8816d04, type: 3}
+  inGameBgm: {fileID: 8300000, guid: 0f94f0b6435317941837feb1d8816d04, type: 3}
+  endLineSfx: {fileID: 8300000, guid: 7681472d4533ae14487f6d219930d94d, type: 3}
+  deathBoxSfx: {fileID: 8300000, guid: 706e49329797ff3488600c00f1200d2c, type: 3}
+  textAudioSfx: {fileID: 8300000, guid: 4207e3478ea608848a4509a92891dddc, type: 3}
 --- !u!4 &621531761
 Transform:
   m_ObjectHideFlags: 0
