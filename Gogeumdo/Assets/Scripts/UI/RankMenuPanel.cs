@@ -10,10 +10,13 @@ public class RankMenuPanel : PanelScript
     public Button retryBtn;
     public Button homeBtn;
     public Button rankBtn;
-    public Button backBtn;
+    public Button creditBtn;
+    public Button rankbackBtn;
+    public Button creditBackBtn;
 
 
     public CanvasGroup rankListPanel;
+    public CanvasGroup creditPanel;
     public Transform content;
     public ScoreRank rankPrefab;
 
@@ -39,7 +42,9 @@ public class RankMenuPanel : PanelScript
         homeBtn.onClick.AddListener(() => OnClickHomeBtn("Main"));
         retryBtn.onClick.AddListener(() => OnClickRetryBtn());
         rankBtn.onClick.AddListener(() => OnClickRankBtn());
-        backBtn.onClick.AddListener(() => RankListPanel(false));
+        rankbackBtn.onClick.AddListener(() => RankListPanel(false));
+        creditBtn.onClick.AddListener(() => CreditPanel(true));
+        creditBackBtn.onClick.AddListener(() => CreditPanel(false));
         if (GameManager.instance.isStage)
         {
             stageIdxText.text = $"Stage {GameManager.instance.stageIndex}";
@@ -92,6 +97,12 @@ public class RankMenuPanel : PanelScript
         rankListPanel.alpha = on ? 1 : 0;
         rankListPanel.blocksRaycasts = on;
         rankListPanel.interactable = on;
+    }
+    public void CreditPanel(bool on)
+    {
+        creditPanel.alpha = on ? 1 : 0;
+        creditPanel.interactable = on;
+        creditPanel.blocksRaycasts = on;
     }
 
     public override void SetAlpha(bool on)

@@ -248,8 +248,6 @@ public class PoolManager : MonoBehaviour
 
         yield return new WaitUntil(() => !TutorialManager.instance.isFever);
 
-        yield return new WaitForSeconds(0.5f);
-
         TimeIncreaseBoxSpawn();
         TutorialManager.instance.isTime = true;
 

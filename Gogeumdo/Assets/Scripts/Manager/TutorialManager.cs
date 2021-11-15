@@ -160,6 +160,8 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator StagePackager()
     {
+        SoundManager.instance.PlayBgmSound(SoundManager.instance.packagerBgm, 0.1f);
+
         HidePanel(false, 1f);
         yield return oneSecWait;
 
@@ -183,6 +185,8 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator StageTutorial()
     {
+        SoundManager.instance.PlayBgmSound(SoundManager.instance.inGameBgm, 0.1f);
+
         HidePanel(false, 1f);
         yield return oneSecWait;
 
@@ -234,6 +238,8 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator RankTutorial()
     {
+        SoundManager.instance.PlayBgmSound(SoundManager.instance.inGameBgm, 0.1f);
+
         HidePanel(false, 1f);
         yield return oneSecWait;
 
@@ -298,12 +304,14 @@ public class TutorialManager : MonoBehaviour
         curText = text;
 
         tutorialText.text = "";
+        SoundManager.instance.PlayTextSfx();
         textTween = tutorialText.DOText(text, dur)
                     .SetEase(Ease.Linear)
                     .OnComplete(() =>
                     {
                         isTextEnd = true;
                         skipImg.enabled = true;
+                        SoundManager.instance.StopTextSfx();
                         tipText.DOFade(1, 0.75f).SetLoops(-1, LoopType.Yoyo);
                     });
     }

@@ -8,6 +8,11 @@ public class StageMenuPanel : PanelScript
     public Button continueBtn;
     public Button retryBtn;
     public Button homeBtn;
+    public Button creditBtn;
+    public Button backBtn;
+
+    public CanvasGroup creditPanel;
+    
     public Text stageIdxText;
 
     CanvasGroup cv;
@@ -27,6 +32,8 @@ public class StageMenuPanel : PanelScript
         });
         homeBtn.onClick.AddListener(() => OnClickHomeBtn("Stage"));
         retryBtn.onClick.AddListener(() => OnClickRetryBtn());
+        creditBtn.onClick.AddListener(() => CreditPanel(true));
+        backBtn.onClick.AddListener(() => CreditPanel(false));
        
         stageIdxText.text = $"{GameManager.instance.stageIndex} 스테이지";
         
@@ -40,7 +47,12 @@ public class StageMenuPanel : PanelScript
 
     }
 
-   
+    public void CreditPanel(bool on)
+    {
+        creditPanel.alpha = on ? 1 : 0;
+        creditPanel.interactable = on;
+        creditPanel.blocksRaycasts = on;
+    }
 
     public override void SetAlpha(bool on)
     {
