@@ -9,7 +9,7 @@ public class ModeManager : MonoBehaviour
 
     [Header("타이머 관련")]
     private bool isTimer = false;
-    private float limitTime = 20f;
+    private float limitTime = 300f;
     private int min = 5;
     private float sec = 1f;
 
@@ -53,7 +53,7 @@ public class ModeManager : MonoBehaviour
                     EventManager.Invoke("StageInitSpawn");
                     return;
                 }
-                SoundManager.instance.PlayBgmSound(SoundManager.instance.packagerBgm, 0.2f);
+                SoundManager.instance.PlayBgmSound(SoundManager.instance.packagerBgm, 0.1f);
             }
         }
         else
@@ -62,7 +62,7 @@ public class ModeManager : MonoBehaviour
             isTimer = true;
         }
         EventManager.Invoke("InitSpawn");
-        SoundManager.instance.PlayBgmSound(SoundManager.instance.inGameBgm,0.2f);
+        SoundManager.instance.PlayBgmSound(SoundManager.instance.inGameBgm,0.1f);
     }
 
 

@@ -310,9 +310,18 @@ MonoBehaviour:
   spawnPoint: {fileID: 1739754305}
   obstacleCount: 0
   boxCount: 
-  boxSprite:
-  - {fileID: 8853548355333447529, guid: 088cf526f3492dc4398e21bb7fd17096, type: 3}
-  - {fileID: 1038692359126570242, guid: 088cf526f3492dc4398e21bb7fd17096, type: 3}
+  feverBoxSprite:
+  - {fileID: 4570925590212257392, guid: 0e205bae5a8a5464c964dd7f75933b0c, type: 3}
+  - {fileID: -6449502365062674995, guid: 0e205bae5a8a5464c964dd7f75933b0c, type: 3}
+  - {fileID: -1385708999440613690, guid: 0e205bae5a8a5464c964dd7f75933b0c, type: 3}
+  - {fileID: -6269889740912542607, guid: 0e205bae5a8a5464c964dd7f75933b0c, type: 3}
+  - {fileID: 468985513671301501, guid: 0e205bae5a8a5464c964dd7f75933b0c, type: 3}
+  timeBoxSprite:
+  - {fileID: -2639993329033232781, guid: b68782bdcc99b6443a1145bf4550a40e, type: 3}
+  - {fileID: 7852602963405091959, guid: b68782bdcc99b6443a1145bf4550a40e, type: 3}
+  - {fileID: -876740303076331550, guid: b68782bdcc99b6443a1145bf4550a40e, type: 3}
+  - {fileID: -567519917004074384, guid: b68782bdcc99b6443a1145bf4550a40e, type: 3}
+  - {fileID: -1450717293069942735, guid: b68782bdcc99b6443a1145bf4550a40e, type: 3}
 --- !u!114 &204508296
 MonoBehaviour:
   m_ObjectHideFlags: 0
