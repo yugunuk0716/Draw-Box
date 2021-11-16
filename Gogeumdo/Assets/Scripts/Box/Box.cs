@@ -54,7 +54,7 @@ public class Box : MonoBehaviour, IResettable
     {
         //InitBox();
         StartCoroutine(BoxMove());
-        lineIdx = UnityEngine.Random.Range(0,5); //0 ~ 4번째 라인
+        //lineIdx = UnityEngine.Random.Range(0,5); //0 ~ 4번째 라인
     }
 
     public virtual void InitBox() // 박스의 줄을 랜덤으로 설정
@@ -120,7 +120,7 @@ public class Box : MonoBehaviour, IResettable
                     {
                         EffectManager.instance.SetCamShake(0.5f);
                         EffectManager.instance.BoxDieEffect(true, this.gameObject.transform.position);
-                        SoundManager.instance.PlaySfxSound(SoundManager.instance.endLineSfx, 0.13f);
+                        SoundManager.instance.PlaySfxSound(SoundManager.instance.endLineSfx, 0.25f);
                     }
                     Death(this, null); // Death 이벤트를 실행
                 }
@@ -158,7 +158,7 @@ public class Box : MonoBehaviour, IResettable
         {
             EffectManager.instance.SetCamShake(0.5f, 4f);
             EffectManager.instance.BoxDieEffect(false, this.gameObject.transform.position);
-            SoundManager.instance.PlaySfxSound(SoundManager.instance.deathBoxSfx,0.13f);
+            SoundManager.instance.PlaySfxSound(SoundManager.instance.deathBoxSfx,0.25f);
         }
         Death(this, null);
     }

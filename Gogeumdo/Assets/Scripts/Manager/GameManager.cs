@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
     public void Init()
     {
         boxCount = 0;
+        PoolManager.instance.InitCount();
         boxIdxQueue.Clear();
         isFever = false;
         isGameover = false;

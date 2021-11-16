@@ -40,13 +40,16 @@ public class SoundManager : MonoBehaviour
         bgmSource.volume = volume;
         bgmSource.Play();
     }
-
+    public void ChangeBgmSound(float volume = 0.3f)
+    {
+        bgmSource.volume = volume;
+    }
     public void PlaySfxSound(AudioClip clip, float volume)
     {
         sfxSource.PlayOneShot(clip, volume);
     }
 
-    public void PlayTextSfx(float volume = 0.13f)
+    public void PlayTextSfx(float volume = 0.25f)
     {
         textSfxSource.volume = volume;
         textSfxSource.Play();

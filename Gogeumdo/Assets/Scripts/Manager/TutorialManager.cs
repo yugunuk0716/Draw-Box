@@ -130,27 +130,27 @@ public class TutorialManager : MonoBehaviour
         //ShowExImg(false);
         //isFinished = false;
 
-        ShowText("당신은 택배회사 직원입니다", 1f);
+        ShowText("당신은 택배회사 직원입니다.", 1f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        ShowText("옆에서 오는 상자를 지역에 따라 포장하면 됩니다", 1.5f);
+        ShowText("옆에서 오는 상자를 지역에 따라 포장하면 됩니다.", 1.5f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        ShowText("해당 지역에 해당하는 버튼을 누르고 확인 버튼을 누르면 상자가 포장됩니다", 2f);
+        ShowText("해당 지역에 해당하는 버튼을 누르고 확인 버튼을 누르면 상자가 포장됩니다.", 2f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        ShowText("택배가 몰려오고 있습니다", 1f);
+        ShowText("택배가 몰려오고 있습니다!", 1f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        ShowText("주어진 시간안에 상자를 포장하세요", 1f);
+        ShowText("주어진 시간안에 상자를 포장하세요!", 1f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        ShowText("그럼 건투를 빕니다", 1f);
+        ShowText("그럼 건투를 빕니다.", 1f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
@@ -164,20 +164,20 @@ public class TutorialManager : MonoBehaviour
     IEnumerator StagePackager()
     {
         isTuto = true;
-        SoundManager.instance.PlayBgmSound(SoundManager.instance.packagerBgm, 0.05f);
+        SoundManager.instance.ChangeBgmSound(0.05f);
 
         HidePanel(false, 1f);
         yield return oneSecWait;
 
-        ShowText("택배가 몰려오고 있습니다", 1f);
+        ShowText("택배가 몰려오고 있습니다!", 1f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        ShowText("주어진 시간안에 상자를 포장하세요", 1f);
+        ShowText("주어진 시간안에 상자를 포장하세요!", 1f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        ShowText("그럼 건투를 빕니다", 1f);
+        ShowText("그럼 건투를 빕니다.", 1f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
@@ -190,7 +190,7 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator StageTutorial()
     {
-        SoundManager.instance.PlayBgmSound(SoundManager.instance.inGameBgm, 0.05f);
+        SoundManager.instance.ChangeBgmSound(0.05f);
         isTuto = true;
         HidePanel(false, 1f);
         yield return oneSecWait;
@@ -199,15 +199,19 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        ShowText("이제 이전에 포장했던 상자들을 분류해야 합니다", 1.5f);
+        ShowText("이제 이전에 포장했던 상자들을 분류해야 합니다.", 1.5f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        ShowText("상자를 드래그하면 드래그 한 방향으로 상자가 이동합니다", 2f);
+        ShowText("상자를 드래그하면 드래그 한 방향으로 상자가 이동합니다.", 2f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        ShowText("상자의 지역에 맞는 라인에 상자를 넣으면 됩니다", 1.5f);
+        ShowText("상자의 지역에 맞는 라인에 상자를 넣으면 됩니다.", 1.5f);
+        yield return new WaitUntil(() => isFinished);
+        isFinished = false;
+
+        ShowText("그럼 건투를 빕니다.", 1.5f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
@@ -222,11 +226,11 @@ public class TutorialManager : MonoBehaviour
         HidePanel(false, 1f);
         yield return oneSecWait;
 
-        ShowText("오 이런! 다른 직원의 실수로 컨베이어 벨트에 경고판이 올라왔군요", 2f);
+        ShowText("오 이런! 다른 직원의 실수로 컨베이어 벨트에 경고판이 올라왔군요.", 2f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        ShowText("경고판에 닿은 상자는 사용할 수 없습니다", 1f);
+        ShowText("경고판에 닿은 상자는 사용할 수 없습니다.", 1f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
@@ -244,13 +248,13 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator RankTutorial()
     {
-        SoundManager.instance.PlayBgmSound(SoundManager.instance.inGameBgm, 0.05f);
+        SoundManager.instance.ChangeBgmSound(0.05f);
         isTuto = true;
 
         HidePanel(false, 1f);
         yield return oneSecWait;
 
-        ShowText("여기선 다른 직원들과 실적을 겨룰 수 있습니다", 1.5f);
+        ShowText("여기선 다른 직원들과 실적을 겨룰 수 있습니다.", 1.5f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
@@ -258,7 +262,7 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        ShowText("아이템 설명을 해드리겠습니다", 1.5f);
+        ShowText("아이템 설명을 해드리겠습니다.", 1.5f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
@@ -266,7 +270,7 @@ public class TutorialManager : MonoBehaviour
 
         yield return new WaitUntil(() => isFever);
 
-        ShowText("이 상자는 지역에 상관없이 상자를 분류할 수 있게 해주는 상자입니다!", 2.5f);
+        ShowText("이 상자는 일정 시간동안 지역에 상관없이 상자를 분류할 수 있게 해주는 상자입니다!", 3f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
         //PoolManager.instance.RemoveBox();
@@ -274,7 +278,7 @@ public class TutorialManager : MonoBehaviour
 
         yield return new WaitUntil(() => isTime);
 
-        ShowText("이 상자는 분류할 수 있는 시간을 늘려주는 상자입니다", 2.5f);
+        ShowText("이 상자는 상자를 분류할 수 있는 시간을 늘려주는 상자입니다.", 2.5f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
@@ -282,11 +286,11 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        ShowText("이 상자들을 활용하여 더 많은 상자를 분류해 보세요", 1.5f);
+        ShowText("이 상자들을 활용하여 더 많은 상자를 분류해 보세요.", 1.5f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 
-        ShowText("그럼 건투를 빕니다", 1f);
+        ShowText("그럼 건투를 빕니다.", 1f);
         yield return new WaitUntil(() => isFinished);
         isFinished = false;
 

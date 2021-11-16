@@ -82,6 +82,13 @@ public class PoolManager : MonoBehaviour
             boxCount[1] -= 30;
         }
     }
+    public void InitCount()
+    {
+        for (int i = 0; i < boxCount.Length; i++)
+        {
+            boxCount[i] = 0;
+        }
+    }
 
     public void ObstacleSpawn()
     {
@@ -103,9 +110,11 @@ public class PoolManager : MonoBehaviour
         RaycastHit2D hit; Vector2 dest;
         do
         {
-            dest = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x, spawnPoint.position.y);
-            hit = Physics2D.BoxCast(dest, new Vector2(transform.lossyScale.x, transform.lossyScale.y * 2f), 0, new Vector2(0, 0));
             yield return new WaitForSeconds(0.1f);
+            ob.lineIdx = UnityEngine.Random.Range(0, 5);
+            dest = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x, spawnPoint.position.y);
+            hit = Physics2D.BoxCast(dest, new Vector2(transform.lossyScale.x, transform.lossyScale.y * 4f), 0f, Vector2.zero);
+            
         } while (hit.collider != null);
         yield return null;
         ob.gameObject.SetActive(true);
@@ -133,7 +142,6 @@ public class PoolManager : MonoBehaviour
     public void BoxSpawn()
     {
         Box box = boxPool.Allocate(); //박스의 풀에 박스가있다면 가져오고 없다면 새로 만들기
-        print("BoxSpawn");
         GameManager.instance.RemainBox(1);
         EventHandler handler = null;
         handler = (s, e) =>
@@ -168,7 +176,15 @@ public class PoolManager : MonoBehaviour
         box.Death += handler; //생성된 박스의 Death에 추가해줌
 
         box.spriteRenderer.sprite = feverBoxSprite[(int)box.line];
-        StartCoroutine(Wait(box));
+        if(!TutorialManager.instance.isTuto)
+        {
+            StartCoroutine(Wait(box));
+        }
+        else
+        {
+            box.gameObject.SetActive(true);
+            box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[0].position.x, spawnPoint.position.y);
+        }
     }
     public void TimeIncreaseBoxSpawn()
     {
@@ -185,7 +201,15 @@ public class PoolManager : MonoBehaviour
         box.Death += handler; //생성된 박스의 Death에 추가해줌
 
         box.spriteRenderer.sprite = timeBoxSprite[(int)box.line];
-        StartCoroutine(Wait(box));
+        if (!TutorialManager.instance.isTuto)
+        {
+            StartCoroutine(Wait(box));
+        }
+        else
+        {
+            box.gameObject.SetActive(true);
+            box.gameObject.transform.position = new Vector2(BoxManager.instance.lineTrm[1].position.x, spawnPoint.position.y);
+        }
     }
 
 

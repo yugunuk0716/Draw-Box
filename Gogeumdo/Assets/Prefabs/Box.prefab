@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3357162985853034114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0296, y: -3.2105, z: -1}
+  m_LocalPosition: {x: -0.0296, y: -3.2105, z: 0}
   m_LocalScale: {x: 0.56083995, y: 0.48072, z: 0.8012}
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,7 +99,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   line: 0
   moveTime: 0.01
-  canMoveUp: 1
+  isCollisionBox: 0
+  isCollisionBelt: 0
+  spriteRenderer: {fileID: 0}
   lineIdx: 4
 --- !u!50 &3357162985853034361
 Rigidbody2D:
