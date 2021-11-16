@@ -220,23 +220,37 @@ public class PoolManager : MonoBehaviour
             if (GameManager.instance.isStage && GameManager.instance.remainBox > 0)
             {
                 BoxSpawn();
+
+                if (GameManager.instance.stageIndex < 10)
+                {
+                    yield return Before10; //나중에 조절해준다.
+                }
+                else if (GameManager.instance.stageIndex < 20)
+                {
+                    yield return Before20;
+                }
+                else
+                {
+                    yield return After20;
+                }
             }
             else if (!GameManager.instance.isStage)
             {
                 BoxSpawn();
-            }
-
-            if (GameManager.instance.stageIndex < 10)
-            {
-                yield return Before10; //나중에 조절해준다.
-            }
-            else if (GameManager.instance.stageIndex < 20)
-            {
-                yield return Before20;
-            }
-            else
-            {
-                yield return After20;
+                switch (ModeManager.instance.GetMin())
+                {
+                    case 0:
+                    case 1:
+                        yield return After20;
+                        break;
+                    case 2:
+                    case 3:
+                        yield return Before20;
+                        break;
+                    default:
+                        yield return Before10;
+                        break;
+                }
             }
             yield return null;
         }

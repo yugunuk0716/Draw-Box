@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   line: 0
-  moveTime: 0.01
+  moveTime: 0.03
   isCollisionBox: 0
   isCollisionBelt: 0
   spriteRenderer: {fileID: 0}

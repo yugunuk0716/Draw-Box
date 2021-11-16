@@ -67,7 +67,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator InitTuto()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         InitTutorial();
     }
 
@@ -164,7 +164,7 @@ public class TutorialManager : MonoBehaviour
     IEnumerator StagePackager()
     {
         isTuto = true;
-        SoundManager.instance.ChangeBgmSound(0.05f);
+        SoundManager.instance.ChangeBgmSound(0.04f);
 
         HidePanel(false, 1f);
         yield return oneSecWait;
@@ -190,7 +190,7 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator StageTutorial()
     {
-        SoundManager.instance.ChangeBgmSound(0.05f);
+        SoundManager.instance.ChangeBgmSound(0.04f);
         isTuto = true;
         HidePanel(false, 1f);
         yield return oneSecWait;
@@ -248,7 +248,7 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator RankTutorial()
     {
-        SoundManager.instance.ChangeBgmSound(0.05f);
+        SoundManager.instance.ChangeBgmSound(0.04f);
         isTuto = true;
 
         HidePanel(false, 1f);

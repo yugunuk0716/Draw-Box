@@ -11,7 +11,6 @@ public class RankClearPanel : PanelScript
     public Button backBtn;
 
     public Text curScoreText;
-    public Text highScoreText;
 
     public CanvasGroup rankListPanel;
     public Transform content;
@@ -36,6 +35,7 @@ public class RankClearPanel : PanelScript
     public override void Open(object data = null, int closeCount = 1)
     {
         base.Open(data, closeCount);
+        curScoreText.text = $"Á¡¼ö : {GameManager.instance.boxCount * 100}";
         Time.timeScale = 0f;
 
     }
