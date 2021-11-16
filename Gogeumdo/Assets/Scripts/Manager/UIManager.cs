@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class UIManager : MonoBehaviour
     public Text timerText;
 
     private CanvasGroup cv;
-
+    private readonly string packagerSceneName = "InGamePackager"; 
     Dictionary<string, PanelScript> panelDic = new Dictionary<string, PanelScript>();
     Stack<PanelScript> panelStack = new Stack<PanelScript>();
 
@@ -88,6 +89,8 @@ public class UIManager : MonoBehaviour
 
     public void ChangeScoreAndBoxText(string str)
     {
+        if (SceneManager.GetActiveScene().name == packagerSceneName)
+            return;
         scoreAndBoxText.text = str;
     }
 
