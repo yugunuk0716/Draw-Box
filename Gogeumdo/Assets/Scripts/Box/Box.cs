@@ -140,13 +140,23 @@ public class Box : MonoBehaviour, IResettable
             }
         }
 
-        else if (col.gameObject.CompareTag("Player")) //다른 상자에 닿았을 때
+        if (col.gameObject.CompareTag("Player")) //다른 상자에 닿았을 때
         {
             isCollisionBox = true;
         }
        
 
     }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+
+        if(!col.gameObject.CompareTag("Player") && !col.gameObject.CompareTag("ConveyorBelt") && isCollisionBox)
+        {
+            isCollisionBox = false;
+        }
+    }
+
     protected virtual void OnCollisionExit2D(Collision2D col) 
     {
         if (col.gameObject.CompareTag("ConveyorBelt"))// 컨베이어 벨트 도착점에서 떨어졌을 때
