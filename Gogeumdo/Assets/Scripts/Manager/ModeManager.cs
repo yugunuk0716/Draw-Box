@@ -54,7 +54,7 @@ public class ModeManager : MonoBehaviour
                     return;
                 }
                 //SoundManager.instance.PlayBgmSound(SoundManager.instance.packagerBgm, 0.1f);
-                SoundManager.instance.ChangeBgmSound(0.1f);
+                SoundManager.instance.ChangeBgmSound(0.07f);
             }
         }
         else
@@ -64,9 +64,12 @@ public class ModeManager : MonoBehaviour
         }
         EventManager.Invoke("InitSpawn");
         //SoundManager.instance.PlayBgmSound(SoundManager.instance.inGameBgm,0.1f);
-        SoundManager.instance.ChangeBgmSound(0.1f);
+        SoundManager.instance.ChangeBgmSound(0.07f);
     }
-
+    public int GetMin()
+    {
+        return (int)(limitTime / 60);
+    }
 
     public void Timer() //랭크 모드를위한 타이머
     {
@@ -87,7 +90,7 @@ public class ModeManager : MonoBehaviour
                     PoolManager.instance.SetBoxSpeed(0.05f);
                     break;
                 case 1:
-                    PoolManager.instance.SetBoxSpeed(0.04f);
+                    PoolManager.instance.SetBoxSpeed(0.045f);
                     if(limitObstacle == 1)
                     {
                         PoolManager.instance.ObstacleSpawn();
@@ -95,17 +98,15 @@ public class ModeManager : MonoBehaviour
                     }
                     break;
                 case 2:
-                    PoolManager.instance.SetBoxSpeed(0.03f);
+                    PoolManager.instance.SetBoxSpeed(0.04f);
                     break;
                 case 3:
-                    PoolManager.instance.SetBoxSpeed(0.02f);
+                    PoolManager.instance.SetBoxSpeed(0.035f);
                     if (limitObstacle == 2)
                     {
                         PoolManager.instance.ObstacleSpawn();
                         limitObstacle--;
                     }
-                    break;
-                default:
                     break;
             }
 

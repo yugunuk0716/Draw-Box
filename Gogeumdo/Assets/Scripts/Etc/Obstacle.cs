@@ -12,7 +12,7 @@ public class Obstacle : Box
     {
         base.OnEnable();
         //속도 랜덤 조정을 추가해야 한다.
-        SetMoveSpeed(UnityEngine.Random.Range(0.03f, 0.07f)); //속도 랜덤 조정
+        SetMoveSpeed(UnityEngine.Random.Range(0.03f, 0.06f)); //속도 랜덤 조정
     }
 
     public override void InitBox()

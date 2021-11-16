@@ -163,6 +163,7 @@ public class Box : MonoBehaviour, IResettable
     {
         PoolManager.instance.AddBoxCount(false);
         GameManager.instance.boxCount--;
+        if (!GameManager.instance.isStage) GameManager.instance.boxCount--;
         if (this.gameObject.CompareTag("Player")) 
         {
             EffectManager.instance.SetCamShake(0.5f, 4f);
