@@ -135,8 +135,6 @@ public class BoxManager : MonoBehaviour
 
     public IEnumerator Fever()
     {
-        if (GameManager.instance.isFever) yield break;
-
         fillImg.fillAmount = 1f;
         GameManager.instance.isFever = true; //피버 시작
         float time = 5f;
