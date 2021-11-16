@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class BoxManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class BoxManager : MonoBehaviour
 
     public Transform touchPos; // 터치했을 때의 위치를 저장할 변수
     public Transform[] lineTrm;// 라인 별 위치를 저장하는 배열
+    public Image fillImg;
 
     private float feverTime = 5f;
     private WaitForSeconds feverWs;
@@ -134,9 +136,19 @@ public class BoxManager : MonoBehaviour
     public IEnumerator Fever()
     {
         if (GameManager.instance.isFever) yield break;
-        GameManager.instance.isFever = true; //피버 시작
 
-        yield return feverWs;
+        fillImg.fillAmount = 1f;
+        GameManager.instance.isFever = true; //피버 시작
+        float time = 5f;
+        float t = 0f;
+
+        while (true)
+        {
+            yield return null;
+            t += Time.deltaTime;
+            if (t >= time) break;
+            fillImg.fillAmount = Mathf.Lerp(1f, 0f, t / time);
+        }
 
         GameManager.instance.isFever = false; //피버 종료
     }
