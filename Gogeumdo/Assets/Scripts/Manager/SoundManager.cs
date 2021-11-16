@@ -31,6 +31,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         textSfxSource.clip = textAudioSfx;
+        PlayBgmSound(inGameBgm, 0.1f);
     }
     public void PlayBgmSound(AudioClip clip, float volume = 0.3f)
     {
