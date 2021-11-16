@@ -145,11 +145,13 @@ public class Order : MonoBehaviour
         GameObject box2 = boxObjs.Find(x => Vector3.Distance(x.transform.position, new Vector3(-4.5f, 0, 0)) < 3f);
         if (boxIdx >= closedBoxSprites.Length) 
         {
-            box.GetComponent<SpriteRenderer>().sprite = openBoxSprites[5];
+            if (box != null)
+                box.GetComponent<SpriteRenderer>().sprite = openBoxSprites[5];
         }
         else
         {
-            box.GetComponent<SpriteRenderer>().sprite = closedBoxSprites[boxIdx];
+            if(box != null)
+                box.GetComponent<SpriteRenderer>().sprite = closedBoxSprites[boxIdx];
         }
         if (box == null || box2 == null)
             return;
