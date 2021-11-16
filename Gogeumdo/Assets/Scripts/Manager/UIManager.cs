@@ -61,15 +61,18 @@ public class UIManager : MonoBehaviour
 
         menuBtn.onClick.AddListener(() =>
         {
-            if (GameManager.instance.isStage)
+            if(!TutorialManager.instance.isTuto)
             {
-                OpenPanel("stageMenu");
+                if (GameManager.instance.isStage)
+                {
+                    OpenPanel("stageMenu");
+                }
+                else
+                {
+                    OpenPanel("rankMenu");
+                }
+                Time.timeScale = 0;
             }
-            else
-            {
-                OpenPanel("rankMenu");
-            }
-            Time.timeScale = 0;
         });
 
         if (!GameManager.instance.isStage)

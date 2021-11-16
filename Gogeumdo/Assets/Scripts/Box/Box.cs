@@ -82,7 +82,6 @@ public class Box : MonoBehaviour, IResettable
         moveWS = new WaitForSeconds(moveTime);
     }
 
-
     public virtual IEnumerator BoxMove() // 박스가 앞으로 이동하게 하는 코루틴
     {
         while (true)

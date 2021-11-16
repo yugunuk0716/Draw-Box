@@ -20,6 +20,7 @@ public class TutorialManager : MonoBehaviour
 
     private bool isText = false;
 
+    public bool isTuto = false;
     
     private bool isTextEnd = false;
     private bool isFinished = false;
@@ -119,6 +120,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator StagePackagerTutorial()
     {
+        isTuto = true;
         HidePanel(false, 1f);
         yield return oneSecWait;
 
@@ -154,12 +156,14 @@ public class TutorialManager : MonoBehaviour
 
         HidePanel(true, 1f);
         yield return oneSecWait;
+        isTuto = false;
 
         EventManager.Invoke("OnPackageStart");
         gameObject.SetActive(false);
     }
     IEnumerator StagePackager()
     {
+        isTuto = true;
         SoundManager.instance.PlayBgmSound(SoundManager.instance.packagerBgm, 0.05f);
 
         HidePanel(false, 1f);
@@ -179,6 +183,7 @@ public class TutorialManager : MonoBehaviour
 
         HidePanel(true, 1f);
         yield return oneSecWait;
+        isTuto = false;
 
         EventManager.Invoke("OnPackageStart");
         gameObject.SetActive(false);
@@ -186,7 +191,7 @@ public class TutorialManager : MonoBehaviour
     IEnumerator StageTutorial()
     {
         SoundManager.instance.PlayBgmSound(SoundManager.instance.inGameBgm, 0.05f);
-
+        isTuto = true;
         HidePanel(false, 1f);
         yield return oneSecWait;
 
@@ -231,6 +236,7 @@ public class TutorialManager : MonoBehaviour
 
         HidePanel(true, 1f);
         yield return oneSecWait;
+        isTuto = false;
 
         isObstacle = false;
         EventManager.Invoke("PackagerEnd");
@@ -239,6 +245,7 @@ public class TutorialManager : MonoBehaviour
     IEnumerator RankTutorial()
     {
         SoundManager.instance.PlayBgmSound(SoundManager.instance.inGameBgm, 0.05f);
+        isTuto = true;
 
         HidePanel(false, 1f);
         yield return oneSecWait;
@@ -287,6 +294,7 @@ public class TutorialManager : MonoBehaviour
 
         HidePanel(true, 1f);
         yield return oneSecWait;
+        isTuto = false;
         isTime = false;
         EventManager.Invoke("StageOrRank");
         gameObject.SetActive(false);

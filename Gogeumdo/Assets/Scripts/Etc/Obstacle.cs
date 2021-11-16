@@ -21,7 +21,6 @@ public class Obstacle : Box
         line = (Line)idx;
         //gameObject.GetComponent<SpriteRenderer>().color = GameManager.instance.lineColorDic[line];
     }
-
     protected override void OnCollisionEnter2D(Collision2D col)
     {
         

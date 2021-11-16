@@ -100,12 +100,12 @@ public class PoolManager : MonoBehaviour
     }
     IEnumerator Wait(Box ob)
     {
-        RaycastHit2D hit; Vector2 dest; int idx;
+        RaycastHit2D hit; Vector2 dest;
         do
         {
             dest = new Vector2(BoxManager.instance.lineTrm[ob.lineIdx].position.x, spawnPoint.position.y);
-            hit = Physics2D.BoxCast(dest, ob.transform.lossyScale, 0, new Vector2(0, 0));
-            yield return new WaitForSeconds(0.3f);
+            hit = Physics2D.BoxCast(dest, new Vector2(transform.lossyScale.x, transform.lossyScale.y * 2f), 0, new Vector2(0, 0));
+            yield return new WaitForSeconds(0.1f);
         } while (hit.collider != null);
         yield return null;
         ob.gameObject.SetActive(true);
@@ -237,7 +237,7 @@ public class PoolManager : MonoBehaviour
     }
     IEnumerator RankInitSpawn()
     {
-        yield return After20;
+        //yield return After20;
 
         FeverBoxSpawn();
         TutorialManager.instance.isFever = true;
