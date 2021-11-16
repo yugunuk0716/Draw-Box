@@ -292,6 +292,8 @@ MonoBehaviour:
   - {fileID: 158581649}
   - {fileID: 490811978}
   - {fileID: 1368709294}
+  feverText: {fileID: 0}
+  img: {fileID: 1277711343}
   fillImg: {fileID: 581015607}
   canRightMove: 1
 --- !u!114 &204508295
