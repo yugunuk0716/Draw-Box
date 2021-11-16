@@ -22,7 +22,7 @@ public class Title : MonoBehaviour
         {
             //스테이지 씬으로 이동
             GameManager.instance.isStage = true; 
-            LoadManager.LoadScene("Stage");
+            SceneManager.LoadScene("Stage");
         });
         stAndInBtns[1].onClick.AddListener(() =>
         {
