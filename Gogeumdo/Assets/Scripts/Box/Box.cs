@@ -94,13 +94,22 @@ public class Box : MonoBehaviour, IResettable
             {
                 dest = new Vector2(0, moveTime); //실제 위치를 받아온다
 
+                
                 gameObject.transform.position += (Vector3)dest;// 실제 이동
+                
                   
             }
 
 
-
-            yield return moveWS;
+            if (this.gameObject.CompareTag("Obstacle")) 
+            {
+                yield return new WaitForSeconds(0.03f);
+            }
+            else
+            {
+                yield return moveWS;
+            }
+            yield return null;
         }
     }
 
