@@ -10,7 +10,8 @@ public class NetworkManager : MonoBehaviour
 {
     public static NetworkManager instance;
 
-    private string baseUrl = "http://localhost:54000";
+    //private string baseUrl = "http://localhost:54000";
+    private string baseUrl = "http://son.gondr.net:80";
 
     private string token = "";
 
