@@ -19,8 +19,8 @@ public class PoolManager : MonoBehaviour
 
     [Header("박스관련 배열들")]
     public int[] boxCount;
-    public Sprite[] boxSprite; //박스의 스프라이트들 
-    //0 = 피버 박스 1 = 시간 증가 박스 로 할 예정
+    public Sprite[] feverBoxSprite; 
+    public Sprite[] timeBoxSprite;
 
     private WaitForSeconds Before10 = new WaitForSeconds(4f);
     private WaitForSeconds Before20 = new WaitForSeconds(3f);
@@ -167,9 +167,7 @@ public class PoolManager : MonoBehaviour
         };
         box.Death += handler; //생성된 박스의 Death에 추가해줌
 
-
-        //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        box.spriteRenderer.sprite = boxSprite[0];
+        box.spriteRenderer.sprite = feverBoxSprite[(int)box.line];
         StartCoroutine(Wait(box));
     }
     public void TimeIncreaseBoxSpawn()
@@ -186,9 +184,7 @@ public class PoolManager : MonoBehaviour
         };
         box.Death += handler; //생성된 박스의 Death에 추가해줌
 
-
-        //생성한 후 포지션 변경이 필요할경우 여기서 해줘야함.
-        box.spriteRenderer.sprite = boxSprite[1];
+        box.spriteRenderer.sprite = timeBoxSprite[(int)box.line];
         StartCoroutine(Wait(box));
     }
 

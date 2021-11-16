@@ -160,7 +160,7 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator StagePackager()
     {
-        SoundManager.instance.PlayBgmSound(SoundManager.instance.packagerBgm, 0.1f);
+        SoundManager.instance.PlayBgmSound(SoundManager.instance.packagerBgm, 0.05f);
 
         HidePanel(false, 1f);
         yield return oneSecWait;
@@ -185,7 +185,7 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator StageTutorial()
     {
-        SoundManager.instance.PlayBgmSound(SoundManager.instance.inGameBgm, 0.1f);
+        SoundManager.instance.PlayBgmSound(SoundManager.instance.inGameBgm, 0.05f);
 
         HidePanel(false, 1f);
         yield return oneSecWait;
@@ -238,7 +238,7 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator RankTutorial()
     {
-        SoundManager.instance.PlayBgmSound(SoundManager.instance.inGameBgm, 0.1f);
+        SoundManager.instance.PlayBgmSound(SoundManager.instance.inGameBgm, 0.05f);
 
         HidePanel(false, 1f);
         yield return oneSecWait;
@@ -332,7 +332,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (!isText) return;
 
-        if (!isTextEnd && Input.GetKeyDown(KeyCode.Return))
+        if (!isTextEnd && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
             isTextEnd = true;
             skipImg.enabled = true;
@@ -341,7 +341,7 @@ public class TutorialManager : MonoBehaviour
             tutorialText.text = curText;
             tipText.DOFade(1, 0.75f).SetLoops(-1, LoopType.Yoyo);
         }
-        else if (isTextEnd && Input.GetKeyDown(KeyCode.Return))
+        else if (isTextEnd && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
             isText = false;
             isFinished = true;

@@ -121,6 +121,7 @@ public class Box : MonoBehaviour, IResettable
                     {
                         EffectManager.instance.SetCamShake(0.5f);
                         EffectManager.instance.BoxDieEffect(true, this.gameObject.transform.position);
+                        SoundManager.instance.PlaySfxSound(SoundManager.instance.endLineSfx, 0.13f);
                     }
                     Death(this, null); // Death 이벤트를 실행
                 }
@@ -158,6 +159,7 @@ public class Box : MonoBehaviour, IResettable
         {
             EffectManager.instance.SetCamShake(0.5f, 4f);
             EffectManager.instance.BoxDieEffect(false, this.gameObject.transform.position);
+            SoundManager.instance.PlaySfxSound(SoundManager.instance.deathBoxSfx,0.13f);
         }
         Death(this, null);
     }

@@ -45,7 +45,7 @@ public class SoundManager : MonoBehaviour
         sfxSource.PlayOneShot(clip, volume);
     }
 
-    public void PlayTextSfx(float volume = 0.2f)
+    public void PlayTextSfx(float volume = 0.13f)
     {
         textSfxSource.volume = volume;
         textSfxSource.Play();
