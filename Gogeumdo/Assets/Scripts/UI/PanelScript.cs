@@ -22,15 +22,15 @@ public class PanelScript : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
     }
 
-    public virtual void Open(object data = null, int closeCount = 1)
+    public virtual void Open(object data = null, int closeCount = 1) // UI 활성화 함수
     {
         SetAlpha(true);
     }
-    public virtual void Close()
+    public virtual void Close() // UI 비활성화 함수
     {
         SetAlpha(false);
     }
-    public virtual void OnClickHomeBtn(string str)
+    public virtual void OnClickHomeBtn(string str) // 홈버튼 함수
     {
        
         Close();
@@ -39,7 +39,7 @@ public class PanelScript : MonoBehaviour
         LoadManager.LoadScene(str);
     }
 
-    public virtual void OnClickRetryBtn()
+    public virtual void OnClickRetryBtn() // 다시시작 함수
     {
         GameManager.instance.Init();
         Time.timeScale = 1f;

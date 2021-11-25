@@ -31,7 +31,7 @@ public class GameOverPanel : PanelScript
         stageIdxText.text = $"{GameManager.instance.stageIndex} 스테이지";
     }
 
-    public override void OnClickHomeBtn(string str)
+    public override void OnClickHomeBtn(string str) // 홈버튼 함수
     {
         
         base.OnClickHomeBtn(str);

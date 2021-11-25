@@ -92,20 +92,20 @@ public class RankMenuPanel : PanelScript
     }
 
 
-    public void RankListPanel(bool on)
+    public void RankListPanel(bool on)  // 랭크 리스트 패널 활성화 및 비활성화 함수
     {
         rankListPanel.alpha = on ? 1 : 0;
         rankListPanel.blocksRaycasts = on;
         rankListPanel.interactable = on;
     }
-    public void CreditPanel(bool on)
+    public void CreditPanel(bool on) // 크레딧 패널 활성화 및 비활성화 함수
     {
         creditPanel.alpha = on ? 1 : 0;
         creditPanel.interactable = on;
         creditPanel.blocksRaycasts = on;
     }
 
-    public override void SetAlpha(bool on)
+    public override void SetAlpha(bool on) // 랭크 메뉴 패널 활성화 및 비활성화 함수
     {
         cv.alpha = on ? 1f : 0f;
         cv.interactable = on;

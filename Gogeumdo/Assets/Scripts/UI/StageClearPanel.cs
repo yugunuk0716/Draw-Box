@@ -34,7 +34,7 @@ public class StageClearPanel : PanelScript
 
     }
 
-    public override void Open(object data = null, int closeCount = 1)
+    public override void Open(object data = null, int closeCount = 1) // UI 활성화
     {
         base.Open(data, closeCount);
         for (int i = 0; i < star.Length; i++)
@@ -49,7 +49,7 @@ public class StageClearPanel : PanelScript
         Time.timeScale = 0f;
     }
 
-    public void OnClickNextStageBtn()
+    public void OnClickNextStageBtn() // 다음 스테이지 이동 버튼
     {
         GameManager.instance.stageIndex++;
         LoadManager.LoadScene("InGamePackager");
@@ -57,7 +57,7 @@ public class StageClearPanel : PanelScript
 
     }
 
-    public override void SetAlpha(bool on)
+    public override void SetAlpha(bool on) // UI 활성화 및 비활성화 함수
     {
         cv.alpha = on ? 1f : 0f;
         cv.interactable = on;

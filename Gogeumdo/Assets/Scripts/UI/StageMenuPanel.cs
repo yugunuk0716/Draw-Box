@@ -40,21 +40,21 @@ public class StageMenuPanel : PanelScript
 
     }
 
-    public override void Open(object data = null, int closeCount = 1)
+    public override void Open(object data = null, int closeCount = 1) // UI 활성화 함수
     {
         base.Open();
         Time.timeScale = 0f;
 
     }
 
-    public void CreditPanel(bool on)
+    public void CreditPanel(bool on) // 크레딧 패널 활성화 및 비활성화 함수
     {
         creditPanel.alpha = on ? 1 : 0;
         creditPanel.interactable = on;
         creditPanel.blocksRaycasts = on;
     }
 
-    public override void SetAlpha(bool on)
+    public override void SetAlpha(bool on)// 스테이지 매뉴 패널 활성화 및 비활성화 함수
     {
         cv.alpha = on ? 1f : 0f;
         cv.interactable = on;

@@ -32,7 +32,7 @@ public class RankClearPanel : PanelScript
         backBtn.onClick.AddListener(() => RankListPanel(false));
     }
 
-    public override void Open(object data = null, int closeCount = 1)
+    public override void Open(object data = null, int closeCount = 1) // UI 활성화 함수
     {
         base.Open(data, closeCount);
         curScoreText.text = $"점수 : {GameManager.instance.boxCount * 100}";
@@ -40,7 +40,7 @@ public class RankClearPanel : PanelScript
 
     }
 
-    public void OnClickRankBtn()
+    public void OnClickRankBtn() // 랭킹 보드 활성화 함수
     {
         //여기서 하시면 댐
         NetworkManager.instance.SendGetRequest("ranklist", "", json =>
@@ -73,14 +73,14 @@ public class RankClearPanel : PanelScript
     }
 
 
-    public void RankListPanel(bool on)
+    public void RankListPanel(bool on) // 랭크리스트 패널 활성화 및 비활성화 함수
     {
         rankListPanel.alpha = on ? 1 : 0;
         rankListPanel.blocksRaycasts = on;
         rankListPanel.interactable = on;
     }
 
-    public override void SetAlpha(bool on)
+    public override void SetAlpha(bool on) // 랭크 클리어 패널 활성화 및 비활성화 함수
     {
         cv.alpha = on ? 1f : 0f;
         cv.interactable = on;

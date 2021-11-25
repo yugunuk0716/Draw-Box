@@ -11,24 +11,26 @@ public class TutorialManager : MonoBehaviour
 
     private CanvasGroup cg = null;
 
+    //튜토리얼에 쓰이는 UI 
     [Header("설명")]
     [SerializeField] private Text tutorialText = null;
     [SerializeField] private Image skipImg = null;
     [SerializeField] private Text tipText = null;
 
-    private string curText;
+    private string curText; //현재텍스트
 
-    private bool isText = false;
+    private bool isText = false; //텍스트를 쓰고있는가
 
     public bool isTuto = false;
     
+    //튜토리얼 관련 bool변수들
     private bool isTextEnd = false;
     private bool isFinished = false;
     public bool isObstacle = false;
     public bool isFever = false;
     public bool isTime = false;
 
-    private Tweener textTween = null;
+    private Tweener textTween = null; //텍스트용 트위너
 
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
 
@@ -45,7 +47,7 @@ public class TutorialManager : MonoBehaviour
         tutorialText.text = " ";
 
         skipImg.enabled = false;
-        skipImg.transform.DOLocalMoveY(skipImg.transform.localPosition.y + 10f, 0.5f).SetLoops(-1, LoopType.Yoyo);
+        skipImg.transform.DOLocalMoveY(skipImg.transform.localPosition.y + 10f, 0.5f).SetLoops(-1, LoopType.Yoyo); //위 아래 움직임 반복
 
         //SceneManager.sceneLoaded += (scene, mode) => InitTutorial(); //나중을 위해
     }
@@ -53,14 +55,14 @@ public class TutorialManager : MonoBehaviour
     private void Start()
     {
         //InitTutorial();
-        StartCoroutine(InitTuto());
+        StartCoroutine(InitTuto()); //튜토리얼 초기화
     }
     private void Update()
     {
-        SkipText();
+        SkipText();//텍스트 스킵용
     }
 
-    public bool IsTuto()
+    public bool IsTuto() //튜토리얼중인지 검사
     {
         return (isObstacle || isFever || isTime);
     }
@@ -71,7 +73,7 @@ public class TutorialManager : MonoBehaviour
         InitTutorial();
     }
 
-    public void InitTutorial()
+    public void InitTutorial() //씬에 따른 튜토리얼 등
     {
         if (GameManager.instance.isStage)
         {
@@ -118,7 +120,7 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    IEnumerator StagePackagerTutorial()
+    IEnumerator StagePackagerTutorial() //스테이지 패키저에서 쓰는 튜토리얼
     {
         isTuto = true;
         HidePanel(false, 1f);
@@ -161,7 +163,7 @@ public class TutorialManager : MonoBehaviour
         EventManager.Invoke("OnPackageStart");
         gameObject.SetActive(false);
     }
-    IEnumerator StagePackager()
+    IEnumerator StagePackager() //이건 그냥 스테이지 패키저에서 무조건 적으로 나오는 코루틴
     {
         isTuto = true;
         SoundManager.instance.ChangeBgmSound(0.04f);
@@ -188,7 +190,7 @@ public class TutorialManager : MonoBehaviour
         EventManager.Invoke("OnPackageStart");
         gameObject.SetActive(false);
     }
-    IEnumerator StageTutorial()
+    IEnumerator StageTutorial() //스테이지모드 튜토리얼
     {
         SoundManager.instance.ChangeBgmSound(0.04f);
         isTuto = true;
@@ -246,7 +248,7 @@ public class TutorialManager : MonoBehaviour
         EventManager.Invoke("PackagerEnd");
         gameObject.SetActive(false);
     }
-    IEnumerator RankTutorial()
+    IEnumerator RankTutorial() //랭킹모드 튜토리얼
     {
         SoundManager.instance.ChangeBgmSound(0.04f);
         isTuto = true;
@@ -304,7 +306,7 @@ public class TutorialManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void ShowText(string text, float dur = 1f)
+    private void ShowText(string text, float dur = 1f) //텍스트 트윈
     {
         skipImg.enabled = false;
         tipText.DOKill();
@@ -328,7 +330,7 @@ public class TutorialManager : MonoBehaviour
                     });
     }
 
-    private void HidePanel(bool isHide, float dur = 1f)
+    private void HidePanel(bool isHide, float dur = 1f) //튜토리얼 패널 껏다 키는 함수
     {
         if (isHide)
         {
@@ -340,7 +342,7 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    private void SkipText()
+    private void SkipText() //튜토리얼 텍스트 스킵관련 함수
     {
         if (!isText) return;
 

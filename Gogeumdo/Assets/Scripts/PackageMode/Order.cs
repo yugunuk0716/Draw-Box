@@ -69,15 +69,6 @@ public class Order : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-       
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            StartCoroutine(SetProgress());
-        }
-    }
-
 
     private void SetBox() //한 상자를 포장했을 때 해줘야 할 것들
     {

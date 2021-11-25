@@ -49,6 +49,7 @@ public class UIManager : MonoBehaviour
         cv.interactable = false;
         cv.blocksRaycasts = false;
 
+        //딕셔너리에 UI 넣기
         panelDic.Add("stageMenu", Instantiate(stageMenuPanel, panelParent));
         panelDic.Add("rankMenu", Instantiate(rankMenuPanel, panelParent));
         panelDic.Add("stageClear", Instantiate(stageClearPanel, panelParent));
@@ -59,7 +60,7 @@ public class UIManager : MonoBehaviour
         panelDic.Add("alert", Instantiate(alertPopup, panelParent)); //alert는 항상 맨 밑에 있어야 함
 
         
-
+        //버튼에 이벤트 추가
         menuBtn.onClick.AddListener(() =>
         {
             if(!TutorialManager.instance.isTuto)
@@ -76,34 +77,36 @@ public class UIManager : MonoBehaviour
             }
         });
 
+        // 스테이지 기본 UI
         if (!GameManager.instance.isStage)
         {
             ChangeScoreAndBoxText($"0점");
             timerText.gameObject.SetActive(true);
         }
+        // 랭크모드 기본 UI
         else
         {
             ChangeScoreAndBoxText($"남은 박스 : ?");
         }
     }
 
-    public void ChangeScoreAndBoxText(string str)
+    public void ChangeScoreAndBoxText(string str) // 상자 텍스트 갱신 함수
     {
         if (SceneManager.GetActiveScene().name == packagerSceneName)
             return;
         scoreAndBoxText.text = str;
     }
 
-    public void ChangeTimerText(string str)
+    public void ChangeTimerText(string str) // 타이머 텍스트 갱신 함수
     {
         timerText.text = str;
     }
-    public Sprite ChangeStarSprite(int idx)
+    public Sprite ChangeStarSprite(int idx) // 상자 스프라이트 교체 함수
     {
         return GameManager.instance.CompareCount(idx) ? starSprite[1] : starSprite[0];
     }
 
-    public void OpenPanel(string name, object data = null, int closeCount = 1)
+    public void OpenPanel(string name, object data = null, int closeCount = 1) // UI 활성화 함수
     {
         if (panelStack.Count == 0)
         {
@@ -115,7 +118,7 @@ public class UIManager : MonoBehaviour
         panelDic[name].Open(data, closeCount);
     }
 
-    public void ClosePanel()
+    public void ClosePanel() // UI 비활성화 함수
     {
         //cv = panelStack.Peek().GetComponent<CanvasGroup>();
         panelStack.Pop().Close();
@@ -127,11 +130,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    
 
 
 }
