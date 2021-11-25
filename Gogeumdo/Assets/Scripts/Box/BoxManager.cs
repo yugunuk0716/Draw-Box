@@ -10,6 +10,10 @@ public class BoxManager : MonoBehaviour
 
     public Transform touchPos; // 터치했을 때의 위치를 저장할 변수
     public Transform[] lineTrm;// 라인 별 위치를 저장하는 배열
+
+    [Header("피버관련")]
+    public Text feverText;
+    public Image img;
     public Image fillImg;
 
     private float feverTime = 5f;
@@ -40,7 +44,14 @@ public class BoxManager : MonoBehaviour
     {
         cam = Camera.main;
     }
-
+    private void Start()
+    {
+        if(GameManager.instance.isStage)
+        {
+            feverText.gameObject.SetActive(false);
+            img.gameObject.SetActive(false);
+        }
+    }
     void Update()
     {
 
@@ -101,8 +112,6 @@ public class BoxManager : MonoBehaviour
 
     public IEnumerator Fever() // 피버 상태 코루틴
     {
-        if (GameManager.instance.isFever) yield break;
-
         fillImg.fillAmount = 1f;
         GameManager.instance.isFever = true; //피버 시작
         float time = 5f;

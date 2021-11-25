@@ -25,10 +25,16 @@ public class ModeManager : MonoBehaviour
             return;
         }
         instance = this;
-
+        Init();
         EventManager.AddEvent("StageOrRank",() => StageOrRank(GameManager.instance.isStage, GameManager.instance.stageIndex));
     }
-
+    public void Init()
+    {
+        isTimer = false;
+        limitTime = 300f;
+        limitObstacle = 2;
+        check = false;
+    }
     private void Start()
     {
         
