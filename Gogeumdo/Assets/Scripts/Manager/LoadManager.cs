@@ -17,8 +17,8 @@ public class LoadManager : MonoBehaviour
 
     private void Awake()
     {
-        loadingBarDefaultSize = progressBar.GetComponent<RectTransform>().sizeDelta;
-        progressBar.GetComponent<RectTransform>().sizeDelta = new Vector2(0, loadingBarDefaultSize.y);
+        loadingBarDefaultSize = progressBar.GetComponent<RectTransform>().sizeDelta;  //이미지의 기본 사이즈 정의
+        progressBar.GetComponent<RectTransform>().sizeDelta = new Vector2(0, loadingBarDefaultSize.y); // 이미지의 사이즈 0으로 
 
     }
 
@@ -27,7 +27,7 @@ public class LoadManager : MonoBehaviour
         StartCoroutine(LoadSceneProgress());
     }
 
-
+    //로딩 씬을 거쳐 다음씬으로 이동하는 함수
     public static void LoadScene(string sceneName)
     {
         nextScene = sceneName;
@@ -35,7 +35,7 @@ public class LoadManager : MonoBehaviour
     }
 
 
-
+    //로딩 처리 함수
     IEnumerator LoadSceneProgress()
     {
         isLoaded = false;

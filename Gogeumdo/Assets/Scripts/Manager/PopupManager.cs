@@ -40,14 +40,16 @@ public class PopupManager : MonoBehaviour
         {
             popupCanvasGroup = popupParent.gameObject.AddComponent<CanvasGroup>();
         }
+        //켄버스 그룹 초기화
         popupCanvasGroup.alpha = 0;
         popupCanvasGroup.interactable = false;
         popupCanvasGroup.blocksRaycasts = false;
-
+        //딕셔너리에 UI 프리펩 넣어놓기
         popupDic.Add("register", Instantiate(registerPopupPrefab, popupParent));
         popupDic.Add("login", Instantiate(loginPopupPrefab, popupParent));
         popupDic.Add("alert", Instantiate(alertPopupPrefab, popupParent));
 
+        //버튼에 이벤트 추가
         registerPopupBtn.onClick.AddListener(() => OpenPopup("register"));
         loginPopupBtn.onClick.AddListener(() => OpenPopup("login"));
         logoutBtn.onClick.AddListener(() =>
@@ -55,12 +57,12 @@ public class PopupManager : MonoBehaviour
             NetworkManager.instance.Logout();
         });
     }
-    public void ShowBtn(bool on)
+    public void ShowBtn(bool on)// 버튼 활성화
     {
         loginPopupBtn.gameObject.SetActive(on);
         logoutBtn.gameObject.SetActive(!on);
     }
-    public void OpenPopup(string name, object data = null,int closeCount = 1)
+    public void OpenPopup(string name, object data = null,int closeCount = 1) // 딕셔너리에 있는 UI 프리펩을 활성화
     {
         if(popupStack.Count == 0)
         {
@@ -73,7 +75,7 @@ public class PopupManager : MonoBehaviour
         popupStack.Push(popupDic[name]);
         popupDic[name].Open(data, closeCount);
     }
-    public void ClosePopup()
+    public void ClosePopup() //UI 비활성화
     {
         popupStack.Pop().Close();
 
