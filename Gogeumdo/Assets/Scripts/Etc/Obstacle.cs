@@ -21,10 +21,6 @@ public class Obstacle : Box
         line = (Line)idx;
         //gameObject.GetComponent<SpriteRenderer>().color = GameManager.instance.lineColorDic[line];
     }
-    protected override void OnCollisionEnter2D(Collision2D col)
-    {
-        
-    }
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.CompareTag("ConveyorBelt"))// 컨베이어 벨트 도착점에 닿았을 때

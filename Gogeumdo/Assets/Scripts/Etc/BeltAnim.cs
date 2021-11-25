@@ -2,25 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BeltManager : MonoBehaviour
+public class BeltAnim : MonoBehaviour
 {
-    public static BeltManager instance; //싱글톤
 
 
     public  float beltSpeed = 120;
 
-    //private int wave = 0;//웨이브 관리
 
     private Animator anim; 
 
-    private void Awake()
-    {
-        if (instance != null) //싱글톤 중복 체크
-        {
-            Debug.LogError("다수의 BeltManager가 실행중");
-        }
-        instance = this;
-    }
+  
 
     void Start()
     {
@@ -33,7 +24,7 @@ public class BeltManager : MonoBehaviour
         
     }
 
-    private void SetBeltSpeed(float beltSpeed) 
+    private void SetBeltSpeed(float beltSpeed) //애니메이션 속도 조정
     {
         anim.speed = beltSpeed;
     }

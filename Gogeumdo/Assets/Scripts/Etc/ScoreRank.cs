@@ -9,7 +9,7 @@ public class ScoreRank : MonoBehaviour
     public Text nameText;
     public Text scoreText;
 
-    public void SetData(int rank, ScoreVO vo)
+    public void SetData(int rank, ScoreVO vo) // 등수 표시
     {
         rankText.text = $"{rank}위";
         nameText.text = vo.name;

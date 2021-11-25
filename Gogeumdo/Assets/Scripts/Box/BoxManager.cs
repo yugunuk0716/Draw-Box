@@ -21,6 +21,8 @@ public class BoxManager : MonoBehaviour
 
     private Box box; // 박스를 받아올 변수
 
+    private Camera cam;
+
     private void Awake()
     {
         if(instance != null)
@@ -31,39 +33,44 @@ public class BoxManager : MonoBehaviour
         instance = this;
 
         feverWs = new WaitForSeconds(feverTime);
+        
+    }
+
+    private void Start()
+    {
+        cam = Camera.main;
     }
 
     void Update()
     {
 
-        if (!EventSystem.current.IsPointerOverGameObject())
+        if (!EventSystem.current.IsPointerOverGameObject()) // 마우스 포인터가 UI 위에 있지 않고
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0)) // 좌클릭을 했을 때
             {
-                mouseTrms.Add(Input.mousePosition);
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector2 clickPos = new Vector2(worldPos.x, worldPos.y);
-                Collider2D coll = Physics2D.OverlapPoint(clickPos);
+                mouseTrms.Add(Input.mousePosition); // mouserTrm 리스트에 지금 마우스 포지션을 넣는다
+                Vector3 worldPos = cam.ScreenToWorldPoint(Input.mousePosition); // 마우스 포지션을 월드 좌표로 바꾸고
+                Collider2D coll = Physics2D.OverlapPoint(worldPos); // 마우스 위치에서 충돌 확인
 
-                if (coll != null && coll.gameObject.CompareTag("Player"))
+                if (coll != null && coll.gameObject.CompareTag("Player")) // 만약 그 위치에서 box와 충돌하였다면
                 {
-                    box = coll.gameObject.GetComponent<Box>();
+                    box = coll.gameObject.GetComponent<Box>(); 
                 }
             }
 
-            else if (Input.GetMouseButtonUp(0))
+            else if (Input.GetMouseButtonUp(0)) // 좌클릭을 땠을 때
             {
-                mouseTrms.Add(Input.mousePosition);
-                if (box != null)
+                mouseTrms.Add(Input.mousePosition); // mouseTrm 리스트에 지금 마우스 포지션을 넣는다
+                if (box != null)// 상자가 널이 아니면
                 {
-                    if (Mathf.Abs(mouseTrms[0].x - mouseTrms[mouseTrms.Count - 1].x) > Mathf.Abs(mouseTrms[0].y - mouseTrms[mouseTrms.Count - 1].y))
+                    if (Mathf.Abs(mouseTrms[0].x - mouseTrms[mouseTrms.Count - 1].x) > Mathf.Abs(mouseTrms[0].y - mouseTrms[mouseTrms.Count - 1].y)) // x의 변위의 절댓값이 y의 변위의 절댓값을 보다 크다면 
                     {
-                        if (mouseTrms[0].x > mouseTrms[mouseTrms.Count - 1].x)
+                        if (mouseTrms[0].x > mouseTrms[mouseTrms.Count - 1].x) //첫 위치와 마지막 위치를 비교하여 첫 위치가 크다면
                         {
                             //SetLineIndex(false);
                             Move(Vector2.left);
                         }
-                        else if (mouseTrms[0].x < mouseTrms[mouseTrms.Count - 1].x)
+                        else if (mouseTrms[0].x < mouseTrms[mouseTrms.Count - 1].x)// 첫위치와 마지막 위치를 비교하여 마지막 위치가 크다면
                         {
                             //SetLineIndex(true);
                             Move(Vector2.right);
@@ -72,13 +79,13 @@ public class BoxManager : MonoBehaviour
 
                     else
                     {
-                        if (mouseTrms[0].y > mouseTrms[mouseTrms.Count - 1].y)
+                        if (mouseTrms[0].y > mouseTrms[mouseTrms.Count - 1].y)//첫 위치와 마지막 위치를 비교하여 첫 위치가 크다면
                         {
                             Move(Vector2.down);
                         }
-                        else if (mouseTrms[0].y < mouseTrms[mouseTrms.Count - 1].y)
+                        else if (mouseTrms[0].y < mouseTrms[mouseTrms.Count - 1].y)// 첫위치와 마지막 위치를 비교하여 마지막 위치가 크다면
                         {
-                            if (!box.isCollisionBox && !box.isCollisionBelt)
+                            if (!box.isCollisionBox && !box.isCollisionBelt) // box의 상태가 다른 박스와 충돌하지 않았고 벨트랑 출돌하지 않았다면
                             {
                                 Move(Vector2.up);
                             }
@@ -90,50 +97,9 @@ public class BoxManager : MonoBehaviour
         }
 
 
-        #region 모바일용
-        //if (EventSystem.current.IsPointerOverGameObject())
-        //{
-        //    if (Input.touchCount > 0)
-        //    {
-        //        Touch touch = Input.GetTouch(0);
-        //        switch (touch.phase)
-        //        {
-        //            case TouchPhase.Began:
-        //                touchPos.position = touch.position;
-        //                break;
-        //            case TouchPhase.Ended:
-        //                if (Input.touchCount > 5)
-        //                {
-        //                    if (Input.GetTouch(touch.tapCount - 1).position.x > touchPos.position.x)
-        //                    {
-        //                        Move(Vector2.right);
-        //                    }
-        //                    if (Input.GetTouch(touch.tapCount - 1).position.x < touchPos.position.x)
-        //                    {
-        //                        Move(Vector2.left);
-        //                    }
-        //                    if (Input.GetTouch(touch.tapCount - 1).position.y > touchPos.position.y)
-        //                    {
-        //                        Move(Vector2.up);
-        //                    }
-        //                    if (Input.GetTouch(touch.tapCount - 1).position.y > touchPos.position.y)
-        //                    {
-        //                        Move(Vector2.down);
-        //                    }
-        //                }
-        //                break;
-
-        //            default:
-        //                break;
-        //        }
-        //    }
-        //}
-        //#endif
-        #endregion
-
     }
 
-    public IEnumerator Fever()
+    public IEnumerator Fever() // 피버 상태 코루틴
     {
         if (GameManager.instance.isFever) yield break;
 
@@ -142,7 +108,7 @@ public class BoxManager : MonoBehaviour
         float time = 5f;
         float t = 0f;
 
-        while (true)
+        while (true) // 피버 남은 시간 표시
         {
             yield return null;
             t += Time.deltaTime;

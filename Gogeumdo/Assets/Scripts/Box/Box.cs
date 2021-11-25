@@ -30,7 +30,7 @@ public class Box : MonoBehaviour, IResettable
     public bool isCollisionBox = false;
     public bool isCollisionBelt = false;
 
-    public WaitForSeconds moveWS;
+    public WaitForSeconds moveWS; 
     private BoxCollider2D col;
     public SpriteRenderer spriteRenderer;
 
@@ -76,7 +76,7 @@ public class Box : MonoBehaviour, IResettable
         //print(idx);
     }
 
-    public void SetMoveSpeed(float speed)
+    public void SetMoveSpeed(float speed) // WaitForSeconds 조정 및 상자 속도 조정
     {
         moveTime = speed;
         moveWS = new WaitForSeconds(moveTime);
@@ -101,11 +101,11 @@ public class Box : MonoBehaviour, IResettable
             }
 
 
-            if (this.gameObject.CompareTag("Obstacle")) 
+            if (this.gameObject.CompareTag("Obstacle")) // 장애물의 이동 프레임 조절
             {
                 yield return new WaitForSeconds(0.03f);
             }
-            else
+            else //상자 이동 프레임
             {
                 yield return moveWS;
             }
@@ -114,7 +114,7 @@ public class Box : MonoBehaviour, IResettable
     }
 
 
-    protected virtual void OnCollisionEnter2D(Collision2D col) 
+    private void OnCollisionEnter2D(Collision2D col) 
     {
 
        
@@ -125,9 +125,9 @@ public class Box : MonoBehaviour, IResettable
             {
                 if (obj.lineIndex == (int)line || GameManager.instance.isFever) //박스의 라인과 목표 라인이 동일하거나 피버가 활성화중이라면
                 {
-                    if (this.gameObject.CompareTag("Player"))
+                    if (this.gameObject.CompareTag("Player")) // 플레이어랑 충돌했다면
                     {
-                        EffectManager.instance.SetCamShake(0.5f);
+                        EffectManager.instance.SetCamShake(0.5f); 
                         EffectManager.instance.BoxDieEffect(true, this.gameObject.transform.position);
                         SoundManager.instance.PlaySfxSound(SoundManager.instance.endLineSfx, 0.25f);
                     }
@@ -151,7 +151,7 @@ public class Box : MonoBehaviour, IResettable
     private void OnCollisionStay2D(Collision2D collision)
     {
 
-        if(!col.gameObject.CompareTag("Player") && !col.gameObject.CompareTag("ConveyorBelt") && isCollisionBox)
+        if(!col.gameObject.CompareTag("Player") && !col.gameObject.CompareTag("ConveyorBelt") && isCollisionBox) // 상자나 벨트에 충돌하고 있는지 체크
         {
             isCollisionBox = false;
         }
@@ -182,10 +182,7 @@ public class Box : MonoBehaviour, IResettable
         }
         Death(this, null);
     }
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawCube(new Vector2(BoxManager.instance.lineTrm[lineIdx].position.x, PoolManager.instance.spawnPoint.position.y), transform.lossyScale);
-    //}
+    
 
 
     public void Reset()//Death 이벤트 발동시 실행되는 함수

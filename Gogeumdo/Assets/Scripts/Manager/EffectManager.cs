@@ -34,6 +34,7 @@ public class EffectManager : MonoBehaviour
         }
         instance = this;
 
+        //동적 로딩
         successImage = Resources.Load<Sprite>("success");
         failImage = Resources.Load<Sprite>("fail");
         bloodScreenImage = Resources.Load<Sprite>("blood");
@@ -42,11 +43,12 @@ public class EffectManager : MonoBehaviour
     }
     private void Start()
     {
+        //시네머신 컴포넌트 가져오기
         cmPerlin = vCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
 
-    public void SetCamShake(float duration, float power = 0.5f)
+    public void SetCamShake(float duration, float power = 0.5f) //캐메라 흔드는 함수
     {
         if (camTween != null && camTween.IsActive())
         {
@@ -58,13 +60,13 @@ public class EffectManager : MonoBehaviour
     }
 
 
-    public void BoxDieEffect(bool result, Vector2 position, float duration = 1.5f)
+    public void BoxDieEffect(bool result, Vector2 position, float duration = 1.5f) //박스 사망시 이펙트
     {
-        if (result)
+        if (result) //박스가 분류된 것이라면
         {
             imageBase.GetComponent<SpriteRenderer>().sprite = successImage;
         }
-        else
+        else // 박스가 장애물에 맞은거라면
         {
             imageBase.GetComponent<SpriteRenderer>().sprite = failImage;
             fullImageBase.GetComponent<SpriteRenderer>().sprite = bloodScreenImage;
@@ -75,7 +77,7 @@ public class EffectManager : MonoBehaviour
         Invoke(nameof(SetImageFalse), duration);
     }
 
-    private void SetImageFalse()
+    private void SetImageFalse()// 일정 시간 후에 sprite가 들어있는 게임 오브젝트를 비활성화
     {
         imageBase.SetActive(false);
         fullImageBase.SetActive(false);

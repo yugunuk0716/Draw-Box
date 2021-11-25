@@ -15,7 +15,7 @@ public class ModeManager : MonoBehaviour
 
     private bool check = false;
 
-    private int limitObstacle = 2;
+    private int limitObstacle = 2; //기본 2개 + 남은 장애물 2개
 
     private void Awake()
     {
@@ -64,9 +64,9 @@ public class ModeManager : MonoBehaviour
         }
         EventManager.Invoke("InitSpawn");
         //SoundManager.instance.PlayBgmSound(SoundManager.instance.inGameBgm,0.1f);
-        SoundManager.instance.ChangeBgmSound(0.07f);
+        SoundManager.instance.ChangeBgmSound(0.07f); //브금 소리바꾸기
     }
-    public int GetMin()
+    public int GetMin() //남은 분 가져오기
     {
         return (int)(limitTime / 60);
     }

@@ -70,7 +70,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        if (boxSprite.Count == 0) 
+
+        if (boxSprite.Count == 0)  //박스 스프라이트 가져옴
         {
             boxSpriteObj = Resources.Load<GameObject>("BoxSprites");
             SpriteRenderer[] sprites = boxSpriteObj.GetComponentsInChildren<SpriteRenderer>();
@@ -84,10 +85,10 @@ public class GameManager : MonoBehaviour
         lineSpriteDic = new Dictionary<Line, Sprite>();
         for (int i = 0; i < 5; i++)
         {
-            lineSpriteDic.Add((Line)i, boxSprite[i]);
+            lineSpriteDic.Add((Line)i, boxSprite[i]); //라인별 박스 스프라이트 추가
         }
 
-        for (int i = 1; i < 4; i++)
+        for (int i = 1; i < 4; i++) //스테이지 박스 개수 설정
         {
             
             stageBox.Add(i, 10 + (i*2));
@@ -104,12 +105,12 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
     }
-    public bool CompareCount(int stageIdx)
+    public bool CompareCount(int stageIdx) //넣은 상자 개수와 별 조건을 비교하여 bool로 return
     {
         print(boxCount + " " + stageStar[stageIndex][stageIdx]);
         return stageStar[stageIndex][stageIdx] <= boxCount;
     }
-    public void SetRemainBox()
+    public void SetRemainBox() //남은박스 설정
     {
         if(boxIdxQueue.Count < stageStar[stageIndex][0])
         {
@@ -120,7 +121,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.ChangeScoreAndBoxText($"남은 박스 : {remainBox}");
     }
 
-    public void Init()
+    public void Init() //초기화
     {
         boxCount = 0;
         PoolManager.instance.InitCount();
@@ -135,15 +136,16 @@ public class GameManager : MonoBehaviour
         this.tempBox -= score;
         if(!isStage)
         {
-            UIManager.instance.ChangeScoreAndBoxText($"{(boxCount * 100)}점");
+            UIManager.instance.ChangeScoreAndBoxText($"{(boxCount * 100)}점"); //랭크모드일땐 점수 표시
         }
     }
-    public void RemainBox(int score)
+    public void RemainBox(int score) 
     {
-        if (isStage)
+        if (isStage) //스테이지라면
         {
-            this.remainBox -= score;
+            this.remainBox -= score; //남은박스 줄이기
             UIManager.instance.ChangeScoreAndBoxText($"남은 박스 : {remainBox}");
+            //박스 스피드 설정
             if (stageStar[stageIndex][1] >= boxCount)
             {
                 PoolManager.instance.SetBoxSpeed(0.03f);
@@ -155,7 +157,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StageClear()
+    public void StageClear() //스테이지 클리어시
     {
         if (!isStage) return;
         if(tempBox <= 0)
@@ -163,12 +165,12 @@ public class GameManager : MonoBehaviour
             UIManager.instance.OpenPanel("stageClear");
         }
     }
-    public void RankClear()
+    public void RankClear() //랭크 모드가 끝날시
     {
         if (isStage) return;
         int score = boxCount * 100;
         ScoreVO vo = new ScoreVO("", score);
-        string json = JsonUtility.ToJson(vo);
+        string json = JsonUtility.ToJson(vo); //json으로
         NetworkManager.instance.SendPostRequest("scorerecord", json, res =>
         {
             ResponseVO vo = JsonUtility.FromJson<ResponseVO>(res);
