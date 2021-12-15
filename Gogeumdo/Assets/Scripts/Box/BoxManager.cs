@@ -39,14 +39,11 @@ public class BoxManager : MonoBehaviour
         feverWs = new WaitForSeconds(feverTime);
         
     }
-
     private void Start()
     {
         cam = Camera.main;
-    }
-    private void Start()
-    {
-        if(GameManager.instance.isStage)
+
+        if (GameManager.instance.isStage)
         {
             feverText.gameObject.SetActive(false);
             img.gameObject.SetActive(false);
